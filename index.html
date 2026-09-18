@@ -3,17 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Belgische Gemeente Guessr</title>
+<title>Administrative Region Guessr</title>
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="stylesheet" href="vendor/maplibre-gl.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="app">
+
+<main id="menu">
+  <div class="menu-inner">
+    <h1>Administrative Region <em>Guessr</em></h1>
+    <p class="menu-sub">Kies een spel en duid de regio's aan op de kaart.</p>
+
+    <ul class="games" id="gameList"></ul>
+    <p class="menu-note" id="menuNote" hidden></p>
+
+    <p class="menu-foot">
+      Grenzen uit open overheidsdata — achtergrondkaart &copy; OpenStreetMap-bijdragers.
+    </p>
+  </div>
+</main>
+
+<div id="app" hidden>
   <aside id="panel">
     <header class="head">
-      <h1>Belgische Gemeente <em>Guessr</em></h1>
-      <p class="sub" id="dataInfo">gemeentegrenzen laden…</p>
+      <button type="button" class="back" id="backToMenu">&#8592; Ander spel</button>
+      <h1><span id="gameCountry">—</span> <em id="gameRegionType"></em></h1>
+      <p class="sub" id="dataInfo"></p>
     </header>
 
     <nav class="modes">
@@ -22,17 +38,17 @@
     </nav>
 
     <div class="controls">
-      <label class="field">
+      <label class="field" id="areaField">
         <span>Gebied</span>
         <select id="area"></select>
       </label>
-      <label class="field">
+      <label class="field" id="countField">
+        <span>Aantal vragen</span>
+        <select id="count"></select>
+      </label>
+      <label class="field" id="langField">
         <span>Taal</span>
-        <select id="lang">
-          <option value="nl" selected>Nederlands</option>
-          <option value="fr">Frans</option>
-          <option value="de">Duits</option>
-        </select>
+        <select id="lang"></select>
       </label>
 
       <label class="field">
@@ -70,7 +86,7 @@
     </section>
 
     <section id="learnPanel" hidden>
-      <p class="hint">Klik op eender welke gemeente op de kaart om haar naam te zien.</p>
+      <p class="hint" id="learnHint"></p>
       <div class="learn-card" id="learnCard" hidden>
         <strong id="learnName">—</strong>
         <dl id="learnMeta"></dl>
@@ -78,7 +94,8 @@
     </section>
 
     <footer class="foot">
-      <p>Grenzen: <span id="sourceName">Statbel</span> — achtergrondkaart © OpenStreetMap-bijdragers.</p>
+      <p id="sourceLine"></p>
+      <p>Achtergrondkaart &copy; OpenStreetMap-bijdragers.</p>
     </footer>
   </aside>
 
@@ -88,7 +105,8 @@
 <script src="vendor/leaflet.js"></script>
 <script src="vendor/maplibre-gl.js"></script>
 <script src="vendor/leaflet-maplibre-gl.js"></script>
-<script src="data/gemeenten.js"></script>
+<script src="data/games.js"></script>
+<script src="game.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
