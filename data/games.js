@@ -129,5 +129,32 @@ window.ARG_GAMES = [
       "url": "https://www.pdok.nl/introductie/-/article/bestuurlijke-gebieden",
       "license": "CC BY 4.0 — bronvermelding vereist"
     }
+  },
+  {
+    "id": "nl-provincies",
+    "country": "Nederland",
+    "regionType": "provincies",
+    "region": {
+      "one": "provincie",
+      "many": "provincies"
+    },
+    "idLabel": "Provinciecode",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      }
+    ],
+    "levels": [],
+    "file": "data/nl-provincies.js",
+    "count": 12,
+    "year": null,
+    "generated": "2026-09-18",
+    "source": {
+      "credit": "Kadaster / PDOK",
+      "name": "Bestuurlijke gebieden (Kadaster), via PDOK",
+      "url": "https://www.pdok.nl/introductie/-/article/bestuurlijke-gebieden",
+      "license": "CC BY 4.0 — bronvermelding vereist"
+    }
   }
 ];

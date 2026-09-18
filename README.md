@@ -12,6 +12,7 @@ Spellen die nu meegeleverd zijn:
 | België (gemeenten) | 565 | gewest, provincie |
 | België (provincies) | 11 (10 provincies + het Brussels Hoofdstedelijk Gewest) | gewest |
 | Nederland (gemeenten) | 342 | provincie |
+| Nederland (provincies) | 12 | geen |
 
 Er kunnen er zonder aanpassing van de spellogica bijkomen — zie
 [Een spel toevoegen](#een-spel-toevoegen).
@@ -52,9 +53,10 @@ kaart, plus de anderstalige namen (als het spel die heeft), de gebieden waar ze 
 en haar code in het zijpaneel.
 
 **Gebied** — het hele land, of één gebied uit de niveaus die het spel kent: voor België
-(gemeenten) zijn dat gewesten en provincies, voor Nederland provincies. Regio's buiten het
-gekozen gebied blijven zichtbaar als achtergrond, maar doen niet mee. Let op: van gebied
-veranderen start een nieuwe ronde.
+(gemeenten) zijn dat gewesten en provincies, voor Nederland (gemeenten) provincies. Regio's
+buiten het gekozen gebied blijven zichtbaar als achtergrond, maar doen niet mee. Let op: van
+gebied veranderen start een nieuwe ronde. Bij een spel zonder niveaus — Nederland
+(provincies) — verdwijnt de keuze.
 
 **Aantal vragen** — standaard *alle*, of een korte ronde van 10, 25 of 50 willekeurige
 regio's. Handig bij grote landen: 565 gemeenten is een lange zit. Keuzes die niet in het
@@ -109,10 +111,10 @@ node tools/build-data.mjs be-gemeenten --simplify 30%   # scherpere grenzen, ~2,
 
 Het script downloadt de brondata (18 à 31 MB, naar de tijdelijke map van je systeem, niet
 naar dit project) en vereenvoudigt ze met `npx mapshaper`. Die download wordt gecachet en
-tussen spellen gedeeld — `be-gemeenten` en `be-provincies` gebruiken dezelfde bron. Met
-`--fresh` haal je ze opnieuw op. De vereenvoudiging is topologie-behoudend: aangrenzende
-regio's blijven exact op elkaar aansluiten, er ontstaan geen gaten of overlappingen.
-Node.js en een internetverbinding zijn vereist.
+tussen spellen gedeeld: `be-gemeenten`/`be-provincies` halen hetzelfde bestand op, net als
+`nl-gemeenten`/`nl-provincies`. Met `--fresh` haal je het opnieuw op. De vereenvoudiging is
+topologie-behoudend: aangrenzende regio's blijven exact op elkaar aansluiten, er ontstaan
+geen gaten of overlappingen. Node.js en een internetverbinding zijn vereist.
 
 `data/games.js` wordt na elke bouw mee herschreven. Spellen waarvan het databestand nog
 niet bestaat blijven uit de catalogus, zodat het startscherm nooit een spel toont dat niet
@@ -169,7 +171,8 @@ berekent een punt dat gegarandeerd *binnen* de vorm ligt, ook bij fjorden en enc
 de controle achteraf — dubbele codes, naamloze regio's of regio's die buiten elk gebied
 vallen laten de bouw falen in plaats van een half spel op te leveren.
 
-**Een spel afleiden uit een ander** (zoals `be-provincies` uit de gemeentegrenzen): zet
+**Een spel afleiden uit een ander** (zoals `be-provincies` en `nl-provincies` uit de
+gemeentegrenzen): zet
 `dissolve: true` in `build` en laat `prepare()` voor elke bronregio de *doelregio*
 teruggeven. Alle gemeenten van dezelfde provincie krijgen dan dezelfde `id`, en mapshaper
 smelt hun binnengrenzen weg. Zet `cache` op dezelfde waarde als het spel waaruit je afleidt
@@ -205,7 +208,8 @@ geen provincie, en verdwijnt dus gewoon uit het provinciemenu.
   jaargang 2025, dus inclusief de fusies van 1 januari 2025. Bronvermelding vereist bij hergebruik.
 - **Nederlandse grenzen**: Bestuurlijke gebieden (Kadaster), via de
   [PDOK-webservice](https://www.pdok.nl/introductie/-/article/bestuurlijke-gebieden) —
-  de actuele toestand, CC BY 4.0.
+  de actuele toestand, CC BY 4.0. De provincies zijn samengesteld uit die gemeentegrenzen,
+  dus beide Nederlandse spellen delen exact dezelfde lijnen.
 - **Achtergrondkaart met namen**: © OpenStreetMap-bijdragers, tegels van openstreetmap.org
   ([gebruiksvoorwaarden](https://operations.osmfoundation.org/policies/tiles/) — geschikt
   voor persoonlijk gebruik, niet voor een druk bezochte publieke site).
