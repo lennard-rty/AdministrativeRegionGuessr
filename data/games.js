@@ -41,6 +41,7 @@ window.ARG_GAMES = [
         "order": null
       }
     ],
+    "defaultArea": null,
     "file": "data/be-gemeenten.js",
     "count": 565,
     "year": "2025",
@@ -86,6 +87,7 @@ window.ARG_GAMES = [
         ]
       }
     ],
+    "defaultArea": null,
     "file": "data/be-provincies.js",
     "count": 11,
     "year": "2025",
@@ -95,6 +97,48 @@ window.ARG_GAMES = [
       "name": "Statbel (FOD Economie) via Opendatasoft \"georef-belgium-municipality\"",
       "url": "https://public.opendatasoft.com/explore/dataset/georef-belgium-municipality/",
       "license": "Open data Statbel — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "fr-departementen",
+    "country": "Frankrijk",
+    "regionType": "departementen",
+    "region": {
+      "one": "departement",
+      "many": "departementen"
+    },
+    "idLabel": "Departementsnummer",
+    "languages": [
+      {
+        "code": "fr",
+        "label": "Frans"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Gebiedsdeel",
+        "many": "Gebiedsdelen",
+        "order": [
+          "Europees Frankrijk",
+          "Overzeese departementen"
+        ]
+      },
+      {
+        "one": "Regio",
+        "many": "Regio's",
+        "order": null
+      }
+    ],
+    "defaultArea": "Europees Frankrijk",
+    "file": "data/fr-departementen.js",
+    "count": 101,
+    "year": "2025",
+    "generated": "2026-09-18",
+    "source": {
+      "credit": "IGN / Opendatasoft",
+      "name": "Opendatasoft \"georef-france-departement\" (grenzen van het IGN)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-france-departement/",
+      "license": "Licence Ouverte / Open Licence 2.0 — bronvermelding vereist"
     }
   },
   {
@@ -119,6 +163,7 @@ window.ARG_GAMES = [
         "order": null
       }
     ],
+    "defaultArea": null,
     "file": "data/nl-gemeenten.js",
     "count": 342,
     "year": null,
@@ -146,6 +191,7 @@ window.ARG_GAMES = [
       }
     ],
     "levels": [],
+    "defaultArea": null,
     "file": "data/nl-provincies.js",
     "count": 12,
     "year": null,

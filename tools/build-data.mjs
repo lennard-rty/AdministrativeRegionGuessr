@@ -276,6 +276,7 @@ function writeCatalog(configs, fresh) {
       idLabel: config.idLabel || null,
       languages: config.languages,
       levels: (config.levels || []).map((l) => ({ one: l.one, many: l.many, order: l.order || null })),
+      defaultArea: config.defaultArea || null,
       file: `data/${config.id}.js`,
       count: meta.count || null,
       year: meta.year || null,

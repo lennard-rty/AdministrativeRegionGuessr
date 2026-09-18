@@ -37,12 +37,28 @@
 
   // ---------- startscherm ----------
 
-  function describe(entry) {
+  function describe(entry, main) {
     var parts = [];
     if (entry.count) parts.push(entry.count + ' ' + entry.region.many);
     if (entry.year) parts.push('jaargang ' + entry.year);
     else if (entry.generated) parts.push('bijgewerkt ' + entry.generated);
+
+    // Het gebied van de pil hiernaast niet nog eens meetellen.
+    var areas = window.ARGScores.perfectAreas(entry.id, main && main.area);
+    if (areas) parts.push(areas + (areas === 1 ? ' gebied' : ' gebieden') + ' uitgespeeld');
     return parts.join(' · ');
+  }
+
+  /** Je beste volledige ronde, als pil rechts op de kaart van het spel. */
+  function scoreBadge(main) {
+    if (!main) return '';
+    var scores = window.ARGScores;
+    var perfect = scores.isPerfect(main.record);
+    var where = main.area === 'ALL' ? 'heel het land' : scores.areaName(main.area);
+    return '<span class="game-score' + (perfect ? ' is-perfect' : '') + '" title="' +
+      esc((perfect ? 'Uitgespeeld: ' : 'Beste volledige ronde: ') + main.record.c + ' van ' +
+        main.record.t + ' juist in ' + where) +
+      '">' + scores.percent(main.record) + '%' + (perfect ? ' ✓' : '') + '</span>';
   }
 
   function renderMenu() {
@@ -54,12 +70,14 @@
 
     var last = store('game');
     list.innerHTML = GAMES.map(function (entry) {
+      var main = window.ARGScores.main(entry.id, entry.defaultArea);
       return '<li><button type="button" class="game" data-id="' + esc(entry.id) + '">' +
         '<span class="game-title">' + esc(entry.country) +
         ' <em>(' + esc(entry.regionType) + ')</em></span>' +
-        '<span class="game-meta">' + esc(describe(entry)) + '</span>' +
+        '<span class="game-meta">' + esc(describe(entry, main)) + '</span>' +
+        '<span class="game-side">' + scoreBadge(main) +
         (entry.id === last ? '<span class="game-badge">laatst gespeeld</span>' : '') +
-        '</button></li>';
+        '</span></button></li>';
     }).join('');
   }
 

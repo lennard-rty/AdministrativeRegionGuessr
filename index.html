@@ -77,6 +77,14 @@
       <div class="progress"><i id="progressBar"></i></div>
       <p class="muted" id="misclicks">&nbsp;</p>
 
+      <section class="records">
+        <p class="record-now" id="recordNow"></p>
+        <details class="record-more" id="recordMore" hidden>
+          <summary id="recordSummary">Records per gebied</summary>
+          <dl id="recordRows"></dl>
+        </details>
+      </section>
+
       <div class="actions">
         <button type="button" class="btn" id="skip">Overslaan</button>
         <button type="button" class="btn is-ghost" id="restart">Opnieuw</button>
@@ -106,6 +114,7 @@
 <script src="vendor/maplibre-gl.js"></script>
 <script src="vendor/leaflet-maplibre-gl.js"></script>
 <script src="data/games.js"></script>
+<script src="scores.js"></script>
 <script src="game.js"></script>
 <script src="app.js"></script>
 </body>

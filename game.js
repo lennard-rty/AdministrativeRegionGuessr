@@ -79,7 +79,8 @@
     ['gameCountry', 'gameRegionType', 'dataInfo', 'area', 'areaField', 'count', 'lang', 'langField',
      'basemap', 'basemapNote', 'target', 'attempts', 'statLeft', 'statCorrect', 'statWrong',
      'progressBar', 'misclicks', 'skip', 'restart', 'done', 'quizPanel', 'learnPanel',
-     'learnHint', 'learnCard', 'learnName', 'learnMeta', 'sourceLine', 'backToMenu'].forEach(function (id) {
+     'learnHint', 'learnCard', 'learnName', 'learnMeta', 'sourceLine', 'backToMenu',
+     'recordNow', 'recordMore', 'recordSummary', 'recordRows'].forEach(function (id) {
       el[id] = byId(id);
     });
 
@@ -101,6 +102,8 @@
       status: {},          // id -> 'correct' | 'wrong'
       locked: false,
       finished: false,
+      fullRound: true,     // besloeg de ronde het hele gebied? enkel dan telt ze mee
+      result: null,        // uitkomst van de laatst afgewerkte ronde
       learnSelected: null
     };
 
@@ -331,6 +334,7 @@
 
     function buildAreaOptions() {
       if (!levels.length) {
+        el.area.innerHTML = '';   // laat niets van een vorig spel staan
         el.areaField.hidden = true;
         return;
       }
@@ -390,10 +394,77 @@
       });
     }
 
-    function zoomToArea() {
+    function zoomToArea(animate) {
       var box = L.latLngBounds([]);
       areaIds().forEach(function (id) { box.extend(layerById[id].getBounds()); });
-      if (box.isValid()) map.flyToBounds(box, { padding: [16, 16], duration: 0.6 });
+      if (!box.isValid()) return;
+      if (animate === false) map.fitBounds(box, { padding: [16, 16] });
+      else map.flyToBounds(box, { padding: [16, 16], duration: 0.6 });
+    }
+
+    // Een spel mag een gebied aanwijzen om in te beginnen. Frankrijk doet dat: met de
+    // overzeese departementen erbij zou "heel het land" een wereldkaart opleveren.
+    function defaultArea() {
+      if (!entry.defaultArea) return 'ALL';
+      for (var i = 0; i < levels.length; i++) {
+        var level = i;
+        var exists = GEO.features.some(function (feature) {
+          return feature.properties.groups[level] === entry.defaultArea;
+        });
+        if (exists) return 'L' + i + ':' + entry.defaultArea;
+      }
+      return 'ALL';
+    }
+
+    // ---------- records ----------
+
+    function areaName(value) {
+      if (value === 'ALL') return 'Heel ' + entry.country;
+      var separator = value.indexOf(':');
+      return separator === -1 ? value : value.slice(separator + 1);
+    }
+
+    function areaValues() {
+      if (!levels.length) return ['ALL'];
+      return Array.prototype.map.call(el.area.options, function (option) { return option.value; });
+    }
+
+    function renderRecords() {
+      var scores = window.ARGScores;
+      var current = scores.get(entry.id, state.area);
+      var here = areaName(state.area);
+
+      if (!current) {
+        el.recordNow.className = 'record-now';
+        el.recordNow.textContent = 'Nog geen volledige ronde gespeeld voor ' + here + '.';
+      } else if (scores.isPerfect(current)) {
+        el.recordNow.className = 'record-now is-perfect';
+        el.recordNow.textContent = here + ' uitgespeeld — alle ' + current.t + ' ' +
+          plural(current.t) + ' juist.';
+      } else {
+        el.recordNow.className = 'record-now';
+        el.recordNow.textContent = 'Record voor ' + here + ': ' + scores.percent(current) +
+          '% (' + current.c + ' van ' + current.t + ').';
+      }
+
+      var saved = scores.forGame(entry.id);
+      var all = areaValues();
+      var played = all.filter(function (value) { return scores.get(entry.id, value); });
+
+      el.recordMore.hidden = played.length < 2;
+      if (el.recordMore.hidden) return;
+
+      var perfect = played.filter(function (value) { return scores.isPerfect(saved[value]); }).length;
+      el.recordSummary.textContent = 'Records per gebied — ' + played.length + ' van ' +
+        all.length + ' gespeeld, ' + perfect + ' uitgespeeld';
+
+      el.recordRows.innerHTML = played.map(function (value) {
+        var record = saved[value];
+        var done = scores.isPerfect(record);
+        return '<dt>' + esc(areaName(value)) + '</dt>' +
+          '<dd' + (done ? ' class="is-perfect"' : '') + '>' +
+          scores.percent(record) + '%' + (done ? ' ✓' : '') + '</dd>';
+      }).join('');
     }
 
     // ---------- rondelengte ----------
@@ -434,20 +505,34 @@
       state.attempts = 0;
       state.locked = false;
       state.finished = false;
+      state.fullRound = true;
+      state.result = null;
 
       var ids = shuffle(areaIds());
       state.queue = state.count === 'all' ? ids : ids.slice(0, state.count);
       state.total = state.queue.length;
       state.current = state.queue.pop() || null;
       restyleAll();
+      renderRecords();
       render();
     }
 
     function nextTarget() {
       state.attempts = 0;
       state.current = state.queue.pop() || null;
-      if (!state.current) state.finished = true;
+      if (!state.current) finishRound();
       render();
+    }
+
+    function finishRound() {
+      state.finished = true;
+      // Een korte ronde (10, 25 of 50 vragen) is oefenen, geen record: anders zou een
+      // steekproef van tien de score voor een heel land bepalen.
+      state.fullRound = state.total > 0 && state.total === areaIds().length;
+      state.result = state.fullRound
+        ? window.ARGScores.save(entry.id, state.area, state.correct, state.total)
+        : null;
+      renderRecords();
     }
 
     function onCorrect(latlng) {
@@ -567,7 +652,8 @@
         el.done.hidden = false;
         el.done.innerHTML = '<b>' + state.correct + ' van ' + state.total + ' juist</b><br>' +
           state.wrong + ' ' + plural(state.wrong) + ' niet gevonden, ' +
-          state.misclicks + ' foute klik' + (state.misclicks === 1 ? '' : 'ken') + '.';
+          state.misclicks + ' foute klik' + (state.misclicks === 1 ? '' : 'ken') + '.' +
+          '<span class="note">' + esc(roundVerdict()) + '</span>';
         el.skip.disabled = true;
       } else {
         el.target.textContent = state.current ? nameOf(propsById[state.current]) : '—';
@@ -580,6 +666,22 @@
         dots += '<i' + (i < state.attempts ? ' class="is-used"' : '') + '></i>';
       }
       el.attempts.innerHTML = dots;
+    }
+
+    /** Wat deze ronde met je record deed — één zin onder de einduitslag. */
+    function roundVerdict() {
+      if (!state.fullRound) return 'Korte ronde — telt niet mee voor het record.';
+      if (state.correct === state.total) return areaName(state.area) + ' uitgespeeld!';
+      if (state.result && state.result.improved) {
+        return state.result.previous
+          ? 'Nieuw record, je vorige was ' + window.ARGScores.percent(state.result.previous) + '%.'
+          : 'Je eerste record voor dit gebied.';
+      }
+      if (state.result && state.result.record) {
+        return 'Je record voor dit gebied blijft ' +
+          window.ARGScores.percent(state.result.record) + '%.';
+      }
+      return '';
     }
 
     function setMode(mode) {
@@ -669,8 +771,8 @@
     var known = savedArea && Array.prototype.some.call(el.area.options, function (option) {
       return option.value === savedArea;
     });
-    setArea(known ? savedArea : 'ALL');
-    if (known) el.area.value = savedArea;
+    setArea(known ? savedArea : defaultArea());
+    el.area.value = state.area;
 
     var savedCount = store('count');
     state.count = savedCount && savedCount !== 'all' ? Number(savedCount) : 'all';
@@ -682,7 +784,7 @@
 
     startRound();
     setMode(state.mode);
-    if (state.area !== 'ALL') zoomToArea();
+    if (state.area !== 'ALL') zoomToArea(false);
 
     // ---------- opruimen ----------
 
@@ -692,6 +794,11 @@
       unpin();
       listeners.forEach(function (item) { item[0].removeEventListener(item[1], item[2]); });
       listeners.length = 0;
+      // Eerst de vormen, dan de renderer, dan pas de kaart. Draai je die volgorde om, dan
+      // blijft er een geplande hertekening over voor een canvas dat al weg is; die valt
+      // pas op als je snel na een klik een ander spel kiest.
+      map.removeLayer(regions);
+      map.removeLayer(canvas);
       map.remove();
       running = null;
       window.ARG.state = null;
