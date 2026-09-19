@@ -3,6 +3,113 @@
 // startscherm en het spelpaneel nodig hebben.
 window.ARG_GAMES = [
   {
+    "id": "be-arrondissementen",
+    "country": "België",
+    "regionType": "arrondissementen",
+    "region": {
+      "one": "arrondissement",
+      "many": "arrondissementen"
+    },
+    "idLabel": "NIS-code",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "fr",
+        "label": "Frans"
+      },
+      {
+        "code": "de",
+        "label": "Duits"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Gewest",
+        "many": "Gewesten",
+        "order": [
+          "Vlaams Gewest",
+          "Waals Gewest",
+          "Brussels Hoofdstedelijk Gewest"
+        ]
+      },
+      {
+        "one": "Provincie",
+        "many": "Provincies",
+        "order": null
+      }
+    ],
+    "defaultArea": null,
+    "file": "data/be-arrondissementen.js",
+    "count": 43,
+    "year": "2025",
+    "generated": "2026-09-19",
+    "source": {
+      "credit": "Statbel",
+      "name": "Statbel (FOD Economie) via Opendatasoft \"georef-belgium-municipality\"",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-belgium-municipality/",
+      "license": "Open data Statbel — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "be-deelgemeenten",
+    "country": "België",
+    "regionType": "deelgemeenten",
+    "region": {
+      "one": "deelgemeente",
+      "many": "deelgemeenten"
+    },
+    "idLabel": "NIS-code",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "fr",
+        "label": "Frans"
+      },
+      {
+        "code": "de",
+        "label": "Duits"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Gewest",
+        "many": "Gewesten",
+        "order": [
+          "Vlaams Gewest",
+          "Waals Gewest",
+          "Brussels Hoofdstedelijk Gewest"
+        ]
+      },
+      {
+        "one": "Provincie",
+        "many": "Provincies",
+        "order": null
+      },
+      {
+        "one": "Arrondissement",
+        "many": "Arrondissementen",
+        "order": null
+      }
+    ],
+    "defaultArea": null,
+    "file": "data/be-deelgemeenten.js",
+    "count": 2664,
+    "year": "2025",
+    "generated": "2026-09-19",
+    "source": {
+      "credit": "Statbel",
+      "name": "Statbel (FOD Economie) via Opendatasoft \"georef-belgium-submunicipality\"",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-belgium-submunicipality/",
+      "license": "Open data Statbel — bronvermelding vereist"
+    }
+  },
+  {
     "id": "be-gemeenten",
     "country": "België",
     "regionType": "gemeenten",
@@ -45,7 +152,7 @@ window.ARG_GAMES = [
     "file": "data/be-gemeenten.js",
     "count": 565,
     "year": "2025",
-    "generated": "2026-09-18",
+    "generated": "2026-09-19",
     "source": {
       "credit": "Statbel",
       "name": "Statbel (FOD Economie) via Opendatasoft \"georef-belgium-municipality\"",
@@ -100,6 +207,119 @@ window.ARG_GAMES = [
     }
   },
   {
+    "id": "de-deelstaten",
+    "country": "Duitsland",
+    "regionType": "deelstaten",
+    "region": {
+      "one": "deelstaat",
+      "many": "deelstaten"
+    },
+    "idLabel": "Deelstaatcode",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "de",
+        "label": "Duits"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/de-deelstaten.js",
+    "count": 16,
+    "year": "2025",
+    "generated": "2026-09-19",
+    "source": {
+      "credit": "Destatis / Opendatasoft",
+      "name": "Opendatasoft \"georef-germany-land\" (Statistisches Bundesamt)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-germany-land/",
+      "license": "Datenlizenz Deutschland – Namensnennung 2.0"
+    }
+  },
+  {
+    "id": "de-kreise",
+    "country": "Duitsland",
+    "regionType": "Kreise",
+    "region": {
+      "one": "Kreis",
+      "many": "Kreise"
+    },
+    "idLabel": "Kreiscode",
+    "languages": [
+      {
+        "code": "de",
+        "label": "Duits"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Deelstaat",
+        "many": "Deelstaten",
+        "order": null
+      }
+    ],
+    "defaultArea": null,
+    "file": "data/de-kreise.js",
+    "count": 400,
+    "year": "2025",
+    "generated": "2026-09-19",
+    "source": {
+      "credit": "Destatis / Opendatasoft",
+      "name": "Opendatasoft \"georef-germany-kreis\" (Statistisches Bundesamt)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-germany-kreis/",
+      "license": "Datenlizenz Deutschland – Namensnennung 2.0"
+    }
+  },
+  {
+    "id": "fr-arrondissementen",
+    "country": "Frankrijk",
+    "regionType": "arrondissementen",
+    "region": {
+      "one": "arrondissement",
+      "many": "arrondissementen"
+    },
+    "idLabel": "Arrondissementsnummer",
+    "languages": [
+      {
+        "code": "fr",
+        "label": "Frans"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Gebiedsdeel",
+        "many": "Gebiedsdelen",
+        "order": [
+          "Europees Frankrijk",
+          "Overzeese departementen"
+        ]
+      },
+      {
+        "one": "Regio",
+        "many": "Regio's",
+        "order": null
+      },
+      {
+        "one": "Departement",
+        "many": "Departementen",
+        "order": null
+      }
+    ],
+    "defaultArea": "Europees Frankrijk",
+    "file": "data/fr-arrondissementen.js",
+    "count": 333,
+    "year": "2025",
+    "generated": "2026-09-19",
+    "source": {
+      "credit": "IGN / Opendatasoft",
+      "name": "Opendatasoft \"georef-france-arrondissement-departemental\" (grenzen van het IGN)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-france-arrondissement-departemental/",
+      "license": "Licence Ouverte / Open Licence 2.0 — bronvermelding vereist"
+    }
+  },
+  {
     "id": "fr-departementen",
     "country": "Frankrijk",
     "regionType": "departementen",
@@ -134,6 +354,43 @@ window.ARG_GAMES = [
     "count": 101,
     "year": "2025",
     "generated": "2026-09-18",
+    "source": {
+      "credit": "IGN / Opendatasoft",
+      "name": "Opendatasoft \"georef-france-departement\" (grenzen van het IGN)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-france-departement/",
+      "license": "Licence Ouverte / Open Licence 2.0 — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "fr-regios",
+    "country": "Frankrijk",
+    "regionType": "regio's",
+    "region": {
+      "one": "regio",
+      "many": "regio's"
+    },
+    "idLabel": "Regiocode",
+    "languages": [
+      {
+        "code": "fr",
+        "label": "Frans"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Gebiedsdeel",
+        "many": "Gebiedsdelen",
+        "order": [
+          "Europees Frankrijk",
+          "Overzeese regio's"
+        ]
+      }
+    ],
+    "defaultArea": "Europees Frankrijk",
+    "file": "data/fr-regios.js",
+    "count": 18,
+    "year": "2025",
+    "generated": "2026-09-19",
     "source": {
       "credit": "IGN / Opendatasoft",
       "name": "Opendatasoft \"georef-france-departement\" (grenzen van het IGN)",

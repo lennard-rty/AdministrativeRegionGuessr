@@ -9,9 +9,15 @@ Spellen die nu meegeleverd zijn:
 
 | Spel | Regio's | Gebiedskeuze |
 | --- | --- | --- |
+| België (arrondissementen) | 43 | gewest, provincie |
+| België (deelgemeenten) | 2664 (de voormalige gemeenten, opgegaan in de huidige 565) | gewest, provincie, arrondissement |
 | België (gemeenten) | 565 | gewest, provincie |
 | België (provincies) | 11 (10 provincies + het Brussels Hoofdstedelijk Gewest) | gewest |
+| Duitsland (deelstaten) | 16 | geen |
+| Duitsland (Kreise) | 400 (294 Kreise en Landkreise + 106 kreisfreie Städte) | deelstaat |
+| Frankrijk (arrondissementen) | 333 (320 Europese + 13 overzeese) | gebiedsdeel, regio, departement |
 | Frankrijk (departementen) | 101 (96 Europese + 5 overzeese) | gebiedsdeel, regio |
+| Frankrijk (regio's) | 18 (13 Europese + 5 overzeese) | gebiedsdeel |
 | Nederland (gemeenten) | 342 | provincie |
 | Nederland (provincies) | 12 | geen |
 
@@ -70,27 +76,35 @@ kaart, plus de anderstalige namen (als het spel die heeft), de gebieden waar ze 
 en haar code in het zijpaneel.
 
 **Gebied** — het hele land, of één gebied uit de niveaus die het spel kent: voor België
-(gemeenten) zijn dat gewesten en provincies, voor Frankrijk gebiedsdelen en regio's, voor
-Nederland (gemeenten) provincies. Regio's buiten het gekozen gebied blijven zichtbaar als
-achtergrond, maar doen niet mee. Let op: van gebied veranderen start een nieuwe ronde. Bij
-een spel zonder niveaus — Nederland (provincies) — verdwijnt de keuze.
+gewesten en provincies (en bij de deelgemeenten ook arrondissementen), voor Duitsland
+deelstaten, voor Frankrijk gebiedsdelen en regio's (en bij de arrondissementen ook
+departementen), voor Nederland (gemeenten) provincies. Regio's buiten het gekozen gebied
+blijven zichtbaar als achtergrond, maar doen niet mee. Let op: van gebied veranderen start
+een nieuwe ronde. Bij een spel zonder niveaus — Nederland (provincies), Duitsland
+(deelstaten) — verdwijnt de keuze.
 
-Frankrijk begint niet in heel het land maar in *Europees Frankrijk* (96 departementen). De
-vijf overzeese departementen liggen in de Cariben, Zuid-Amerika en de Indische Oceaan: heel
-Frankrijk in beeld brengen levert een wereldkaart op waarop je niets kan aanduiden. Ze doen
-wel gewoon mee zodra je *Heel Frankrijk (101)* of *Overzeese departementen* kiest.
+De drie Franse spellen beginnen niet in heel het land maar in *Europees Frankrijk*. De
+overzeese departementen en regio's liggen in de Cariben, Zuid-Amerika en de Indische Oceaan:
+heel Frankrijk in beeld brengen levert een wereldkaart op waarop je niets kan aanduiden. Ze
+doen wel gewoon mee zodra je *Heel Frankrijk* of het overzeese gebiedsdeel kiest.
+
+Mayotte is niet in arrondissementen verdeeld, dus het arrondissementenspel telt 100
+departementen en 17 regio's in plaats van 101 en 18.
 
 **Aantal vragen** — standaard *alle*, of een korte ronde van 10, 25 of 50 willekeurige
-regio's. Handig bij grote landen: 565 gemeenten is een lange zit. Keuzes die niet in het
-gekozen gebied passen worden niet getoond.
+regio's. Handig bij grote spellen: 565 gemeenten is een lange zit, en 2664 deelgemeenten
+een avond. Keuzes die niet in het gekozen gebied passen worden niet getoond.
 
 **Taal** — enkel bij spellen met meertalige namen. Voor België: Nederlands (standaard),
 Frans of Duits, wat bepaalt welke naam gevraagd en getoond wordt (*Luik*, *Liège* of
-*Lüttich*). Bij Nederland en Frankrijk verdwijnt de keuze: die spellen hebben één naam per
-regio — Nederlandse gemeentenamen, en voor Frankrijk de Franse departementsnamen
-(*Ardennes*, *Côte-d'Or*, *Bouches-du-Rhône*), want Nederlandse exoniemen bestaan daar
-nauwelijks voor. De namen van de gebieden staan altijd in het Nederlands, behalve de Franse
-regio's, die hun eigen naam houden.
+*Lüttich* — bij de arrondissementen net zo goed als bij de gemeenten). De zestien Duitse
+deelstaten hebben een Nederlandse en een Duitse naam (*Beieren* of *Bayern*). Bij de Duitse
+Kreise, Nederland en Frankrijk verdwijnt de keuze: die spellen hebben één naam per regio —
+Nederlandse gemeentenamen, Duitse Kreisnamen (*Landkreis München*) en voor Frankrijk de
+Franse namen (*Ardennes*, *Côte-d'Or*, *Bouches-du-Rhône*), want Nederlandse exoniemen
+bestaan daar nauwelijks voor. De namen van de gebieden staan altijd in het Nederlands — ook
+de deelstaten in het gebiedsmenu van de Kreise — behalve de Franse regio's en departementen,
+die hun eigen naam houden.
 
 **Records** — na elke volledige ronde onthoudt het spel je beste resultaat, per spel én per
 gebied. Boven de knoppen staat het record van het gebied waarin je speelt (*Record voor
@@ -156,6 +170,7 @@ localStorage.removeItem('arg.records')   // alles wissen
 | `data/games.js` | de catalogus die het startscherm vult (gegenereerd) |
 | `data/<spel-id>.js` | de grenzen van één spel (gegenereerd) |
 | `tools/games/<spel-id>.mjs` | de beschrijving van één spel: namen, niveaus, bron |
+| `tools/lib/` | wat meer dan één spelbestand nodig heeft (de Nederlandse namen van de Duitse deelstaten) |
 | `tools/build-data.mjs` | bouwt `data/` op uit `tools/games/` |
 | `vendor/` | Leaflet 1.9.4 en MapLibre GL 5.9 (voor de kaart zonder namen), lokaal meegeleverd |
 
@@ -178,7 +193,8 @@ node tools/build-data.mjs be-gemeenten --simplify 30%   # scherpere grenzen, ~2,
 
 Het script downloadt de brondata (1 à 31 MB, naar de tijdelijke map van je systeem, niet
 naar dit project) en vereenvoudigt ze met `npx mapshaper`. Die download wordt gecachet en
-tussen spellen gedeeld: `be-gemeenten`/`be-provincies` halen hetzelfde bestand op, net als
+tussen spellen gedeeld: `be-gemeenten`, `be-provincies` en `be-arrondissementen` halen
+hetzelfde bestand op, net als `fr-departementen`/`fr-regios` en
 `nl-gemeenten`/`nl-provincies`. Met `--fresh` haal je het opnieuw op. De vereenvoudiging is
 topologie-behoudend: aangrenzende regio's blijven exact op elkaar aansluiten, er ontstaan
 geen gaten of overlappingen. Node.js en een internetverbinding zijn vereist.
@@ -192,34 +208,35 @@ kan starten.
 Eén bestand in `tools/games/` erbij, en bouwen. De bestandsnaam is de spel-id.
 
 ```js
-// tools/games/de-deelstaten.mjs
+// tools/games/ie-graafschappen.mjs
 export default {
-  id: 'de-deelstaten',                // moet gelijk zijn aan de bestandsnaam
-  country: 'Duitsland',               // startscherm: "Duitsland (deelstaten)"
-  regionType: 'deelstaten',
-  region: { one: 'deelstaat', many: 'deelstaten' },   // voor zinnen in het paneel
-  idLabel: 'Deelstaatcode',           // label van de code in de leermodus (mag null)
+  id: 'ie-graafschappen',             // moet gelijk zijn aan de bestandsnaam
+  country: 'Ierland',                 // startscherm: "Ierland (graafschappen)"
+  regionType: 'graafschappen',
+  region: { one: 'graafschap', many: 'graafschappen' },   // voor zinnen in het paneel
+  idLabel: 'Graafschapscode',         // label van de code in de leermodus (mag null)
 
-  languages: [{ code: 'de', label: 'Duits' }],   // meer dan één = taalkeuze zichtbaar
+  languages: [{ code: 'en', label: 'Engels' }],   // meer dan één = taalkeuze zichtbaar
 
   levels: [                           // gebiedsniveaus, grof naar fijn; [] = geen gebiedskeuze
-    { one: 'Landsdeel', many: 'Landsdelen', order: ['West', 'Oost'] },   // order is optioneel
+    // order is optioneel en bepaalt de volgorde in het gebiedsmenu
+    { one: 'Provincie', many: 'Provincies', order: ['Leinster', 'Munster', 'Connacht'] },
   ],
 
   defaultArea: null,                  // naam van het gebied waarin het spel begint (zie onder)
 
-  source: { credit: 'BKG', name: '...', url: 'https://...', license: '...' },
+  source: { credit: 'OSi', name: '...', url: 'https://...', license: '...' },
 
   build: {
     url: 'https://.../export.geojson',   // bron met de grenzen
-    cache: 'de-deelstaten',              // naam van het gecachete bronbestand
+    cache: 'ie-graafschap',              // naam van het gecachete bronbestand
     simplify: '15%',                     // hoeveel detail de grenzen houden
     year: (raw) => '2026',               // of null; verschijnt als "jaargang ..." in het paneel
     prepare(props) {                     // één bronregio -> één regio in het spel; null = overslaan
       return {
-        id: props.land_code,
-        names: { de: props.land_name },
-        groups: [props.landsdeel],       // één waarde per niveau uit `levels`
+        id: props.county_code,
+        names: { en: props.county_name },
+        groups: [props.province],        // één waarde per niveau uit `levels`
       };
     },
   },
@@ -229,10 +246,10 @@ export default {
 Daarna:
 
 ```
-node tools/build-data.mjs de-deelstaten
+node tools/build-data.mjs ie-graafschappen
 ```
 
-Dat schrijft `data/de-deelstaten.js` en zet het spel in `data/games.js`. Herlaad
+Dat schrijft `data/ie-graafschappen.js` en zet het spel in `data/games.js`. Herlaad
 `index.html` en het staat in de lijst.
 
 Twee dingen die de bouwer voor je regelt: het middelpunt van elke regio (mapshaper
@@ -276,13 +293,27 @@ geen provincie, en verdwijnt dus gewoon uit het provinciemenu.
 
 ## Bronnen
 
-- **Belgische grenzen**: Statbel (FOD Economie), via de Opendatasoft-dataset
-  [`georef-belgium-municipality`](https://public.opendatasoft.com/explore/dataset/georef-belgium-municipality/) —
-  jaargang 2025, dus inclusief de fusies van 1 januari 2025. Bronvermelding vereist bij hergebruik.
-- **Franse grenzen**: IGN, via de Opendatasoft-dataset
-  [`georef-france-departement`](https://public.opendatasoft.com/explore/dataset/georef-france-departement/) —
-  jaargang 2025, Licence Ouverte 2.0. Die bron is al veralgemeend, vandaar `simplify: '90%'`
-  in plaats van de 15% van de andere spellen.
+- **Belgische grenzen**: Statbel (FOD Economie), via de Opendatasoft-datasets
+  [`georef-belgium-municipality`](https://public.opendatasoft.com/explore/dataset/georef-belgium-municipality/)
+  (gemeenten, en daaruit gesmolten de provincies en arrondissementen) en
+  [`georef-belgium-submunicipality`](https://public.opendatasoft.com/explore/dataset/georef-belgium-submunicipality/)
+  (deelgemeenten) — jaargang 2025, dus inclusief de fusies van 1 januari 2025.
+  Bronvermelding vereist bij hergebruik.
+- **Duitse grenzen**: Statistisches Bundesamt (Destatis), via de Opendatasoft-datasets
+  [`georef-germany-land`](https://public.opendatasoft.com/explore/dataset/georef-germany-land/)
+  (deelstaten) en
+  [`georef-germany-kreis`](https://public.opendatasoft.com/explore/dataset/georef-germany-kreis/)
+  (Kreise) — jaargang 2025, Datenlizenz Deutschland – Namensnennung 2.0. De bron kent enkel
+  Duitse namen; de Nederlandse namen van de zestien deelstaten staan in
+  `tools/lib/duitse-deelstaten.mjs`.
+- **Franse grenzen**: IGN, via de Opendatasoft-datasets
+  [`georef-france-departement`](https://public.opendatasoft.com/explore/dataset/georef-france-departement/)
+  (departementen, en daaruit gesmolten de regio's) en
+  [`georef-france-arrondissement-departemental`](https://public.opendatasoft.com/explore/dataset/georef-france-arrondissement-departemental/)
+  (arrondissementen) — jaargang 2025, Licence Ouverte 2.0. Het departementenbestand is al
+  veralgemeend (1,1 MB voor 101 vormen), vandaar `simplify: '90%'` in plaats van de 15% van
+  de andere spellen; het arrondissementenbestand is dat niet (7,8 MB voor 333 vormen) en
+  gaat naar 30%.
 - **Nederlandse grenzen**: Bestuurlijke gebieden (Kadaster), via de
   [PDOK-webservice](https://www.pdok.nl/introductie/-/article/bestuurlijke-gebieden) —
   de actuele toestand, CC BY 4.0. De provincies zijn samengesteld uit die gemeentegrenzen,
