@@ -69,13 +69,20 @@
       </div>
 
       <div class="stats">
-        <div class="stat"><b id="statLeft">0</b><span>te gaan</span></div>
-        <div class="stat is-ok"><b id="statCorrect">0</b><span>juist</span></div>
-        <div class="stat is-bad"><b id="statWrong">0</b><span>fout</span></div>
+        <div class="stat" title="Nog te vragen"><b id="statLeft">0</b><span>te gaan</span></div>
+        <div class="stat is-ok" title="Meteen juist geklikt"><b id="statCorrect">0</b><span>juist</span></div>
+        <div class="stat is-bad" title="Meer dan één klik nodig, of niet gevonden"><b id="statWrong">0</b><span>fout</span></div>
       </div>
 
       <div class="progress"><i id="progressBar"></i></div>
       <p class="muted" id="misclicks">&nbsp;</p>
+
+      <ul class="legend">
+        <li><i class="is-hit0"></i>meteen juist</li>
+        <li><i class="is-hit1"></i>2 klikken</li>
+        <li><i class="is-hit2"></i>3 klikken</li>
+        <li><i class="is-miss"></i>niet gevonden</li>
+      </ul>
 
       <section class="records">
         <p class="record-now" id="recordNow"></p>

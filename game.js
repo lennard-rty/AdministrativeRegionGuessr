@@ -19,10 +19,23 @@
   var STYLES = {
     idle:     { color: '#2f3944', weight: 1.1, opacity: 0.5,  fill: true, fillColor: '#ffffff', fillOpacity: 0 },
     dimmed:   { color: '#7c8794', weight: 0.7, opacity: 0.25, fill: true, fillColor: '#ffffff', fillOpacity: 0 },
-    correct:  { color: '#166534', weight: 1.4, opacity: 0.85, fill: true, fillColor: '#22c55e', fillOpacity: 0.38 },
-    wrong:    { color: '#991b1b', weight: 1.4, opacity: 0.85, fill: true, fillColor: '#ef4444', fillOpacity: 0.38 },
     selected: { color: '#1d4ed8', weight: 2,   opacity: 0.9,  fill: true, fillColor: '#3b82f6', fillOpacity: 0.28 }
   };
+
+  // De kleur van een afgehandelde regio vertelt hoeveel klikken ze gekost heeft: groen
+  // voor meteen juist, dan geler en oranjer per misser, rood als je ze niet vond. In de
+  // cijfers telt alleen de eerste klik als juist — de kleur zegt of je er toch geraakt bent.
+  var ANSWER = [
+    { color: '#166534', fillColor: '#22c55e' },   // meteen juist
+    { color: '#854d0e', fillColor: '#eab308' },   // juist na één misser
+    { color: '#9a3412', fillColor: '#f97316' },   // juist na twee missers
+    { color: '#991b1b', fillColor: '#ef4444' }    // niet gevonden
+  ].map(function (tint) {
+    return {
+      color: tint.color, fillColor: tint.fillColor,
+      weight: 1.4, opacity: 0.85, fill: true, fillOpacity: 0.38
+    };
+  });
 
   var OSM_CREDIT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers';
   var PLAIN_CREDIT = OSM_CREDIT + ', tegels van <a href="https://openfreemap.org/">OpenFreeMap</a>';
@@ -96,10 +109,11 @@
       total: 0,
       current: null,
       attempts: 0,
-      correct: 0,
-      wrong: 0,
+      correct: 0,         // meteen juist: het enige dat als juist telt
+      late: 0,            // pas na een misser gevonden
+      missed: 0,          // helemaal niet gevonden
       misclicks: 0,
-      status: {},          // id -> 'correct' | 'wrong'
+      status: {},         // id -> aantal missers voor de juiste klik (MAX_ATTEMPTS = niet gevonden)
       locked: false,
       finished: false,
       fullRound: true,     // besloeg de ronde het hele gebied? enkel dan telt ze mee
@@ -295,10 +309,8 @@
         return props.id === state.learnSelected ? STYLES.selected : STYLES.idle;
       }
       if (!inArea(props)) return STYLES.dimmed;
-      var status = state.status[props.id];
-      if (status === 'correct') return STYLES.correct;
-      if (status === 'wrong') return STYLES.wrong;
-      return STYLES.idle;
+      var misses = state.status[props.id];   // 0, 1, 2 klikken te veel, of MAX_ATTEMPTS
+      return misses == null ? STYLES.idle : ANSWER[misses];
     }
 
     function applyStyle(id) {
@@ -500,7 +512,8 @@
       unpin();
       state.status = {};
       state.correct = 0;
-      state.wrong = 0;
+      state.late = 0;
+      state.missed = 0;
       state.misclicks = 0;
       state.attempts = 0;
       state.locked = false;
@@ -536,10 +549,12 @@
     }
 
     function onCorrect(latlng) {
-      state.status[state.current] = 'correct';
-      state.correct++;
+      var misses = state.attempts;
+      state.status[state.current] = misses;
+      if (misses === 0) state.correct++;
+      else state.late++;   // wel gevonden, maar niet in één keer: telt als fout
       applyStyle(state.current);
-      flash(latlng, nameOf(propsById[state.current]), 'ok', CORRECT_FLASH_MS);
+      flash(latlng, nameOf(propsById[state.current]), misses === 0 ? 'ok' : 'late', CORRECT_FLASH_MS);
       nextTarget();
     }
 
@@ -555,8 +570,8 @@
       var id = state.current;
       if (!id) return;
 
-      state.status[id] = 'wrong';
-      state.wrong++;
+      state.status[id] = MAX_ATTEMPTS;
+      state.missed++;
       state.locked = true;
       applyStyle(id);
       clearFlashes();   // laat het juiste antwoord alleen staan
@@ -641,18 +656,24 @@
       var left = state.queue.length + (state.current && !state.finished ? 1 : 0);
       el.statLeft.textContent = left;
       el.statCorrect.textContent = state.correct;
-      el.statWrong.textContent = state.wrong;
+      el.statWrong.textContent = state.late + state.missed;
 
-      var handled = state.correct + state.wrong;
+      var handled = state.correct + state.late + state.missed;
       el.progressBar.style.width = state.total ? (handled / state.total * 100) + '%' : '0%';
       el.misclicks.textContent = state.misclicks ? 'Foute klikken: ' + state.misclicks : ' ';
 
       if (state.finished) {
         el.target.textContent = 'Klaar!';
         el.done.hidden = false;
-        el.done.innerHTML = '<b>' + state.correct + ' van ' + state.total + ' juist</b><br>' +
-          state.wrong + ' ' + plural(state.wrong) + ' niet gevonden, ' +
-          state.misclicks + ' foute klik' + (state.misclicks === 1 ? '' : 'ken') + '.' +
+        var details = [];
+        if (state.late) details.push(state.late + ' pas na een extra klik gevonden');
+        if (state.missed) details.push(state.missed + ' niet gevonden');
+        if (state.misclicks) {
+          details.push(state.misclicks + ' foute klik' + (state.misclicks === 1 ? '' : 'ken'));
+        }
+        el.done.innerHTML = '<b>' + state.correct + ' van ' + state.total +
+          ' in één keer juist</b>' +
+          (details.length ? '<br>' + esc(details.join(', ')) + '.' : '') +
           '<span class="note">' + esc(roundVerdict()) + '</span>';
         el.skip.disabled = true;
       } else {

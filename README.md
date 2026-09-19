@@ -36,18 +36,31 @@ grenzen op een lege achtergrond.
 
 ## Spelen
 
-**Quiz** — het spel vraagt regio per regio, in willekeurige volgorde.
+**Quiz** — het spel vraagt regio per regio, in willekeurige volgorde. Je krijgt drie klikken
+per regio, en de kleur op de kaart onthoudt hoeveel je er nodig had:
 
-- Juist geklikt: de regio kleurt doorzichtig groen en je krijgt de volgende naam.
+| Kleur | Wat er gebeurde | Telt als |
+| --- | --- | --- |
+| groen | meteen juist aangeduid | juist |
+| geel | juist, na één misser | fout |
+| oranje | juist, na twee missers | fout |
+| rood | na drie missers voor je onthuld | fout |
+
+Alleen wie een regio in één keer aanwijst krijgt ze bij **juist**. Twee of drie klikken
+nodig? Dan staat ze bij **fout**, maar de kleur laat zien dat je haar uiteindelijk gevonden
+hebt. Anders zou een regio die je pas bij de derde poging raadt even zwaar wegen als een die
+je meteen wist.
+
 - Fout geklikt: de naam van de regio waarop je klikte verschijnt 1 seconde op de kaart.
-- Na 3 foute klikken kleurt de juiste regio doorzichtig rood, met haar naam erbij. Ligt ze
-  buiten beeld, dan schuift de kaart er even naartoe. Daarna volgt de volgende naam.
+- Na 3 foute klikken kleurt de juiste regio rood, met haar naam erbij. Ligt ze buiten beeld,
+  dan schuift de kaart er even naartoe. Daarna volgt de volgende naam.
 - Klikken buiten elke meespelende regio (zee, buitenland, een provincie die niet meespeelt)
   telt niet als poging.
 - **Overslaan** toont meteen het antwoord en telt als fout. **Opnieuw** start een nieuwe ronde.
 
 De tellers **te gaan / juist / fout** staan altijd in beeld, met daaronder het totale aantal
-foute klikken. De drie bolletjes onder de gevraagde naam tonen je pogingen.
+foute klikken en een legende van de vier kleuren. De drie bolletjes onder de gevraagde naam
+tonen je pogingen voor deze vraag.
 
 **Leren** — geen vragen, geen score. Klik op eender welke regio en je krijgt haar naam op de
 kaart, plus de anderstalige namen (als het spel die heeft), de gebieden waar ze onder valt
@@ -83,10 +96,14 @@ Vlaams Gewest: 92% (62 van 67)*, of *uitgespeeld* als je er ooit alles juist had
 pil met je beste volledige ronde — groen met een vinkje zodra je het uitspeelde — en de
 meta-regel telt erbij hoeveel gebieden je al uitspeelde.
 
+Het percentage is dat van de tellers: het aandeel regio's dat je meteen juist aanwees. Een
+regio die je pas bij de tweede of derde klik vond, telt er dus niet in mee. 100% betekent
+daardoor echt dat je elke regio in één keer wist.
+
 Alleen volledige rondes tellen mee: een korte ronde van 10, 25 of 50 vragen laat je record
 ongemoeid, en zegt dat ook onder de uitslag. Anders zou een steekproef van tien de score
-voor een heel land bepalen. 99% blijft 99% zolang er één regio ontbreekt — 100% betekent
-echt alles juist. Er wordt geen tijd bijgehouden: snelheid is het punt van dit spel niet.
+voor een heel land bepalen. 99% blijft 99% zolang er één regio ontbreekt. Er wordt geen tijd
+bijgehouden: snelheid is het punt van dit spel niet.
 
 **Achtergrondkaart** — twee keuzes:
 
@@ -136,7 +153,9 @@ localStorage.removeItem('arg.records')   // alles wissen
 | `vendor/` | Leaflet 1.9.4 en MapLibre GL 5.9 (voor de kaart zonder namen), lokaal meegeleverd |
 
 De speelregels staan als constanten bovenaan `game.js`: `MAX_ATTEMPTS` (3 pogingen),
-`WRONG_FLASH_MS` (1000 ms), `REVEAL_MS` en `ROUND_SIZES` (10 / 25 / 50). Vanuit de
+`WRONG_FLASH_MS` (1000 ms), `REVEAL_MS`, `ROUND_SIZES` (10 / 25 / 50) en `ANSWER`, de
+kleurschaal van groen naar rood — één kleur per aantal klikken, dus zet je `MAX_ATTEMPTS`
+hoger, voorzie dan evenveel kleuren. Vanuit de
 browserconsole kan je met `ARG.map`, `ARG.state` en `ARG.props` in het lopende spel kijken.
 
 ## Data opnieuw opbouwen
