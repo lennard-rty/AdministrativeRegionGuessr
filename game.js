@@ -578,6 +578,13 @@
       nextTarget();
     }
 
+    // Een regio die al ingekleurd op de kaart staat, is niets meer om naar te raden: haar
+    // naam is al gevallen. Zo'n klik kost dus geen poging — alleen de naam verschijnt even,
+    // zodat de klik niet dood aanvoelt.
+    function onKnown(props, latlng) {
+      flash(latlng, nameOf(props), null, WRONG_FLASH_MS);
+    }
+
     function onWrong(clickedProps, latlng) {
       state.attempts++;
       state.misclicks++;
@@ -660,6 +667,7 @@
       if (state.locked || state.finished || !state.current || !inArea(props)) return;
 
       if (props.id === state.current) onCorrect(e.latlng);
+      else if (state.status[props.id] != null) onKnown(props, e.latlng);
       else onWrong(props, e.latlng);
     });
 

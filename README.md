@@ -56,6 +56,9 @@ je meteen wist.
   dan schuift de kaart er even naartoe. Daarna volgt de volgende naam.
 - Klikken buiten elke meespelende regio (zee, buitenland, een provincie die niet meespeelt)
   telt niet als poging.
+- Klikken op een regio die je deze ronde al gehad hebt — ze staat al ingekleurd — telt
+  evenmin als poging: haar naam is al gevallen, dus er valt niets meer te raden. Je krijgt
+  die naam kort te zien en de vraag blijft staan.
 - **Overslaan** toont meteen het antwoord en telt als fout. **Opnieuw** start een nieuwe ronde.
 
 De tellers **te gaan / juist / fout** staan altijd in beeld, met daaronder het totale aantal
