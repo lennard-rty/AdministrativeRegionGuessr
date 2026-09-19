@@ -257,6 +257,13 @@ berekent een punt dat gegarandeerd *binnen* de vorm ligt, ook bij fjorden en enc
 de controle achteraf — dubbele codes, naamloze regio's of regio's die buiten elk gebied
 vallen laten de bouw falen in plaats van een half spel op te leveren.
 
+Twee regio's met dezelfde *naam* laten de bouw niet falen, maar leveren wel een
+waarschuwing op. De vraag is dan namelijk niet te beantwoorden: klik je de andere
+Saint-Denis aan, dan telt dat als misser. Zet er in `prepare()` iets bij dat ze uit elkaar
+houdt — de provincie, het departement, de gemeente — zoals `be-gemeenten`,
+`be-deelgemeenten` en `fr-arrondissementen` doen. Let op dat het per taal kan verschillen:
+Sint-Niklaas en Saint-Nicolas zijn in het Nederlands twee namen en in het Frans één.
+
 **In één gebied beginnen**: zet `defaultArea` op de naam van een gebied uit `levels`. Het
 spel start dan met dat gebied gekozen in plaats van met het hele land — nodig als een land
 ver uit elkaar liggende stukken heeft, zoals Frankrijk met zijn overzeese departementen.
