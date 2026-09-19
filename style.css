@@ -29,6 +29,7 @@ body {
 #app[hidden] { display: none; }
 
 #map { flex: 1; min-width: 0; background: #dfe3e8; cursor: crosshair; }
+#map.is-blank { background: #f4f6f8; }   /* geen achtergrondkaart: enkel de grenzen */
 
 /* ---------- startscherm ---------- */
 

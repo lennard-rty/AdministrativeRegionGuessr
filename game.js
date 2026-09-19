@@ -40,7 +40,7 @@
   var OSM_CREDIT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers';
   var PLAIN_CREDIT = OSM_CREDIT + ', tegels van <a href="https://openfreemap.org/">OpenFreeMap</a>';
   var PLAIN_STYLE_URL = 'https://tiles.openfreemap.org/styles/positron';
-  var BASEMAP_KEYS = { osm: true, plain: true };
+  var BASEMAP_KEYS = { osm: true, plain: true, none: true };
 
   var plainStyle = null;   // OpenFreeMap-stijl zonder labellagen; blijft bewaard tussen spellen
   var running = null;      // opruimfunctie van het spel dat nu loopt
@@ -92,7 +92,7 @@
     ['gameCountry', 'gameRegionType', 'dataInfo', 'area', 'areaField', 'count', 'lang', 'langField',
      'basemap', 'basemapNote', 'target', 'attempts', 'statLeft', 'statCorrect', 'statWrong',
      'progressBar', 'misclicks', 'skip', 'restart', 'done', 'quizPanel', 'learnPanel',
-     'learnHint', 'learnCard', 'learnName', 'learnMeta', 'sourceLine', 'backToMenu',
+     'learnHint', 'learnCard', 'learnName', 'learnMeta', 'sourceLine', 'mapCredit', 'backToMenu',
      'recordNow', 'recordMore', 'recordSummary', 'recordRows'].forEach(function (id) {
       el[id] = byId(id);
     });
@@ -147,11 +147,22 @@
 
     var tiles = null;
 
+    // layer mag null zijn: dan blijft er niets onder de grenzen liggen.
     function attachBasemap(layer) {
       if (tiles) map.removeLayer(tiles);
       tiles = layer;
+      if (!tiles) return;
       map.addLayer(tiles);
       if (tiles.bringToBack) tiles.bringToBack();
+    }
+
+    // Zonder achtergrondkaart wordt de kaartbodem effen en krijgen de lijnen wat meer
+    // contrast (zie applyStyle) — anders zweven lichte grenzen in het niets. Er valt dan
+    // ook niets meer te vermelden onderaan het zijpaneel.
+    function blankBackdrop(on) {
+      map.getContainer().classList.toggle('is-blank', on);
+      el.mapCredit.hidden = on;
+      restyleAll();
     }
 
     // De gewone OSM-kaart toont plaatsnamen; ingezoomd kan je het antwoord dus aflezen.
@@ -176,6 +187,7 @@
       el.basemap.value = 'osm';
       state.basemap = 'osm';
       store('basemap', 'osm');
+      blankBackdrop(false);
       attachBasemap(osmLayer());
       el.basemapNote.textContent = reason;
     }
@@ -199,7 +211,12 @@
       state.basemap = choice;
       store('basemap', choice);
       el.basemapNote.textContent = '';
+      blankBackdrop(choice === 'none');
 
+      if (choice === 'none') {
+        attachBasemap(null);
+        return;
+      }
       if (choice === 'osm') {
         attachBasemap(osmLayer());
         return;
@@ -319,6 +336,9 @@
       var style = {};
       for (var key in base) style[key] = base[key];
       style.weight = base.weight * weightScale(map.getZoom());
+      // Zonder tegels eronder dragen de grenzen de kaart alleen: een lijn die op een
+      // drukke achtergrond precies genoeg is, is op een effen bodem te vaag.
+      if (state.basemap === 'none') style.opacity = Math.min(1, base.opacity * 1.7);
       style.interactive = state.mode === 'learn' ? true : inArea(props);
       layerById[id].setStyle(style);
     }
@@ -818,6 +838,7 @@
       // Eerst de vormen, dan de renderer, dan pas de kaart. Draai je die volgorde om, dan
       // blijft er een geplande hertekening over voor een canvas dat al weg is; die valt
       // pas op als je snel na een klik een ander spel kiest.
+      map.getContainer().classList.remove('is-blank');
       map.removeLayer(regions);
       map.removeLayer(canvas);
       map.remove();

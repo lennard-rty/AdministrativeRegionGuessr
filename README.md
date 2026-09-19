@@ -32,7 +32,7 @@ terug naar de lijst.
 
 De achtergrondkaart komt van internet (tegels van openstreetmap.org), dus daarvoor heb je
 een verbinding nodig. Zonder verbinding blijft het spel werken, maar dan zie je enkel de
-grenzen op een lege achtergrond.
+grenzen op een lege achtergrond — net wat je krijgt met *Geen achtergrondkaart*.
 
 ## Spelen
 
@@ -105,7 +105,7 @@ ongemoeid, en zegt dat ook onder de uitslag. Anders zou een steekproef van tien 
 voor een heel land bepalen. 99% blijft 99% zolang er één regio ontbreekt. Er wordt geen tijd
 bijgehouden: snelheid is het punt van dit spel niet.
 
-**Achtergrondkaart** — twee keuzes:
+**Achtergrondkaart** — drie keuzes:
 
 - *OpenStreetMap* (standaard): de vertrouwde kaart. Let op: vanaf ongeveer zoomniveau 10
   staan de plaatsnamen op de kaart zelf, dus dan is de quiz deels aflezen.
@@ -113,6 +113,10 @@ bijgehouden: snelheid is het punt van dit spel niet.
   naamlagen eruit gefilterd. Wegen, water, bebouwing en groen blijven zichtbaar, namen niet.
   Eerlijker om mee te quizzen. Vereist WebGL; lukt dat niet, dan schakelt het spel vanzelf
   terug naar de gewone kaart met een melding in het zijpaneel.
+- *Geen achtergrondkaart*: enkel de grenzen, op een effen achtergrond. De lijnen worden dan
+  wat donkerder getekend, want ze dragen de kaart alleen. Geen kust, geen rivieren, geen
+  wegen om je aan vast te houden — de moeilijkste stand, en de enige die helemaal zonder
+  internet werkt.
 
 Spelkeuze, gebied, aantal vragen, taal en achtergrondkaart worden onthouden voor een
 volgende keer (in zoverre je browser `localStorage` toelaat op `file://`). Het gekozen
