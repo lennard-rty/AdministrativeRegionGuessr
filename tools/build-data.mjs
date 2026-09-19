@@ -176,12 +176,14 @@ function unflatten(feature, config, langs) {
 function check(features, config, langs) {
   const primary = langs[0];
   const seen = new Set();
+  const names = new Map();
   features.forEach((f) => {
     const p = f.properties;
     if (!p.id) throw new Error('een regio zonder code');
     if (seen.has(p.id)) throw new Error(`code ${p.id} komt twee keer voor`);
     seen.add(p.id);
     if (!p.names[primary]) throw new Error(`regio ${p.id} heeft geen naam`);
+    names.set(p.names[primary], (names.get(p.names[primary]) || 0) + 1);
     if (!f.geometry) throw new Error(`regio ${p.names[primary]} heeft geen vorm`);
     if (!Number.isFinite(p.c[0]) || !Number.isFinite(p.c[1])) {
       throw new Error(`regio ${p.names[primary]} heeft geen middelpunt`);
@@ -190,6 +192,19 @@ function check(features, config, langs) {
       throw new Error(`regio ${p.names[primary]} valt buiten elk(e) ${config.levels[0].one}`);
     }
   });
+
+  // Twee regio's met dezelfde naam maken een vraag onbeantwoordbaar: de speler kan niet
+  // raden welke van de twee bedoeld is, en de andere telt als misser. Geen reden om de
+  // bouw te laten falen (de codes blijven uniek, en het spel werkt), wel om te zeggen.
+  const double = [...names].filter(([, n]) => n > 1).map(([name]) => name);
+  if (double.length) {
+    const hoeveel = double.length === 1 ? '1 naam komt' : `${double.length} namen komen`;
+    process.stdout.write(
+      `  let op: ${hoeveel} meer dan één keer voor — ` +
+      `${double.slice(0, 6).join(', ')}${double.length > 6 ? ' ...' : ''}
+`
+    );
+  }
 }
 
 // ---------- wegschrijven ----------
