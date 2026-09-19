@@ -578,9 +578,9 @@
       nextTarget();
     }
 
-    // Een regio die al ingekleurd op de kaart staat, is niets meer om naar te raden: haar
-    // naam is al gevallen. Zo'n klik kost dus geen poging — alleen de naam verschijnt even,
-    // zodat de klik niet dood aanvoelt.
+    // Een klik waar niets meer om te raden valt: op een regio die al ingekleurd staat, of
+    // op de kaart na de laatste vraag. Zo'n klik kost geen poging — alleen de naam
+    // verschijnt even, zodat de klik niet dood aanvoelt.
     function onKnown(props, latlng) {
       flash(latlng, nameOf(props), null, WRONG_FLASH_MS);
     }
@@ -664,7 +664,14 @@
         showLearn(props);
         return;
       }
-      if (state.locked || state.finished || !state.current || !inArea(props)) return;
+      if (state.locked || !inArea(props)) return;
+
+      // De ronde is uit, maar de kaart blijft aanklikbaar: namen nakijken hoort bij het
+      // spel, en een kaart die na de laatste vraag niets meer doet, voelt kapot.
+      if (state.finished || !state.current) {
+        onKnown(props, e.latlng);
+        return;
+      }
 
       if (props.id === state.current) onCorrect(e.latlng);
       else if (state.status[props.id] != null) onKnown(props, e.latlng);
