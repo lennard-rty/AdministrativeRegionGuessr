@@ -134,19 +134,26 @@ function mapshaper(inPath, outPath, config, simplify, fields) {
 
 // ---------- omzetten ----------
 
-/** Bronvelden -> platte velden die mapshaper ongeschonden doorgeeft. */
-function flatten(feature, config, langs) {
-  const mapped = config.build.prepare(feature.properties, feature);
-  if (!mapped) return null;
+/** Bronvelden -> de regio's van het spel, elk met zijn vorm erbij. */
+function prepareAll(raw, config) {
+  const regions = [];
+  raw.features.forEach((feature) => {
+    const mapped = config.build.prepare(feature.properties, feature);
+    if (mapped) regions.push({ ...mapped, geometry: feature.geometry });
+  });
+  return regions;
+}
 
-  const props = { [F_ID]: String(mapped.id) };
+/** Regio -> platte velden die mapshaper ongeschonden doorgeeft. */
+function flatten(region, config, langs) {
+  const props = { [F_ID]: String(region.id) };
   langs.forEach((code) => {
-    props[F_NAME + code] = mapped.names[code] || mapped.names[langs[0]] || '';
+    props[F_NAME + code] = region.names[code] || region.names[langs[0]] || '';
   });
   (config.levels || []).forEach((_, i) => {
-    props[F_GROUP + i] = (mapped.groups || [])[i] || '';
+    props[F_GROUP + i] = (region.groups || [])[i] || '';
   });
-  return { type: 'Feature', properties: props, geometry: feature.geometry };
+  return { type: 'Feature', properties: props, geometry: region.geometry };
 }
 
 /** Platte velden -> de vorm die het spel in de browser leest. */
@@ -218,8 +225,12 @@ function buildGame(config, rawPath) {
   const outPath = join(work, `${config.id}-uit.geojson`);
 
   const raw = JSON.parse(readFileSync(rawPath, 'utf8'));
-  const prepared = raw.features.map((f) => flatten(f, config, langs)).filter(Boolean);
-  if (!prepared.length) throw new Error('de bron leverde geen bruikbare regio\'s op');
+  const regions = prepareAll(raw, config);
+  if (!regions.length) throw new Error('de bron leverde geen bruikbare regio\'s op');
+  // prepare() ziet een bronregio tegelijk. Een spel dat voor zijn namen moet weten welke
+  // namen de andere regio's dragen — om enkel de dubbele te ontdubbelen — doet dat hier.
+  if (config.build.names) config.build.names(regions, langs);
+  const prepared = regions.map((r) => flatten(r, config, langs));
   const fields = Object.keys(prepared[0].properties);
   writeFileSync(flatPath, JSON.stringify({ type: 'FeatureCollection', features: prepared }));
 
