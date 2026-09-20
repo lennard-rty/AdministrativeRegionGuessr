@@ -37,28 +37,64 @@
 
   // ---------- startscherm ----------
 
+  /** Alles wat we van een spel weten, voor de tooltip van zijn knop. */
   function describe(entry, main) {
     var parts = [];
     if (entry.count) parts.push(entry.count + ' ' + entry.region.many);
     if (entry.year) parts.push('jaargang ' + entry.year);
     else if (entry.generated) parts.push('bijgewerkt ' + entry.generated);
 
-    // Het gebied van de pil hiernaast niet nog eens meetellen.
+    // Het gebied van het cijfer op de knop niet nog eens meetellen.
     var areas = window.ARGScores.perfectAreas(entry.id, main && main.area);
     if (areas) parts.push(areas + (areas === 1 ? ' gebied' : ' gebieden') + ' uitgespeeld');
+    if (main) parts.push(scoreText(main));
     return parts.join(' · ');
   }
 
-  /** Je beste volledige ronde, als pil rechts op de kaart van het spel. */
-  function scoreBadge(main) {
+  /** Je beste volledige ronde, voluit. */
+  function scoreText(main) {
+    var scores = window.ARGScores;
+    var where = main.area === 'ALL' ? 'heel het land' : scores.areaName(main.area);
+    return (scores.isPerfect(main.record) ? 'uitgespeeld: ' : 'beste volledige ronde: ') +
+      main.record.c + ' van ' + main.record.t + ' juist in ' + where;
+  }
+
+  /** Datzelfde record kort op de knop: een vinkje als alles juist was, anders het percentage. */
+  function scoreMark(main) {
     if (!main) return '';
     var scores = window.ARGScores;
-    var perfect = scores.isPerfect(main.record);
-    var where = main.area === 'ALL' ? 'heel het land' : scores.areaName(main.area);
-    return '<span class="game-score' + (perfect ? ' is-perfect' : '') + '" title="' +
-      esc((perfect ? 'Uitgespeeld: ' : 'Beste volledige ronde: ') + main.record.c + ' van ' +
-        main.record.t + ' juist in ' + where) +
-      '">' + scores.percent(main.record) + '%' + (perfect ? ' ✓' : '') + '</span>';
+    if (scores.isPerfect(main.record)) return '<span class="game-score is-perfect">✓</span>';
+    return '<span class="game-score">' + scores.percent(main.record) + '%</span>';
+  }
+
+  /**
+   * De spellen per land. De catalogus zet de spellen van eenzelfde land al na elkaar
+   * (build-data.mjs sorteert op land, dan op regiotype), dus één keer doorlopen volstaat.
+   */
+  function byCountry(games) {
+    var groups = [];
+    games.forEach(function (entry) {
+      var group = groups[groups.length - 1];
+      if (!group || group.country !== entry.country) {
+        group = { country: entry.country, games: [] };
+        groups.push(group);
+      }
+      group.games.push(entry);
+    });
+    return groups;
+  }
+
+  /** Eén spel: een knop met het regiotype en hoeveel regio's erin zitten. */
+  function gameButton(entry, last) {
+    var main = window.ARGScores.main(entry.id, entry.defaultArea);
+    var isLast = entry.id === last;
+    return '<li><button type="button" class="game' + (isLast ? ' is-last' : '') +
+      '" data-id="' + esc(entry.id) + '" title="' + esc(describe(entry, main)) + '">' +
+      '<span class="game-type">' + esc(entry.regionType) + '</span>' +
+      (entry.count ? '<span class="game-count">' + esc(entry.count) + '</span>' : '') +
+      scoreMark(main) +
+      (isLast ? '<span class="game-badge">laatst</span>' : '') +
+      '</button></li>';
   }
 
   function renderMenu() {
@@ -69,15 +105,11 @@
     }
 
     var last = store('game');
-    list.innerHTML = GAMES.map(function (entry) {
-      var main = window.ARGScores.main(entry.id, entry.defaultArea);
-      return '<li><button type="button" class="game" data-id="' + esc(entry.id) + '">' +
-        '<span class="game-title">' + esc(entry.country) +
-        ' <em>(' + esc(entry.regionType) + ')</em></span>' +
-        '<span class="game-meta">' + esc(describe(entry, main)) + '</span>' +
-        '<span class="game-side">' + scoreBadge(main) +
-        (entry.id === last ? '<span class="game-badge">laatst gespeeld</span>' : '') +
-        '</span></button></li>';
+    list.innerHTML = byCountry(GAMES).map(function (group) {
+      return '<li class="country"><h2 class="country-name">' + esc(group.country) + '</h2>' +
+        '<ul class="variants">' +
+        group.games.map(function (entry) { return gameButton(entry, last); }).join('') +
+        '</ul></li>';
     }).join('');
   }
 
