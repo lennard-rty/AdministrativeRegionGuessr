@@ -207,6 +207,34 @@ window.ARG_GAMES = [
     }
   },
   {
+    "id": "dk-regios",
+    "country": "Denemarken",
+    "regionType": "regio's",
+    "region": {
+      "one": "regio",
+      "many": "regio's"
+    },
+    "idLabel": "NUTS-code",
+    "languages": [
+      {
+        "code": "da",
+        "label": "Deens"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/dk-regios.js",
+    "count": 5,
+    "year": "2024",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "Eurostat (GISCO) / © EuroGeographics",
+      "name": "Eurostat GISCO, NUTS 2024 (1:1 miljoen) — grenzen © EuroGeographics",
+      "url": "https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics",
+      "license": "Vrij te gebruiken met bronvermelding — © EuroGeographics voor de grenzen"
+    }
+  },
+  {
     "id": "de-deelstaten",
     "country": "Duitsland",
     "regionType": "deelstaten",
@@ -270,6 +298,34 @@ window.ARG_GAMES = [
       "name": "Opendatasoft \"georef-germany-kreis\" (Statistisches Bundesamt)",
       "url": "https://public.opendatasoft.com/explore/dataset/georef-germany-kreis/",
       "license": "Datenlizenz Deutschland – Namensnennung 2.0"
+    }
+  },
+  {
+    "id": "fi-landschappen",
+    "country": "Finland",
+    "regionType": "landschappen",
+    "region": {
+      "one": "landschap",
+      "many": "landschappen"
+    },
+    "idLabel": "NUTS-code",
+    "languages": [
+      {
+        "code": "fi",
+        "label": "Fins"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/fi-landschappen.js",
+    "count": 19,
+    "year": "2024",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "Eurostat (GISCO) / © EuroGeographics",
+      "name": "Eurostat GISCO, NUTS 2024 (1:1 miljoen) — grenzen © EuroGeographics",
+      "url": "https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics",
+      "license": "Vrij te gebruiken met bronvermelding — © EuroGeographics voor de grenzen"
     }
   },
   {
@@ -550,6 +606,94 @@ window.ARG_GAMES = [
     }
   },
   {
+    "id": "no-fylker",
+    "country": "Noorwegen",
+    "regionType": "fylker",
+    "region": {
+      "one": "fylke",
+      "many": "fylker"
+    },
+    "idLabel": "NUTS-code",
+    "languages": [
+      {
+        "code": "no",
+        "label": "Noors"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/no-fylker.js",
+    "count": 15,
+    "year": "2024",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "Eurostat (GISCO) / © EuroGeographics",
+      "name": "Eurostat GISCO, NUTS 2024 (1:1 miljoen) — grenzen © EuroGeographics",
+      "url": "https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics",
+      "license": "Vrij te gebruiken met bronvermelding — © EuroGeographics voor de grenzen"
+    }
+  },
+  {
+    "id": "at-deelstaten",
+    "country": "Oostenrijk",
+    "regionType": "deelstaten",
+    "region": {
+      "one": "deelstaat",
+      "many": "deelstaten"
+    },
+    "idLabel": "NUTS-code",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "de",
+        "label": "Duits"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/at-deelstaten.js",
+    "count": 9,
+    "year": "2024",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "Eurostat (GISCO) / © EuroGeographics",
+      "name": "Eurostat GISCO, NUTS 2024 (1:1 miljoen) — grenzen © EuroGeographics",
+      "url": "https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics",
+      "license": "Vrij te gebruiken met bronvermelding — © EuroGeographics voor de grenzen"
+    }
+  },
+  {
+    "id": "pl-woiwodschappen",
+    "country": "Polen",
+    "regionType": "woiwodschappen",
+    "region": {
+      "one": "woiwodschap",
+      "many": "woiwodschappen"
+    },
+    "idLabel": "NUTS-code",
+    "languages": [
+      {
+        "code": "pl",
+        "label": "Pools"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/pl-woiwodschappen.js",
+    "count": 16,
+    "year": "2024",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "Eurostat (GISCO) / © EuroGeographics",
+      "name": "Eurostat GISCO, NUTS 2024 (1:1 miljoen) — grenzen © EuroGeographics",
+      "url": "https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics",
+      "license": "Vrij te gebruiken met bronvermelding — © EuroGeographics voor de grenzen"
+    }
+  },
+  {
     "id": "pt-districten",
     "country": "Portugal",
     "regionType": "districten",
@@ -667,6 +811,34 @@ window.ARG_GAMES = [
       "name": "Opendatasoft \"georef-spain-provincia\" (Instituto Nacional de Estadística)",
       "url": "https://public.opendatasoft.com/explore/dataset/georef-spain-provincia/",
       "license": "Open data INE — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "cz-kraje",
+    "country": "Tsjechië",
+    "regionType": "kraje",
+    "region": {
+      "one": "kraj",
+      "many": "kraje"
+    },
+    "idLabel": "NUTS-code",
+    "languages": [
+      {
+        "code": "cs",
+        "label": "Tsjechisch"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/cz-kraje.js",
+    "count": 14,
+    "year": "2024",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "Eurostat (GISCO) / © EuroGeographics",
+      "name": "Eurostat GISCO, NUTS 2024 (1:1 miljoen) — grenzen © EuroGeographics",
+      "url": "https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics",
+      "license": "Vrij te gebruiken met bronvermelding — © EuroGeographics voor de grenzen"
     }
   },
   {

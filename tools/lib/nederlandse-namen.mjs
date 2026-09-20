@@ -98,3 +98,16 @@ export const VK_LAND_NL = {
   'Wales': 'Wales',
   'Northern Ireland': 'Noord-Ierland',
 };
+
+/** Oostenrijkse deelstaten, op NUTS-code (AT11 ... AT34). */
+export const OOSTENRIJK_NL = {
+  AT11: 'Burgenland',
+  AT12: 'Neder-Oostenrijk',
+  AT13: 'Wenen',
+  AT21: 'Karinthië',
+  AT22: 'Stiermarken',
+  AT31: 'Opper-Oostenrijk',
+  AT32: 'Salzburg',
+  AT33: 'Tirol',
+  AT34: 'Vorarlberg',
+};
