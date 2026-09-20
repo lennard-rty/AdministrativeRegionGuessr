@@ -48,11 +48,14 @@ Dubbelklik **`index.html`**. Dat volstaat: de grenzen zitten in `data/*.js` als 
 JavaScript, dus `file://` volstaat (een `fetch()` van een `.geojson` zou daar geblokkeerd
 worden).
 
-Je krijgt eerst het startscherm met de lijst *Land (regiotype)*. Pas als je een spel kiest
-wordt de bijbehorende dataset opgehaald, dus het startscherm blijft licht hoe veel spellen
-er ook bijkomen. Het spel dat je het laatst speelde krijgt het label *laatst gespeeld*,
-maar het startscherm komt altijd eerst; met **← Ander spel** bovenaan het zijpaneel ga je
-terug naar de lijst.
+Je krijgt eerst het startscherm: één rij per land, met naast de landnaam een knop per
+regiotype en het aantal regio's erop. Zo blijft de lijst leesbaar hoe veel spellen er ook
+bijkomen — een land met vier spellen neemt één rij in, geen vier. De rest van wat we van een
+spel weten (jaargang, hoeveel gebieden je al uitspeelde) staat in de tooltip van de knop.
+Pas als je een spel kiest wordt de bijbehorende dataset opgehaald, dus het startscherm
+blijft ook licht. Het spel dat je het laatst speelde krijgt het label *laatst*, maar het
+startscherm komt altijd eerst; met **← Ander spel** bovenaan het zijpaneel ga je terug naar
+de lijst.
 
 De achtergrondkaart komt van internet (tegels van openstreetmap.org), dus daarvoor heb je
 een verbinding nodig. Zonder verbinding blijft het spel werken, maar dan zie je enkel de
@@ -134,9 +137,10 @@ departementen houden ook daar hun eigen naam.
 **Records** — na elke volledige ronde onthoudt het spel je beste resultaat, per spel én per
 gebied. Boven de knoppen staat het record van het gebied waarin je speelt (*Record voor
 Vlaams Gewest: 92% (62 van 67)*, of *uitgespeeld* als je er ooit alles juist had); klap
-*Records per gebied* open voor de volledige lijst. Op het startscherm krijgt elk spel een
-pil met je beste volledige ronde — groen met een vinkje zodra je het uitspeelde — en de
-meta-regel telt erbij hoeveel gebieden je al uitspeelde.
+*Records per gebied* open voor de volledige lijst. Op het startscherm staat je beste
+volledige ronde klein op de knop van het spel — het percentage, of een groen vinkje zodra je
+het uitspeelde; de tooltip schrijft het voluit en telt erbij hoeveel gebieden je al
+uitspeelde.
 
 Het percentage is dat van de tellers: het aandeel regio's dat je meteen juist aanwees. Een
 regio die je pas bij de tweede of derde klik vond, telt er dus niet in mee. 100% betekent
@@ -238,8 +242,8 @@ Eén bestand in `tools/games/` erbij, en bouwen. De bestandsnaam is de spel-id.
 // tools/games/ie-graafschappen.mjs
 export default {
   id: 'ie-graafschappen',             // moet gelijk zijn aan de bestandsnaam
-  country: 'Ierland',                 // startscherm: "Ierland (graafschappen)"
-  regionType: 'graafschappen',
+  country: 'Ierland',                 // startscherm: de rij waar het spel onder komt
+  regionType: 'graafschappen',        // het opschrift van de knop in die rij
   region: { one: 'graafschap', many: 'graafschappen' },   // voor zinnen in het paneel
   idLabel: 'Graafschapscode',         // label van de code in de leermodus (mag null)
 
