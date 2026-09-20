@@ -455,6 +455,49 @@ window.ARG_GAMES = [
     }
   },
   {
+    "id": "ie-graafschappen",
+    "country": "Ierland",
+    "regionType": "graafschappen",
+    "region": {
+      "one": "graafschap",
+      "many": "graafschappen"
+    },
+    "idLabel": "Graafschapscode",
+    "languages": [
+      {
+        "code": "en",
+        "label": "Engels"
+      },
+      {
+        "code": "ga",
+        "label": "Iers"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Provincie",
+        "many": "Provincies",
+        "order": [
+          "Leinster",
+          "Munster",
+          "Connacht",
+          "Ulster"
+        ]
+      }
+    ],
+    "defaultArea": null,
+    "file": "data/ie-graafschappen.js",
+    "count": 26,
+    "year": "2019",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "Tailte Éireann",
+      "name": "Tailte Éireann — Counties, National Statutory Boundaries (generalised 20 m)",
+      "url": "https://data-osi.opendata.arcgis.com/",
+      "license": "CC BY 4.0 — bronvermelding vereist"
+    }
+  },
+  {
     "id": "it-provincies",
     "country": "Italië",
     "regionType": "provincies",
@@ -541,6 +584,68 @@ window.ARG_GAMES = [
       "name": "Opendatasoft \"georef-italy-provincia\" (Istituto Nazionale di Statistica)",
       "url": "https://public.opendatasoft.com/explore/dataset/georef-italy-provincia/",
       "license": "CC BY 4.0 — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "lu-gemeenten",
+    "country": "Luxemburg",
+    "regionType": "gemeenten",
+    "region": {
+      "one": "gemeente",
+      "many": "gemeenten"
+    },
+    "idLabel": "LAU-code",
+    "languages": [
+      {
+        "code": "fr",
+        "label": "Frans"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Kanton",
+        "many": "Kantons",
+        "order": null
+      }
+    ],
+    "defaultArea": null,
+    "file": "data/lu-gemeenten.js",
+    "count": 100,
+    "year": "2023",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "ACT / data.public.lu",
+      "name": "Limites administratives du Grand-Duché de Luxembourg (Administration du cadastre et de la topographie)",
+      "url": "https://data.public.lu/en/datasets/limites-administratives-du-grand-duche-de-luxembourg/",
+      "license": "CC0 — vrij te gebruiken"
+    }
+  },
+  {
+    "id": "lu-kantons",
+    "country": "Luxemburg",
+    "regionType": "kantons",
+    "region": {
+      "one": "kanton",
+      "many": "kantons"
+    },
+    "idLabel": "Kantonnummer",
+    "languages": [
+      {
+        "code": "fr",
+        "label": "Frans"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/lu-kantons.js",
+    "count": 12,
+    "year": "2023",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "ACT / data.public.lu",
+      "name": "Limites administratives du Grand-Duché de Luxembourg (Administration du cadastre et de la topographie)",
+      "url": "https://data.public.lu/en/datasets/limites-administratives-du-grand-duche-de-luxembourg/",
+      "license": "CC0 — vrij te gebruiken"
     }
   },
   {
@@ -631,6 +736,40 @@ window.ARG_GAMES = [
       "name": "Eurostat GISCO, NUTS 2024 (1:1 miljoen) — grenzen © EuroGeographics",
       "url": "https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics",
       "license": "Vrij te gebruiken met bronvermelding — © EuroGeographics voor de grenzen"
+    }
+  },
+  {
+    "id": "at-bezirke",
+    "country": "Oostenrijk",
+    "regionType": "Bezirke",
+    "region": {
+      "one": "Bezirk",
+      "many": "Bezirke"
+    },
+    "idLabel": "Districtscode",
+    "languages": [
+      {
+        "code": "de",
+        "label": "Duits"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Deelstaat",
+        "many": "Deelstaten",
+        "order": null
+      }
+    ],
+    "defaultArea": null,
+    "file": "data/at-bezirke.js",
+    "count": 94,
+    "year": "2026",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "STATISTIK AUSTRIA",
+      "name": "STATISTIK AUSTRIA — Gliederung Österreichs in politische Bezirke",
+      "url": "https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_POLBEZ_1",
+      "license": "CC BY 4.0 — bronvermelding vereist"
     }
   },
   {

@@ -111,3 +111,20 @@ export const OOSTENRIJK_NL = {
   AT33: 'Tirol',
   AT34: 'Vorarlberg',
 };
+
+/**
+ * Dezelfde negen deelstaten, maar op het eerste cijfer van de Oostenrijkse gemeente- en
+ * districtscode. Oostenrijk gebruikt twee nummeringen naast elkaar: NUTS voor Europa,
+ * de GKZ voor zichzelf. at-deelstaten komt uit de eerste, at-bezirke uit de tweede.
+ */
+export const OOSTENRIJK_GKZ_NL = {
+  '1': 'Burgenland',
+  '2': 'Karinthië',
+  '3': 'Neder-Oostenrijk',
+  '4': 'Opper-Oostenrijk',
+  '5': 'Salzburg',
+  '6': 'Stiermarken',
+  '7': 'Tirol',
+  '8': 'Vorarlberg',
+  '9': 'Wenen',
+};
