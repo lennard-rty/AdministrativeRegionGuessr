@@ -101,7 +101,7 @@ window.ARG_GAMES = [
     "file": "data/be-deelgemeenten.js",
     "count": 2664,
     "year": "2025",
-    "generated": "2026-09-19",
+    "generated": "2026-09-20",
     "source": {
       "credit": "Statbel",
       "name": "Statbel (FOD Economie) via Opendatasoft \"georef-belgium-submunicipality\"",

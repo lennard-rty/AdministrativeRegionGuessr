@@ -9,10 +9,14 @@
  *
  * 1. Namen zijn niet uniek — er is een Heusden bij Destelbergen en een Heusden bij
  *    Heusden-Zolder, en zo zijn er 46 namen voor 96 deelgemeenten, Beveren zelfs vier
- *    keer. Een vraag "Heusden" is dan niet te beantwoorden, dus staat de gemeente erbij
- *    zodra de deelgemeente anders heet dan haar gemeente: "Heusden (Destelbergen)". De
- *    434 deelgemeenten die hun gemeente hun naam gaven, houden die naam kaal ("Gent",
- *    "Fléron"). Zo blijven alle namen uniek.
+ *    keer. Een vraag "Heusden" is dan niet te beantwoorden, dus krijgen net die 96 hun
+ *    gemeente erbij: "Heusden (Destelbergen)". Alleen zij: achter een naam die maar één
+ *    keer voorkomt lost een gemeente niets op en verklapt ze enkel waar je moet zoeken.
+ *    Binnen zo'n groep houdt de deelgemeente die haar gemeente haar naam gaf de hare
+ *    kaal — naast "Aalst (Sint-Truiden)" staat gewoon "Aalst", niet "Aalst (Aalst)". Zo
+ *    dragen 85 van de 2.664 namen een gemeente, en blijven ze allemaal uniek. Het
+ *    ontdubbelen gebeurt per taal, in names() hieronder: wat in de ene taal dubbel is,
+ *    is het in de andere niet.
  * 2. Elke deelgemeente heeft maar de naam van haar eigen taalgebied; de andere twee
  *    velden zijn leeg. Vandaar de terugval nl -> fr -> de: een Waalse deelgemeente heet
  *    ook in het Nederlandse spel Orroir, en de 25 Oostkantonse houden hun Duitse naam
@@ -27,12 +31,6 @@ const naam = (p, lang) =>
   first(p.smun_name_fr) || first(p.smun_name_de);
 
 const gemeente = (p, lang) => first(p['mun_name_' + lang]) || first(p.mun_name_nl);
-
-const label = (p, lang) => {
-  const deel = naam(p, lang);
-  const mun = gemeente(p, lang);
-  return !mun || deel === mun ? deel : deel + ' (' + mun + ')';
-};
 
 export default {
   id: 'be-deelgemeenten',
@@ -76,10 +74,25 @@ export default {
     prepare(p) {
       return {
         id: first(p.smun_code),
-        names: { nl: label(p, 'nl'), fr: label(p, 'fr'), de: label(p, 'de') },
+        names: { nl: naam(p, 'nl'), fr: naam(p, 'fr'), de: naam(p, 'de') },
+        // Blijft in het spelbestand buiten beeld; names() hieronder heeft het nodig.
+        gemeente: { nl: gemeente(p, 'nl'), fr: gemeente(p, 'fr'), de: gemeente(p, 'de') },
         // De negentien Brusselse gemeenten vallen onder geen provincie.
         groups: [first(p.reg_name_nl), first(p.prov_name_nl) || '', first(p.arr_name_nl)],
       };
+    },
+    /** Zet de gemeente achter elke naam die meer dan één deelgemeente draagt. */
+    names(regions, langs) {
+      langs.forEach((lang) => {
+        const aantal = new Map();
+        regions.forEach((r) => aantal.set(r.names[lang], (aantal.get(r.names[lang]) || 0) + 1));
+        regions.forEach((r) => {
+          const mun = r.gemeente[lang];
+          if (aantal.get(r.names[lang]) > 1 && mun && r.names[lang] !== mun) {
+            r.names[lang] += ' (' + mun + ')';
+          }
+        });
+      });
     },
   },
 };
