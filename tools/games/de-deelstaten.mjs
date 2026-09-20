@@ -4,10 +4,10 @@
  * Klein spel, maar niet vanzelfsprekend: de drie stadstaten (Berlijn, Hamburg, Bremen)
  * zijn op een landkaart maar stipjes, en Bremen bestaat uit twee losse stukken.
  *
- * De bron kent enkel de Duitse naam; de Nederlandse komt uit tools/lib/duitse-deelstaten.mjs.
+ * De bron kent enkel de Duitse naam; de Nederlandse komt uit tools/lib/nederlandse-namen.mjs.
  */
 
-import { DEELSTAAT_NL } from '../lib/duitse-deelstaten.mjs';
+import { DEELSTAAT_NL } from '../lib/nederlandse-namen.mjs';
 
 const first = (v) => (Array.isArray(v) ? v[0] : v) ?? null;
 

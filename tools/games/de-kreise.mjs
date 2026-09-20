@@ -11,7 +11,7 @@
  * De deelstaatnamen in het gebiedsmenu zijn wel Nederlands, zoals overal in het spel.
  */
 
-import { DEELSTAAT_NL } from '../lib/duitse-deelstaten.mjs';
+import { DEELSTAAT_NL } from '../lib/nederlandse-namen.mjs';
 
 const first = (v) => (Array.isArray(v) ? v[0] : v) ?? null;
 

@@ -170,7 +170,7 @@ localStorage.removeItem('arg.records')   // alles wissen
 | `data/games.js` | de catalogus die het startscherm vult (gegenereerd) |
 | `data/<spel-id>.js` | de grenzen van één spel (gegenereerd) |
 | `tools/games/<spel-id>.mjs` | de beschrijving van één spel: namen, niveaus, bron |
-| `tools/lib/` | wat meer dan één spelbestand nodig heeft (de Nederlandse namen van de Duitse deelstaten) |
+| `tools/lib/` | wat meer dan één spelbestand nodig heeft: de Nederlandse namen van buitenlandse regio's |
 | `tools/build-data.mjs` | bouwt `data/` op uit `tools/games/` |
 | `vendor/` | Leaflet 1.9.4 en MapLibre GL 5.9 (voor de kaart zonder namen), lokaal meegeleverd |
 
@@ -321,7 +321,7 @@ geen provincie, en verdwijnt dus gewoon uit het provinciemenu.
   [`georef-germany-kreis`](https://public.opendatasoft.com/explore/dataset/georef-germany-kreis/)
   (Kreise) — jaargang 2025, Datenlizenz Deutschland – Namensnennung 2.0. De bron kent enkel
   Duitse namen; de Nederlandse namen van de zestien deelstaten staan in
-  `tools/lib/duitse-deelstaten.mjs`.
+  `tools/lib/nederlandse-namen.mjs`.
 - **Franse grenzen**: IGN, via de Opendatasoft-datasets
   [`georef-france-departement`](https://public.opendatasoft.com/explore/dataset/georef-france-departement/)
   (departementen, en daaruit gesmolten de regio's) en
