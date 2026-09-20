@@ -34,3 +34,67 @@ export const DEELSTAAT_NL = {
   '15': 'Saksen-Anhalt',
   '16': 'Thüringen',
 };
+
+/** Spaanse autonome gemeenschappen, op de naam die de bron geeft. */
+export const GEMEENSCHAP_NL = {
+  'Andalucía': 'Andalusië',
+  'Aragón': 'Aragón',
+  'Principado de Asturias': 'Asturië',
+  'Illes Balears': 'Balearen',
+  'Canarias': 'Canarische Eilanden',
+  'Cantabria': 'Cantabrië',
+  'Castilla y León': 'Castilië en León',
+  'Castilla-La Mancha': 'Castilië-La Mancha',
+  'Cataluña': 'Catalonië',
+  'Comunitat Valenciana': 'Valencia',
+  'Extremadura': 'Extremadura',
+  'Galicia': 'Galicië',
+  'Comunidad de Madrid': 'Madrid',
+  'Región de Murcia': 'Murcia',
+  'Comunidad Foral de Navarra': 'Navarra',
+  'País Vasco': 'Baskenland',
+  'La Rioja': 'La Rioja',
+  'Ciudad Autónoma de Ceuta': 'Ceuta',
+  'Ciudad Autónoma de Melilla': 'Melilla',
+};
+
+/** Italiaanse regio's, op de naam die de bron geeft. */
+export const REGIONE_NL = {
+  'Abruzzo': 'Abruzzen',
+  'Basilicata': 'Basilicata',
+  'Calabria': 'Calabrië',
+  'Campania': 'Campanië',
+  'Emilia-Romagna': 'Emilia-Romagna',
+  'Friuli Venezia Giulia': 'Friuli-Venezia Giulia',
+  'Lazio': 'Lazio',
+  'Liguria': 'Ligurië',
+  'Lombardia': 'Lombardije',
+  'Marche': 'Marche',
+  'Molise': 'Molise',
+  'Piemonte': 'Piëmont',
+  'Puglia': 'Apulië',
+  'Sardegna': 'Sardinië',
+  'Sicilia': 'Sicilië',
+  'Toscana': 'Toscane',
+  'Trentino-Alto Adige': 'Trentino-Zuid-Tirol',
+  'Umbria': 'Umbrië',
+  "Valle d'Aosta": "Valle d'Aosta",
+  'Veneto': 'Veneto',
+};
+
+/** De vijf Italiaanse landsdelen waarin het statistiekbureau de regio's groepeert. */
+export const LANDSDEEL_IT_NL = {
+  'Nord-Ovest': 'Noordwest-Italië',
+  'Nord-Est': 'Noordoost-Italië',
+  'Centro': 'Midden-Italië',
+  'Sud': 'Zuid-Italië',
+  'Isole': 'Eilanden',
+};
+
+/** De vier landen van het Verenigd Koninkrijk. */
+export const VK_LAND_NL = {
+  'England': 'Engeland',
+  'Scotland': 'Schotland',
+  'Wales': 'Wales',
+  'Northern Ireland': 'Noord-Ierland',
+};

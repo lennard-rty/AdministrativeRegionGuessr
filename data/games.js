@@ -399,6 +399,95 @@ window.ARG_GAMES = [
     }
   },
   {
+    "id": "it-provincies",
+    "country": "Italië",
+    "regionType": "provincies",
+    "region": {
+      "one": "provincie",
+      "many": "provincies"
+    },
+    "idLabel": "ISTAT-code",
+    "languages": [
+      {
+        "code": "it",
+        "label": "Italiaans"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Landsdeel",
+        "many": "Landsdelen",
+        "order": [
+          "Noordwest-Italië",
+          "Noordoost-Italië",
+          "Midden-Italië",
+          "Zuid-Italië",
+          "Eilanden"
+        ]
+      },
+      {
+        "one": "Regio",
+        "many": "Regio's",
+        "order": null
+      }
+    ],
+    "defaultArea": null,
+    "file": "data/it-provincies.js",
+    "count": 107,
+    "year": "2022",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "ISTAT / Opendatasoft",
+      "name": "Opendatasoft \"georef-italy-provincia\" (Istituto Nazionale di Statistica)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-italy-provincia/",
+      "license": "CC BY 4.0 — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "it-regios",
+    "country": "Italië",
+    "regionType": "regio's",
+    "region": {
+      "one": "regio",
+      "many": "regio's"
+    },
+    "idLabel": "ISTAT-code",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "it",
+        "label": "Italiaans"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Landsdeel",
+        "many": "Landsdelen",
+        "order": [
+          "Noordwest-Italië",
+          "Noordoost-Italië",
+          "Midden-Italië",
+          "Zuid-Italië",
+          "Eilanden"
+        ]
+      }
+    ],
+    "defaultArea": null,
+    "file": "data/it-regios.js",
+    "count": 20,
+    "year": "2022",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "ISTAT / Opendatasoft",
+      "name": "Opendatasoft \"georef-italy-provincia\" (Istituto Nazionale di Statistica)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-italy-provincia/",
+      "license": "CC BY 4.0 — bronvermelding vereist"
+    }
+  },
+  {
     "id": "nl-gemeenten",
     "country": "Nederland",
     "regionType": "gemeenten",
@@ -458,6 +547,226 @@ window.ARG_GAMES = [
       "name": "Bestuurlijke gebieden (Kadaster), via PDOK",
       "url": "https://www.pdok.nl/introductie/-/article/bestuurlijke-gebieden",
       "license": "CC BY 4.0 — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "pt-districten",
+    "country": "Portugal",
+    "regionType": "districten",
+    "region": {
+      "one": "district",
+      "many": "districten"
+    },
+    "idLabel": "Districtscode",
+    "languages": [
+      {
+        "code": "pt",
+        "label": "Portugees"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Gebiedsdeel",
+        "many": "Gebiedsdelen",
+        "order": [
+          "Vasteland",
+          "Autonome regio’s"
+        ]
+      }
+    ],
+    "defaultArea": "Vasteland",
+    "file": "data/pt-districten.js",
+    "count": 20,
+    "year": "2024",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "DGT / Opendatasoft",
+      "name": "Opendatasoft \"georef-portugal-distrito\" (Direção-Geral do Território)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-portugal-distrito/",
+      "license": "Open data DGT — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "es-gemeenschappen",
+    "country": "Spanje",
+    "regionType": "autonome gemeenschappen",
+    "region": {
+      "one": "autonome gemeenschap",
+      "many": "autonome gemeenschappen"
+    },
+    "idLabel": "INE-code",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "es",
+        "label": "Spaans"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Gebiedsdeel",
+        "many": "Gebiedsdelen",
+        "order": [
+          "Vasteland en Balearen",
+          "Canarische Eilanden"
+        ]
+      }
+    ],
+    "defaultArea": "Vasteland en Balearen",
+    "file": "data/es-gemeenschappen.js",
+    "count": 19,
+    "year": "2022",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "INE / Opendatasoft",
+      "name": "Opendatasoft \"georef-spain-provincia\" (Instituto Nacional de Estadística)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-spain-provincia/",
+      "license": "Open data INE — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "es-provincies",
+    "country": "Spanje",
+    "regionType": "provincies",
+    "region": {
+      "one": "provincie",
+      "many": "provincies"
+    },
+    "idLabel": "INE-code",
+    "languages": [
+      {
+        "code": "es",
+        "label": "Spaans"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Gebiedsdeel",
+        "many": "Gebiedsdelen",
+        "order": [
+          "Vasteland en Balearen",
+          "Canarische Eilanden"
+        ]
+      },
+      {
+        "one": "Autonome gemeenschap",
+        "many": "Autonome gemeenschappen",
+        "order": null
+      }
+    ],
+    "defaultArea": "Vasteland en Balearen",
+    "file": "data/es-provincies.js",
+    "count": 52,
+    "year": "2022",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "INE / Opendatasoft",
+      "name": "Opendatasoft \"georef-spain-provincia\" (Instituto Nacional de Estadística)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-spain-provincia/",
+      "license": "Open data INE — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "uk-counties",
+    "country": "Verenigd Koninkrijk",
+    "regionType": "counties",
+    "region": {
+      "one": "county",
+      "many": "counties"
+    },
+    "idLabel": "ONS-code",
+    "languages": [
+      {
+        "code": "en",
+        "label": "Engels"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Land",
+        "many": "Landen",
+        "order": [
+          "Engeland",
+          "Schotland",
+          "Wales",
+          "Noord-Ierland"
+        ]
+      },
+      {
+        "one": "Regio",
+        "many": "Regio's",
+        "order": null
+      }
+    ],
+    "defaultArea": null,
+    "file": "data/uk-counties.js",
+    "count": 218,
+    "year": "2024",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "ONS / Opendatasoft",
+      "name": "Opendatasoft \"georef-united-kingdom-county-unitary-authority\" (Office for National Statistics)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-united-kingdom-county-unitary-authority/",
+      "license": "Open Government Licence 3.0 — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "se-lan",
+    "country": "Zweden",
+    "regionType": "län",
+    "region": {
+      "one": "län",
+      "many": "län"
+    },
+    "idLabel": "Länscode",
+    "languages": [
+      {
+        "code": "sv",
+        "label": "Zweeds"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/se-lan.js",
+    "count": 21,
+    "year": "2022",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "SCB / Opendatasoft",
+      "name": "Opendatasoft \"georef-sweden-lan\" (Statistiska centralbyrån)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-sweden-lan/",
+      "license": "CC0 — bronvermelding gewenst"
+    }
+  },
+  {
+    "id": "ch-kantons",
+    "country": "Zwitserland",
+    "regionType": "kantons",
+    "region": {
+      "one": "kanton",
+      "many": "kantons"
+    },
+    "idLabel": "Kantonsnummer",
+    "languages": [
+      {
+        "code": "ch",
+        "label": "Eigen naam"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "file": "data/ch-kantons.js",
+    "count": 26,
+    "year": "2025",
+    "generated": "2026-09-20",
+    "source": {
+      "credit": "swisstopo / Opendatasoft",
+      "name": "Opendatasoft \"georef-switzerland-kanton\" (Bundesamt für Landestopografie)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-switzerland-kanton/",
+      "license": "Open data swisstopo — bronvermelding vereist"
     }
   }
 ];
