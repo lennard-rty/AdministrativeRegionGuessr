@@ -13,13 +13,31 @@ Spellen die nu meegeleverd zijn:
 | België (deelgemeenten) | 2664 (de voormalige gemeenten, opgegaan in de huidige 565) | gewest, provincie, arrondissement |
 | België (gemeenten) | 565 | gewest, provincie |
 | België (provincies) | 11 (10 provincies + het Brussels Hoofdstedelijk Gewest) | gewest |
+| Denemarken (regio's) | 5 | geen |
 | Duitsland (deelstaten) | 16 | geen |
 | Duitsland (Kreise) | 400 (294 Kreise en Landkreise + 106 kreisfreie Städte) | deelstaat |
+| Finland (landschappen) | 19 | geen |
 | Frankrijk (arrondissementen) | 333 (320 Europese + 13 overzeese) | gebiedsdeel, regio, departement |
 | Frankrijk (departementen) | 101 (96 Europese + 5 overzeese) | gebiedsdeel, regio |
 | Frankrijk (regio's) | 18 (13 Europese + 5 overzeese) | gebiedsdeel |
+| Ierland (graafschappen) | 26 (de Republiek; Noord-Ierland zit in het Britse spel) | provincie |
+| Italië (provincies) | 107 (inclusief de veertien città metropolitane) | landsdeel, regio |
+| Italië (regio's) | 20 | landsdeel |
+| Luxemburg (gemeenten) | 100 | kanton |
+| Luxemburg (kantons) | 12 | geen |
 | Nederland (gemeenten) | 342 | provincie |
 | Nederland (provincies) | 12 | geen |
+| Noorwegen (fylker) | 15 | geen |
+| Oostenrijk (Bezirke) | 94 (79 districten + 15 Statutarstädte) | deelstaat |
+| Oostenrijk (deelstaten) | 9 | geen |
+| Polen (woiwodschappen) | 16 | geen |
+| Portugal (districten) | 20 (18 op het vasteland + Azoren en Madeira) | gebiedsdeel |
+| Spanje (autonome gemeenschappen) | 19 (17 + Ceuta en Melilla) | gebiedsdeel |
+| Spanje (provincies) | 52 (50 + Ceuta en Melilla) | gebiedsdeel, autonome gemeenschap |
+| Tsjechië (kraje) | 14 | geen |
+| Verenigd Koninkrijk (counties) | 218 (counties, unitary authorities, council areas, London boroughs) | land, regio |
+| Zweden (län) | 21 | geen |
+| Zwitserland (kantons) | 26 | geen |
 
 Er kunnen er zonder aanpassing van de spellogica bijkomen — zie
 [Een spel toevoegen](#een-spel-toevoegen).
@@ -75,13 +93,13 @@ tonen je pogingen voor deze vraag.
 kaart, plus de anderstalige namen (als het spel die heeft), de gebieden waar ze onder valt
 en haar code in het zijpaneel.
 
-**Gebied** — het hele land, of één gebied uit de niveaus die het spel kent: voor België
-gewesten en provincies (en bij de deelgemeenten ook arrondissementen), voor Duitsland
-deelstaten, voor Frankrijk gebiedsdelen en regio's (en bij de arrondissementen ook
-departementen), voor Nederland (gemeenten) provincies. Regio's buiten het gekozen gebied
-blijven zichtbaar als achtergrond, maar doen niet mee. Let op: van gebied veranderen start
-een nieuwe ronde. Bij een spel zonder niveaus — Nederland (provincies), Duitsland
-(deelstaten) — verdwijnt de keuze.
+**Gebied** — het hele land, of één gebied uit de niveaus die het spel kent. Wat dat is,
+hangt van het spel af: gewesten en provincies in België, deelstaten in Duitsland en
+Oostenrijk, gebiedsdelen en regio's in Frankrijk, Italië en Spanje, landen en regio's in
+het Verenigd Koninkrijk, provincies in Nederland en Ierland, kantons in Luxemburg. Regio's
+buiten het gekozen gebied blijven zichtbaar als achtergrond, maar doen niet mee. Let op:
+van gebied veranderen start een nieuwe ronde. Bij een spel zonder niveaus — de meeste
+kleine spellen, van Denemarken tot Zwitserland — verdwijnt de keuze.
 
 De drie Franse spellen beginnen niet in heel het land maar in *Europees Frankrijk*. De
 overzeese departementen en regio's liggen in de Cariben, Zuid-Amerika en de Indische Oceaan:
@@ -91,20 +109,27 @@ doen wel gewoon mee zodra je *Heel Frankrijk* of het overzeese gebiedsdeel kiest
 Mayotte is niet in arrondissementen verdeeld, dus het arrondissementenspel telt 100
 departementen en 17 regio's in plaats van 101 en 18.
 
+Spanje en Portugal doen hetzelfde: die beginnen op het vasteland, want de Canarische
+Eilanden en de Azoren liggen ver de oceaan in. Ceuta en Melilla liggen wel in Noord-Afrika,
+maar vlak over de Straat van Gibraltar, en spelen dus mee met het vasteland.
+
 **Aantal vragen** — standaard *alle*, of een korte ronde van 10, 25 of 50 willekeurige
 regio's. Handig bij grote spellen: 565 gemeenten is een lange zit, en 2664 deelgemeenten
 een avond. Keuzes die niet in het gekozen gebied passen worden niet getoond.
 
 **Taal** — enkel bij spellen met meertalige namen. Voor België: Nederlands (standaard),
 Frans of Duits, wat bepaalt welke naam gevraagd en getoond wordt (*Luik*, *Liège* of
-*Lüttich* — bij de arrondissementen net zo goed als bij de gemeenten). De zestien Duitse
-deelstaten hebben een Nederlandse en een Duitse naam (*Beieren* of *Bayern*). Bij de Duitse
-Kreise, Nederland en Frankrijk verdwijnt de keuze: die spellen hebben één naam per regio —
-Nederlandse gemeentenamen, Duitse Kreisnamen (*Landkreis München*) en voor Frankrijk de
-Franse namen (*Ardennes*, *Côte-d'Or*, *Bouches-du-Rhône*), want Nederlandse exoniemen
-bestaan daar nauwelijks voor. De namen van de gebieden staan altijd in het Nederlands — ook
-de deelstaten in het gebiedsmenu van de Kreise — behalve de Franse regio's en departementen,
-die hun eigen naam houden.
+*Lüttich* — bij de arrondissementen net zo goed als bij de gemeenten). Ierland heeft Engels
+en Iers (*Donegal* of *Dún na nGall*). Bij de Duitse en Oostenrijkse deelstaten, de
+Italiaanse regio's en de Spaanse autonome gemeenschappen staat er een Nederlandse naam
+naast de eigen: *Beieren* of *Bayern*, *Toscane* of *Toscana*, *Andalusië* of *Andalucía*.
+
+Bij de andere spellen verdwijnt de keuze: die hebben één naam per regio. Daar geldt de
+regel dat een regio haar eigen naam houdt zodra er geen gewone Nederlandse voor bestaat —
+*Ardennes*, *Landkreis München*, *Stockholms län*, *Jihočeský kraj*, *Małopolskie*. Een
+half vertaalde lijst helpt niemand. De namen van de *gebieden* waarin je speelt staan wel
+altijd in het Nederlands, ook als de regio's zelf anders heten; alleen de Franse regio's en
+departementen houden ook daar hun eigen naam.
 
 **Records** — na elke volledige ronde onthoudt het spel je beste resultaat, per spel én per
 gebied. Boven de knoppen staat het record van het gebied waarin je speelt (*Record voor
@@ -194,8 +219,10 @@ node tools/build-data.mjs be-gemeenten --simplify 30%   # scherpere grenzen, ~2,
 Het script downloadt de brondata (1 à 31 MB, naar de tijdelijke map van je systeem, niet
 naar dit project) en vereenvoudigt ze met `npx mapshaper`. Die download wordt gecachet en
 tussen spellen gedeeld: `be-gemeenten`, `be-provincies` en `be-arrondissementen` halen
-hetzelfde bestand op, net als `fr-departementen`/`fr-regios` en
-`nl-gemeenten`/`nl-provincies`. Met `--fresh` haal je het opnieuw op. De vereenvoudiging is
+hetzelfde bestand op, net als `fr-departementen`/`fr-regios`, `nl-gemeenten`/`nl-provincies`,
+`es-provincies`/`es-gemeenschappen`, `it-provincies`/`it-regios` en
+`lu-gemeenten`/`lu-kantons`. De zes spellen die uit de NUTS-indeling van Eurostat komen
+delen er twee: één bestand per NUTS-niveau, waar elk spel zijn eigen land uit haalt. Met `--fresh` haal je het opnieuw op. De vereenvoudiging is
 topologie-behoudend: aangrenzende regio's blijven exact op elkaar aansluiten, er ontstaan
 geen gaten of overlappingen. Node.js en een internetverbinding zijn vereist.
 
@@ -330,10 +357,42 @@ geen provincie, en verdwijnt dus gewoon uit het provinciemenu.
   veralgemeend (1,1 MB voor 101 vormen), vandaar `simplify: '90%'` in plaats van de 15% van
   de andere spellen; het arrondissementenbestand is dat niet (7,8 MB voor 333 vormen) en
   gaat naar 30%.
+- **Ierse grenzen**: Tailte Éireann (de landmeetdienst), via de ArcGIS-dienst van hun
+  [open-dataportaal](https://data-osi.opendata.arcgis.com/) — de veralgemeende versie
+  (20 m) van de wettelijke graafschapsgrenzen, CC BY 4.0. De Engelse namen staan er in
+  hoofdletters in; het spel zet ze terug naar gewone spelling.
+- **Italiaanse grenzen**: ISTAT, via de Opendatasoft-dataset [`georef-italy-provincia`](https://public.opendatasoft.com/explore/dataset/georef-italy-provincia/)
+  (provincies, en daaruit gesmolten de regio's) — jaargang 2022, CC BY 4.0.
+- **Luxemburgse grenzen**: het kadaster (ACT), via
+  [data.public.lu](https://data.public.lu/en/datasets/limites-administratives-du-grand-duche-de-luxembourg/) —
+  de gemeentegrenzen van 2023 in CC0, met het kanton als veld, waaruit het kantonspel
+  gesmolten wordt.
 - **Nederlandse grenzen**: Bestuurlijke gebieden (Kadaster), via de
   [PDOK-webservice](https://www.pdok.nl/introductie/-/article/bestuurlijke-gebieden) —
   de actuele toestand, CC BY 4.0. De provincies zijn samengesteld uit die gemeentegrenzen,
   dus beide Nederlandse spellen delen exact dezelfde lijnen.
+- **Oostenrijkse districten**: STATISTIK AUSTRIA,
+  [Gliederung Österreichs in politische Bezirke](https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_POLBEZ_1) —
+  CC BY 4.0, opgehaald via hun WFS-dienst in GeoJSON. Die bron levert Wenen zowel in zijn
+  geheel als in 23 stadsdelen; het spel houdt het geheel.
+- **Portugese grenzen**: DGT, via de Opendatasoft-dataset [`georef-portugal-distrito`](https://public.opendatasoft.com/explore/dataset/georef-portugal-distrito/) —
+  jaargang 2024.
+- **Spaanse grenzen**: INE, via de Opendatasoft-dataset [`georef-spain-provincia`](https://public.opendatasoft.com/explore/dataset/georef-spain-provincia/)
+  (provincies, en daaruit gesmolten de autonome gemeenschappen) — jaargang 2022.
+- **Britse grenzen**: Office for National Statistics, via de Opendatasoft-dataset
+  [`georef-united-kingdom-county-unitary-authority`](https://public.opendatasoft.com/explore/dataset/georef-united-kingdom-county-unitary-authority/) — jaargang 2024, Open Government
+  Licence 3.0.
+- **Zweedse grenzen**: SCB, via de Opendatasoft-dataset [`georef-sweden-lan`](https://public.opendatasoft.com/explore/dataset/georef-sweden-lan/) —
+  jaargang 2022. Dat bestand is al sterk veralgemeend (0,3 MB voor 21 län), vandaar
+  `simplify: '90%'`; fijner dan de bron kan niet.
+- **Zwitserse grenzen**: swisstopo, via de Opendatasoft-dataset [`georef-switzerland-kanton`](https://public.opendatasoft.com/explore/dataset/georef-switzerland-kanton/) —
+  jaargang 2025.
+- **Denemarken, Finland, Noorwegen, Oostenrijk (deelstaten), Polen en Tsjechië**: de
+  [NUTS-indeling van Eurostat](https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics)
+  (versie 2024, schaal 1:1 miljoen) — vrij te gebruiken met bronvermelding, grenzen
+  © EuroGeographics. Voor die zes landen valt een NUTS-niveau samen met de bestuurlijke
+  indeling, en zo komen zes spellen uit twee downloads. Waar dat niet opgaat, is een
+  nationale bron nodig: de Oostenrijkse Bezirke en de Ierse graafschappen staan hierboven.
 - **Achtergrondkaart met namen**: © OpenStreetMap-bijdragers, tegels van openstreetmap.org
   ([gebruiksvoorwaarden](https://operations.osmfoundation.org/policies/tiles/) — geschikt
   voor persoonlijk gebruik, niet voor een druk bezochte publieke site).
