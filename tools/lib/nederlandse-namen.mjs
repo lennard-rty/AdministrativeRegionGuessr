@@ -128,3 +128,213 @@ export const OOSTENRIJK_GKZ_NL = {
   '8': 'Vorarlberg',
   '9': 'Wenen',
 };
+
+/**
+ * De staten van de VS, Washington D.C. en de vijf bewoonde territoria, op FIPS-code. De
+ * meeste houden hun Engelse naam; enkel waar het Nederlands een eigen vorm heeft wijkt
+ * die af (Californië, Noord-Carolina, Amerikaans-Samoa).
+ */
+export const VS_NL = {
+  '01': 'Alabama',
+  '02': 'Alaska',
+  '04': 'Arizona',
+  '05': 'Arkansas',
+  '06': 'Californië',
+  '08': 'Colorado',
+  '09': 'Connecticut',
+  '10': 'Delaware',
+  '11': 'Washington D.C.',
+  '12': 'Florida',
+  '13': 'Georgia',
+  '15': 'Hawaï',
+  '16': 'Idaho',
+  '17': 'Illinois',
+  '18': 'Indiana',
+  '19': 'Iowa',
+  '20': 'Kansas',
+  '21': 'Kentucky',
+  '22': 'Louisiana',
+  '23': 'Maine',
+  '24': 'Maryland',
+  '25': 'Massachusetts',
+  '26': 'Michigan',
+  '27': 'Minnesota',
+  '28': 'Mississippi',
+  '29': 'Missouri',
+  '30': 'Montana',
+  '31': 'Nebraska',
+  '32': 'Nevada',
+  '33': 'New Hampshire',
+  '34': 'New Jersey',
+  '35': 'New Mexico',
+  '36': 'New York',
+  '37': 'Noord-Carolina',
+  '38': 'Noord-Dakota',
+  '39': 'Ohio',
+  '40': 'Oklahoma',
+  '41': 'Oregon',
+  '42': 'Pennsylvania',
+  '44': 'Rhode Island',
+  '45': 'Zuid-Carolina',
+  '46': 'Zuid-Dakota',
+  '47': 'Tennessee',
+  '48': 'Texas',
+  '49': 'Utah',
+  '50': 'Vermont',
+  '51': 'Virginia',
+  '53': 'Washington',
+  '54': 'West Virginia',
+  '55': 'Wisconsin',
+  '56': 'Wyoming',
+  '60': 'Amerikaans-Samoa',
+  '66': 'Guam',
+  '69': 'Noordelijke Marianen',
+  '72': 'Puerto Rico',
+  '78': 'Amerikaanse Maagdeneilanden',
+};
+
+/**
+ * De vier regio's waarin het Census Bureau de staten en Washington D.C. groepeert, op
+ * FIPS-code. De territoria horen bij geen enkele.
+ */
+export const VS_REGIO_NL = Object.fromEntries(
+  Object.entries({
+    Noordoosten: ['09', '23', '25', '33', '34', '36', '42', '44', '50'],
+    Middenwesten: ['17', '18', '19', '20', '26', '27', '29', '31', '38', '39', '46', '55'],
+    Zuiden: [
+      '01', '05', '10', '11', '12', '13', '21', '22', '24', '28', '37', '40', '45', '47',
+      '48', '51', '54',
+    ],
+    Westen: ['02', '04', '06', '08', '15', '16', '30', '32', '35', '41', '49', '53', '56'],
+  }).flatMap(([regio, codes]) => codes.map((code) => [code, regio]))
+);
+
+/** Canadese provincies en territoria, op de code van Statistics Canada. */
+export const CANADA_NL = {
+  '10': 'Newfoundland en Labrador',
+  '11': 'Prins Edwardeiland',
+  '12': 'Nova Scotia',
+  '13': 'New Brunswick',
+  '24': 'Quebec',
+  '35': 'Ontario',
+  '46': 'Manitoba',
+  '47': 'Saskatchewan',
+  '48': 'Alberta',
+  '59': 'Brits-Columbia',
+  '60': 'Yukon',
+  '61': 'Northwest Territories',
+  '62': 'Nunavut',
+};
+
+/**
+ * Mexicaanse staten waarvan de Nederlandse naam afwijkt, op INEGI-code. De andere dertig
+ * houden hun Spaanse naam.
+ */
+export const MEXICO_NL = {
+  '09': 'Mexico-Stad',
+  '15': 'Mexico (staat)',
+};
+
+/**
+ * De 83 federale subjecten van Rusland binnen de internationaal erkende grenzen, op
+ * ISO 3166-2-code. Russische namen hebben in ons alfabet geen eigen vorm, dus volgen ze
+ * de Nederlandse transliteratie zoals de Nederlandstalige Wikipedia die schrijft:
+ * Oblast Koersk, Kraj Chabarovsk, Tsjoevasjië.
+ */
+export const RUSLAND_NL = {
+  'RU-AD': 'Adygea',
+  'RU-AL': 'Republiek Altaj',
+  'RU-ALT': 'Kraj Altaj',
+  'RU-AMU': 'Oblast Amoer',
+  'RU-ARK': 'Oblast Archangelsk',
+  'RU-AST': 'Oblast Astrachan',
+  'RU-BA': 'Basjkirostan',
+  'RU-BEL': 'Oblast Belgorod',
+  'RU-BRY': 'Oblast Brjansk',
+  'RU-BU': 'Boerjatië',
+  'RU-CE': 'Tsjetsjenië',
+  'RU-CHE': 'Oblast Tsjeljabinsk',
+  'RU-CHU': 'Tsjoekotka',
+  'RU-CU': 'Tsjoevasjië',
+  'RU-DA': 'Dagestan',
+  'RU-IN': 'Ingoesjetië',
+  'RU-IRK': 'Oblast Irkoetsk',
+  'RU-IVA': 'Oblast Ivanovo',
+  'RU-KAM': 'Kraj Kamtsjatka',
+  'RU-KB': 'Kabardië-Balkarië',
+  'RU-KC': 'Karatsjaj-Tsjerkessië',
+  'RU-KDA': 'Kraj Krasnodar',
+  'RU-KEM': 'Oblast Kemerovo',
+  'RU-KGD': 'Oblast Kaliningrad',
+  'RU-KGN': 'Oblast Koergan',
+  'RU-KHA': 'Kraj Chabarovsk',
+  'RU-KHM': 'Chanto-Mansië',
+  'RU-KIR': 'Oblast Kirov',
+  'RU-KK': 'Chakassië',
+  'RU-KL': 'Kalmukkië',
+  'RU-KLU': 'Oblast Kaloega',
+  'RU-KO': 'Komi',
+  'RU-KOS': 'Oblast Kostroma',
+  'RU-KR': 'Karelië',
+  'RU-KRS': 'Oblast Koersk',
+  'RU-KYA': 'Kraj Krasnojarsk',
+  'RU-LEN': 'Oblast Leningrad',
+  'RU-LIP': 'Oblast Lipetsk',
+  'RU-MAG': 'Oblast Magadan',
+  'RU-ME': 'Mari El',
+  'RU-MO': 'Mordovië',
+  'RU-MOS': 'Oblast Moskou',
+  'RU-MOW': 'Moskou',
+  'RU-MUR': 'Oblast Moermansk',
+  'RU-NEN': 'Nenetsië',
+  'RU-NGR': 'Oblast Novgorod',
+  'RU-NIZ': 'Oblast Nizjni Novgorod',
+  'RU-NVS': 'Oblast Novosibirsk',
+  'RU-OMS': 'Oblast Omsk',
+  'RU-ORE': 'Oblast Orenburg',
+  'RU-ORL': 'Oblast Orjol',
+  'RU-PER': 'Kraj Perm',
+  'RU-PNZ': 'Oblast Penza',
+  'RU-PRI': 'Kraj Primorje',
+  'RU-PSK': 'Oblast Pskov',
+  'RU-ROS': 'Oblast Rostov',
+  'RU-RYA': 'Oblast Rjazan',
+  'RU-SA': 'Jakoetië',
+  'RU-SAK': 'Oblast Sachalin',
+  'RU-SAM': 'Oblast Samara',
+  'RU-SAR': 'Oblast Saratov',
+  'RU-SE': 'Noord-Ossetië-Alanië',
+  'RU-SMO': 'Oblast Smolensk',
+  'RU-SPE': 'Sint-Petersburg',
+  'RU-STA': 'Kraj Stavropol',
+  'RU-SVE': 'Oblast Sverdlovsk',
+  'RU-TA': 'Tatarstan',
+  'RU-TAM': 'Oblast Tambov',
+  'RU-TOM': 'Oblast Tomsk',
+  'RU-TUL': 'Oblast Toela',
+  'RU-TVE': 'Oblast Tver',
+  'RU-TY': 'Toeva',
+  'RU-TYU': 'Oblast Tjoemen',
+  'RU-UD': 'Oedmoertië',
+  'RU-ULY': 'Oblast Oeljanovsk',
+  'RU-VGG': 'Oblast Wolgograd',
+  'RU-VLA': 'Oblast Vladimir',
+  'RU-VLG': 'Oblast Vologda',
+  'RU-VOR': 'Oblast Voronezj',
+  'RU-YAN': 'Jamalië',
+  'RU-YAR': 'Oblast Jaroslavl',
+  'RU-YEV': 'Joodse Autonome Oblast',
+  'RU-ZAB': 'Kraj Transbaikal',
+};
+
+/** De acht federale districten van Rusland, van west naar oost. */
+export const RUSLAND_DISTRICT_NL = {
+  central: 'Centraal Federaal District',
+  northwest: 'Noordwestelijk Federaal District',
+  south: 'Zuidelijk Federaal District',
+  caucasus: 'Noord-Kaukasisch Federaal District',
+  volga: 'Federaal District Wolga',
+  urals: 'Federaal District Oeral',
+  siberia: 'Siberisch Federaal District',
+  fareast: 'Federaal District Verre Oosten',
+};

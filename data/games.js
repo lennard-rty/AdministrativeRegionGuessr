@@ -42,6 +42,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/be-arrondissementen.js",
     "count": 43,
     "year": "2025",
@@ -98,6 +99,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/be-deelgemeenten.js",
     "count": 2664,
     "year": "2025",
@@ -149,6 +151,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/be-gemeenten.js",
     "count": 565,
     "year": "2025",
@@ -195,6 +198,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/be-provincies.js",
     "count": 11,
     "year": "2025",
@@ -204,6 +208,43 @@ window.ARG_GAMES = [
       "name": "Statbel (FOD Economie) via Opendatasoft \"georef-belgium-municipality\"",
       "url": "https://public.opendatasoft.com/explore/dataset/georef-belgium-municipality/",
       "license": "Open data Statbel — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "ca-provincies",
+    "country": "Canada",
+    "regionType": "provincies",
+    "region": {
+      "one": "provincie",
+      "many": "provincies"
+    },
+    "idLabel": "Provinciecode",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "en",
+        "label": "Engels"
+      },
+      {
+        "code": "fr",
+        "label": "Frans"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "wholeArea": null,
+    "file": "data/ca-provincies.js",
+    "count": 13,
+    "year": "2021",
+    "generated": "2026-09-30",
+    "source": {
+      "credit": "Statistics Canada / Opendatasoft",
+      "name": "Opendatasoft \"georef-canada-province\" (Statistics Canada)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-canada-province/",
+      "license": "Statistics Canada Open Licence"
     }
   },
   {
@@ -223,6 +264,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/dk-regios.js",
     "count": 5,
     "year": "2024",
@@ -255,6 +297,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/de-deelstaten.js",
     "count": 16,
     "year": "2025",
@@ -289,6 +332,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/de-kreise.js",
     "count": 400,
     "year": "2025",
@@ -317,6 +361,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/fi-landschappen.js",
     "count": 19,
     "year": "2024",
@@ -364,6 +409,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": "Europees Frankrijk",
+    "wholeArea": null,
     "file": "data/fr-arrondissementen.js",
     "count": 333,
     "year": "2025",
@@ -406,6 +452,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": "Europees Frankrijk",
+    "wholeArea": null,
     "file": "data/fr-departementen.js",
     "count": 101,
     "year": "2025",
@@ -443,6 +490,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": "Europees Frankrijk",
+    "wholeArea": null,
     "file": "data/fr-regios.js",
     "count": 18,
     "year": "2025",
@@ -486,6 +534,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/ie-graafschappen.js",
     "count": 26,
     "year": "2019",
@@ -531,6 +580,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/it-provincies.js",
     "count": 107,
     "year": "2022",
@@ -575,6 +625,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/it-regios.js",
     "count": 20,
     "year": "2022",
@@ -609,6 +660,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/lu-gemeenten.js",
     "count": 100,
     "year": "2023",
@@ -637,6 +689,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/lu-kantons.js",
     "count": 12,
     "year": "2023",
@@ -646,6 +699,39 @@ window.ARG_GAMES = [
       "name": "Limites administratives du Grand-Duché de Luxembourg (Administration du cadastre et de la topographie)",
       "url": "https://data.public.lu/en/datasets/limites-administratives-du-grand-duche-de-luxembourg/",
       "license": "CC0 — vrij te gebruiken"
+    }
+  },
+  {
+    "id": "mx-staten",
+    "country": "Mexico",
+    "regionType": "staten",
+    "region": {
+      "one": "staat",
+      "many": "staten"
+    },
+    "idLabel": "Staatcode",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "es",
+        "label": "Spaans"
+      }
+    ],
+    "levels": [],
+    "defaultArea": null,
+    "wholeArea": null,
+    "file": "data/mx-staten.js",
+    "count": 32,
+    "year": "2022",
+    "generated": "2026-09-30",
+    "source": {
+      "credit": "INEGI / Opendatasoft",
+      "name": "Opendatasoft \"georef-mexico-state\" (INEGI)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-mexico-state/",
+      "license": "Términos de Libre Uso de la Información del INEGI — bronvermelding vereist"
     }
   },
   {
@@ -671,6 +757,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/nl-gemeenten.js",
     "count": 342,
     "year": null,
@@ -699,6 +786,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/nl-provincies.js",
     "count": 12,
     "year": null,
@@ -727,6 +815,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/no-fylker.js",
     "count": 15,
     "year": "2024",
@@ -761,6 +850,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/at-bezirke.js",
     "count": 94,
     "year": "2026",
@@ -793,6 +883,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/at-deelstaten.js",
     "count": 9,
     "year": "2024",
@@ -821,6 +912,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/pl-woiwodschappen.js",
     "count": 16,
     "year": "2024",
@@ -858,6 +950,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": "Vasteland",
+    "wholeArea": null,
     "file": "data/pt-districten.js",
     "count": 20,
     "year": "2024",
@@ -867,6 +960,54 @@ window.ARG_GAMES = [
       "name": "Opendatasoft \"georef-portugal-distrito\" (Direção-Geral do Território)",
       "url": "https://public.opendatasoft.com/explore/dataset/georef-portugal-distrito/",
       "license": "Open data DGT — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "ru-subjecten",
+    "country": "Rusland",
+    "regionType": "federale subjecten",
+    "region": {
+      "one": "federaal subject",
+      "many": "federale subjecten"
+    },
+    "idLabel": "ISO-code",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "ru",
+        "label": "Russisch"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Federaal district",
+        "many": "Federale districten",
+        "order": [
+          "Centraal Federaal District",
+          "Noordwestelijk Federaal District",
+          "Zuidelijk Federaal District",
+          "Noord-Kaukasisch Federaal District",
+          "Federaal District Wolga",
+          "Federaal District Oeral",
+          "Siberisch Federaal District",
+          "Federaal District Verre Oosten"
+        ]
+      }
+    ],
+    "defaultArea": null,
+    "wholeArea": null,
+    "file": "data/ru-subjecten.js",
+    "count": 83,
+    "year": "2017",
+    "generated": "2026-09-30",
+    "source": {
+      "credit": "geoBoundaries / © OpenStreetMap-bijdragers",
+      "name": "geoBoundaries gbOpen RUS ADM1 (grenzen uit OpenStreetMap)",
+      "url": "https://www.geoboundaries.org/",
+      "license": "Open Database License 1.0 — © OpenStreetMap-bijdragers"
     }
   },
   {
@@ -899,6 +1040,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": "Vasteland en Balearen",
+    "wholeArea": null,
     "file": "data/es-gemeenschappen.js",
     "count": 19,
     "year": "2022",
@@ -941,6 +1083,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": "Vasteland en Balearen",
+    "wholeArea": null,
     "file": "data/es-provincies.js",
     "count": 52,
     "year": "2022",
@@ -969,6 +1112,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/cz-kraje.js",
     "count": 14,
     "year": "2024",
@@ -1013,6 +1157,7 @@ window.ARG_GAMES = [
       }
     ],
     "defaultArea": null,
+    "wholeArea": "Heel het Verenigd Koninkrijk",
     "file": "data/uk-counties.js",
     "count": 218,
     "year": "2024",
@@ -1022,6 +1167,58 @@ window.ARG_GAMES = [
       "name": "Opendatasoft \"georef-united-kingdom-county-unitary-authority\" (Office for National Statistics)",
       "url": "https://public.opendatasoft.com/explore/dataset/georef-united-kingdom-county-unitary-authority/",
       "license": "Open Government Licence 3.0 — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "us-staten",
+    "country": "Verenigde Staten",
+    "regionType": "staten",
+    "region": {
+      "one": "staat",
+      "many": "staten"
+    },
+    "idLabel": "FIPS-code",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "en",
+        "label": "Engels"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Gebiedsdeel",
+        "many": "Gebiedsdelen",
+        "order": [
+          "Staten en D.C.",
+          "Territoria"
+        ]
+      },
+      {
+        "one": "Regio",
+        "many": "Regio's",
+        "order": [
+          "Noordoosten",
+          "Middenwesten",
+          "Zuiden",
+          "Westen"
+        ]
+      }
+    ],
+    "defaultArea": "Staten en D.C.",
+    "wholeArea": "Heel de Verenigde Staten",
+    "file": "data/us-staten.js",
+    "count": 56,
+    "year": "2023",
+    "generated": "2026-09-30",
+    "source": {
+      "credit": "US Census Bureau / Opendatasoft",
+      "name": "Opendatasoft \"georef-united-states-of-america-state\" (US Census Bureau)",
+      "url": "https://public.opendatasoft.com/explore/dataset/georef-united-states-of-america-state/",
+      "license": "Publiek domein (werk van de Amerikaanse federale overheid)"
     }
   },
   {
@@ -1041,6 +1238,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/se-lan.js",
     "count": 21,
     "year": "2022",
@@ -1069,6 +1267,7 @@ window.ARG_GAMES = [
     ],
     "levels": [],
     "defaultArea": null,
+    "wholeArea": null,
     "file": "data/ch-kantons.js",
     "count": 26,
     "year": "2025",

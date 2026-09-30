@@ -13,6 +13,7 @@ Spellen die nu meegeleverd zijn:
 | België (deelgemeenten) | 2664 (de voormalige gemeenten, opgegaan in de huidige 565) | gewest, provincie, arrondissement |
 | België (gemeenten) | 565 | gewest, provincie |
 | België (provincies) | 11 (10 provincies + het Brussels Hoofdstedelijk Gewest) | gewest |
+| Canada (provincies) | 13 (10 provincies + 3 territoria) | geen |
 | Denemarken (regio's) | 5 | geen |
 | Duitsland (deelstaten) | 16 | geen |
 | Duitsland (Kreise) | 400 (294 Kreise en Landkreise + 106 kreisfreie Städte) | deelstaat |
@@ -25,6 +26,7 @@ Spellen die nu meegeleverd zijn:
 | Italië (regio's) | 20 | landsdeel |
 | Luxemburg (gemeenten) | 100 | kanton |
 | Luxemburg (kantons) | 12 | geen |
+| Mexico (staten) | 32 (31 staten + Mexico-Stad) | geen |
 | Nederland (gemeenten) | 342 | provincie |
 | Nederland (provincies) | 12 | geen |
 | Noorwegen (fylker) | 15 | geen |
@@ -32,10 +34,12 @@ Spellen die nu meegeleverd zijn:
 | Oostenrijk (deelstaten) | 9 | geen |
 | Polen (woiwodschappen) | 16 | geen |
 | Portugal (districten) | 20 (18 op het vasteland + Azoren en Madeira) | gebiedsdeel |
+| Rusland (federale subjecten) | 83 (binnen de internationaal erkende grenzen) | federaal district |
 | Spanje (autonome gemeenschappen) | 19 (17 + Ceuta en Melilla) | gebiedsdeel |
 | Spanje (provincies) | 52 (50 + Ceuta en Melilla) | gebiedsdeel, autonome gemeenschap |
 | Tsjechië (kraje) | 14 | geen |
 | Verenigd Koninkrijk (counties) | 218 (counties, unitary authorities, council areas, London boroughs) | land, regio |
+| Verenigde Staten (staten) | 56 (50 staten + Washington D.C. + 5 territoria) | gebiedsdeel, regio |
 | Zweden (län) | 21 | geen |
 | Zwitserland (kantons) | 26 | geen |
 
@@ -99,7 +103,8 @@ en haar code in het zijpaneel.
 **Gebied** — het hele land, of één gebied uit de niveaus die het spel kent. Wat dat is,
 hangt van het spel af: gewesten en provincies in België, deelstaten in Duitsland en
 Oostenrijk, gebiedsdelen en regio's in Frankrijk, Italië en Spanje, landen en regio's in
-het Verenigd Koninkrijk, provincies in Nederland en Ierland, kantons in Luxemburg. Regio's
+het Verenigd Koninkrijk, provincies in Nederland en Ierland, kantons in Luxemburg,
+federale districten in Rusland, gebiedsdelen en regio's in de Verenigde Staten. Regio's
 buiten het gekozen gebied blijven zichtbaar als achtergrond, maar doen niet mee. Let op:
 van gebied veranderen start een nieuwe ronde. Bij een spel zonder niveaus — de meeste
 kleine spellen, van Denemarken tot Zwitserland — verdwijnt de keuze.
@@ -116,6 +121,20 @@ Spanje en Portugal doen hetzelfde: die beginnen op het vasteland, want de Canari
 Eilanden en de Azoren liggen ver de oceaan in. Ceuta en Melilla liggen wel in Noord-Afrika,
 maar vlak over de Straat van Gibraltar, en spelen dus mee met het vasteland.
 
+De Verenigde Staten beginnen bij de 50 staten en Washington D.C. De vijf territoria —
+Puerto Rico, de Amerikaanse Maagdeneilanden, Guam, de Noordelijke Marianen en
+Amerikaans-Samoa — liggen verspreid over de Cariben en de Stille Oceaan, en zijn op een
+kaart van het land speldenprikken. Kies *Territoria* en het spel zoomt in op die vijf.
+D.C. valt, zoals bij het Census Bureau, onder het Zuiden.
+
+Het Russische spel telt de 83 federale subjecten binnen de internationaal erkende grenzen.
+De Krim, Sevastopol en de vier Oekraïense oblasten die Rusland in 2022 annexeerde doen
+niet mee, dus het Zuidelijk Federaal District telt er zes in plaats van acht.
+
+Rusland en de VS lopen allebei over de datumgrens heen: Tsjoekotka voorbij 180° oost, de
+Aleoeten, Guam en de Marianen voorbij 180° west. Het spel tekent ze aaneen, zoals je ze
+op een kaart van het land verwacht, en niet aan de andere kant van de wereld.
+
 **Aantal vragen** — standaard *alle*, of een korte ronde van 10, 25 of 50 willekeurige
 regio's. Handig bij grote spellen: 565 gemeenten is een lange zit, en 2664 deelgemeenten
 een avond. Keuzes die niet in het gekozen gebied passen worden niet getoond.
@@ -126,6 +145,12 @@ Frans of Duits, wat bepaalt welke naam gevraagd en getoond wordt (*Luik*, *Lièg
 en Iers (*Donegal* of *Dún na nGall*). Bij de Duitse en Oostenrijkse deelstaten, de
 Italiaanse regio's en de Spaanse autonome gemeenschappen staat er een Nederlandse naam
 naast de eigen: *Beieren* of *Bayern*, *Toscane* of *Toscana*, *Andalusië* of *Andalucía*.
+Zo ook buiten Europa: de VS in het Nederlands of Engels (*Noord-Carolina* of *North
+Carolina*), Mexico in het Nederlands of Spaans (*Mexico-Stad* of *Ciudad de México*) en
+Canada in het Nederlands, Engels of Frans (*Brits-Columbia*, *British Columbia* of
+*Colombie-Britannique*). Rusland heeft Nederlands of Russisch, en dat laatste in het
+cyrillisch: *Oblast Koersk* of *Курская область*. Wie de Russische namen kiest, speelt dus
+ook een leesoefening.
 
 Bij de andere spellen verdwijnt de keuze: die hebben één naam per regio. Daar geldt de
 regel dat een regio haar eigen naam houdt zodra er geen gewone Nederlandse voor bestaat —
@@ -199,7 +224,7 @@ localStorage.removeItem('arg.records')   // alles wissen
 | `data/games.js` | de catalogus die het startscherm vult (gegenereerd) |
 | `data/<spel-id>.js` | de grenzen van één spel (gegenereerd) |
 | `tools/games/<spel-id>.mjs` | de beschrijving van één spel: namen, niveaus, bron |
-| `tools/lib/` | wat meer dan één spelbestand nodig heeft: de Nederlandse namen van buitenlandse regio's |
+| `tools/lib/` | wat meer dan één spelbestand nodig heeft: de Nederlandse namen van buitenlandse regio's, en het verschuiven over de datumgrens |
 | `tools/build-data.mjs` | bouwt `data/` op uit `tools/games/` |
 | `vendor/` | Leaflet 1.9.4 en MapLibre GL 5.9 (voor de kaart zonder namen), lokaal meegeleverd |
 
@@ -220,7 +245,7 @@ node tools/build-data.mjs --all            # bouwt ze allemaal
 node tools/build-data.mjs be-gemeenten --simplify 30%   # scherpere grenzen, ~2,7 MB
 ```
 
-Het script downloadt de brondata (1 à 31 MB, naar de tijdelijke map van je systeem, niet
+Het script downloadt de brondata (1 à 59 MB, naar de tijdelijke map van je systeem, niet
 naar dit project) en vereenvoudigt ze met `npx mapshaper`. Die download wordt gecachet en
 tussen spellen gedeeld: `be-gemeenten`, `be-provincies` en `be-arrondissementen` halen
 hetzelfde bestand op, net als `fr-departementen`/`fr-regios`, `nl-gemeenten`/`nl-provincies`,
@@ -255,6 +280,7 @@ export default {
   ],
 
   defaultArea: null,                  // naam van het gebied waarin het spel begint (zie onder)
+  wholeArea: null,                    // optioneel; standaard "Heel <country>" in het gebiedsmenu
 
   source: { credit: 'OSi', name: '...', url: 'https://...', license: '...' },
 
@@ -308,6 +334,18 @@ achter hun naam, en de rest niet.
 spel start dan met dat gebied gekozen in plaats van met het hele land — nodig als een land
 ver uit elkaar liggende stukken heeft, zoals Frankrijk met zijn overzeese departementen.
 De andere gebieden, en het hele land, blijven gewoon kiesbaar.
+
+**Een land met een lidwoord**: het hele land heet in het gebiedsmenu en bij de records
+*Heel* plus `country`. Dat gaat goed voor *Heel Frankrijk*, maar niet voor de Verenigde
+Staten. Zet dan `wholeArea` op de volledige naam: `'Heel de Verenigde Staten'`, `'Heel het
+Verenigd Koninkrijk'`.
+
+**Over de datumgrens heen** (Rusland, de VS): de bron knipt vormen op 180° en legt het
+stuk erachter aan de andere kant van de wereld, zodat het hele land in beeld brengen een
+wereldkaart oplevert. `prepare()` mag daarom een eigen `geometry` teruggeven, en
+`tools/lib/datumgrens.mjs` schuift de punten aan de verkeerde kant 360° op:
+`geometry: shiftLongitudes(feature.geometry, eastward)`. Zet er `dissolve: true` bij, dan
+naait mapshaper de twee helften van een vorm weer aan elkaar, zonder naad op 180°.
 
 **Een spel afleiden uit een ander** (zoals `be-provincies` en `nl-provincies` uit de
 gemeentegrenzen): zet `dissolve: true` in `build` en laat `prepare()` voor elke bronregio
@@ -371,6 +409,9 @@ geen provincie, en verdwijnt dus gewoon uit het provinciemenu.
   [data.public.lu](https://data.public.lu/en/datasets/limites-administratives-du-grand-duche-de-luxembourg/) —
   de gemeentegrenzen van 2023 in CC0, met het kanton als veld, waaruit het kantonspel
   gesmolten wordt.
+- **Mexicaanse grenzen**: INEGI, via de Opendatasoft-dataset [`georef-mexico-state`](https://public.opendatasoft.com/explore/dataset/georef-mexico-state/) —
+  jaargang 2022. De bron geeft de officiële namen (*Veracruz de Ignacio de la Llave*); het
+  spel houdt het bij de gewone (*Veracruz*).
 - **Nederlandse grenzen**: Bestuurlijke gebieden (Kadaster), via de
   [PDOK-webservice](https://www.pdok.nl/introductie/-/article/bestuurlijke-gebieden) —
   de actuele toestand, CC BY 4.0. De provincies zijn samengesteld uit die gemeentegrenzen,
@@ -381,11 +422,26 @@ geen provincie, en verdwijnt dus gewoon uit het provinciemenu.
   geheel als in 23 stadsdelen; het spel houdt het geheel.
 - **Portugese grenzen**: DGT, via de Opendatasoft-dataset [`georef-portugal-distrito`](https://public.opendatasoft.com/explore/dataset/georef-portugal-distrito/) —
   jaargang 2024.
+- **Russische grenzen**: [geoBoundaries](https://www.geoboundaries.org/) (gbOpen, RUS ADM1),
+  dat ze uit OpenStreetMap haalt — Open Database License, © OpenStreetMap-bijdragers.
+  geoBoundaries volgt de internationaal erkende grenzen: de Krim en Sevastopol zitten in
+  hun Oekraïense bestand, niet in het Russische. De bron is erg gedetailleerd (59 MB, vol
+  Arctische eilandjes), vandaar `simplify: '1.5%'`. Ze kent enkel Engelse namen; de
+  Nederlandse staan in `tools/lib/nederlandse-namen.mjs`, de Russische en de federale
+  districten in het spelbestand zelf.
 - **Spaanse grenzen**: INE, via de Opendatasoft-dataset [`georef-spain-provincia`](https://public.opendatasoft.com/explore/dataset/georef-spain-provincia/)
   (provincies, en daaruit gesmolten de autonome gemeenschappen) — jaargang 2022.
 - **Britse grenzen**: Office for National Statistics, via de Opendatasoft-dataset
   [`georef-united-kingdom-county-unitary-authority`](https://public.opendatasoft.com/explore/dataset/georef-united-kingdom-county-unitary-authority/) — jaargang 2024, Open Government
   Licence 3.0.
+- **Amerikaanse grenzen**: US Census Bureau, via de Opendatasoft-dataset
+  [`georef-united-states-of-america-state`](https://public.opendatasoft.com/explore/dataset/georef-united-states-of-america-state/) —
+  jaargang 2023, publiek domein. Al veralgemeend (1,1 MB voor 56 vormen), dus
+  `simplify: '100%'`. De regio's zijn die van het Census Bureau.
+- **Canadese grenzen**: Statistics Canada, via de Opendatasoft-dataset
+  [`georef-canada-province`](https://public.opendatasoft.com/explore/dataset/georef-canada-province/) —
+  jaargang 2021, met Engelse en Franse namen. Ook al veralgemeend (0,6 MB), dus eveneens
+  `simplify: '100%'`.
 - **Zweedse grenzen**: SCB, via de Opendatasoft-dataset [`georef-sweden-lan`](https://public.opendatasoft.com/explore/dataset/georef-sweden-lan/) —
   jaargang 2022. Dat bestand is al sterk veralgemeend (0,3 MB voor 21 län), vandaar
   `simplify: '90%'`; fijner dan de bron kan niet.

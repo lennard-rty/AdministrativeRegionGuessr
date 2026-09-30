@@ -372,7 +372,7 @@
       }
       el.areaField.hidden = false;
 
-      var html = '<option value="ALL">Heel ' + esc(entry.country) +
+      var html = '<option value="ALL">' + esc(wholeArea()) +
         ' (' + GEO.features.length + ')</option>';
 
       levels.forEach(function (level, i) {
@@ -450,8 +450,14 @@
 
     // ---------- records ----------
 
+    // "Heel Frankrijk", maar "Heel de Verenigde Staten": een land met een lidwoord zet het
+    // zelf in zijn catalogus.
+    function wholeArea() {
+      return entry.wholeArea || 'Heel ' + entry.country;
+    }
+
     function areaName(value) {
-      if (value === 'ALL') return 'Heel ' + entry.country;
+      if (value === 'ALL') return wholeArea();
       var separator = value.indexOf(':');
       return separator === -1 ? value : value.slice(separator + 1);
     }

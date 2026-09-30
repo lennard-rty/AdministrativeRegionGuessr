@@ -134,12 +134,15 @@ function mapshaper(inPath, outPath, config, simplify, fields) {
 
 // ---------- omzetten ----------
 
-/** Bronvelden -> de regio's van het spel, elk met zijn vorm erbij. */
+/**
+ * Bronvelden -> de regio's van het spel, elk met zijn vorm erbij. prepare() mag een eigen
+ * `geometry` teruggeven in plaats van die van de bron — zie shiftLongitudes().
+ */
 function prepareAll(raw, config) {
   const regions = [];
   raw.features.forEach((feature) => {
     const mapped = config.build.prepare(feature.properties, feature);
-    if (mapped) regions.push({ ...mapped, geometry: feature.geometry });
+    if (mapped) regions.push({ ...mapped, geometry: mapped.geometry || feature.geometry });
   });
   return regions;
 }
@@ -303,6 +306,7 @@ function writeCatalog(configs, fresh) {
       languages: config.languages,
       levels: (config.levels || []).map((l) => ({ one: l.one, many: l.many, order: l.order || null })),
       defaultArea: config.defaultArea || null,
+      wholeArea: config.wholeArea || null,
       file: `data/${config.id}.js`,
       count: meta.count || null,
       year: meta.year || null,

@@ -18,6 +18,7 @@ const first = (v) => (Array.isArray(v) ? v[0] : v) ?? null;
 export default {
   id: 'uk-counties',
   country: 'Verenigd Koninkrijk',
+  wholeArea: 'Heel het Verenigd Koninkrijk',
   regionType: 'counties',
   region: { one: 'county', many: 'counties' },
   idLabel: 'ONS-code',
