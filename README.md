@@ -14,6 +14,7 @@ Spellen die nu meegeleverd zijn:
 | België (gemeenten) | 565 | gewest, provincie |
 | België (provincies) | 11 (10 provincies + het Brussels Hoofdstedelijk Gewest) | gewest |
 | Canada (provincies) | 13 (10 provincies + 3 territoria) | geen |
+| China (provincies) | 33 (22 provincies, 5 autonome regio's, 4 stadsprovincies, Hongkong en Macau) | regio |
 | Denemarken (regio's) | 5 | geen |
 | Duitsland (deelstaten) | 16 | geen |
 | Duitsland (Kreise) | 400 (294 Kreise en Landkreise + 106 kreisfreie Städte) | deelstaat |
@@ -21,6 +22,8 @@ Spellen die nu meegeleverd zijn:
 | Frankrijk (arrondissementen) | 333 (320 Europese + 13 overzeese) | gebiedsdeel, regio, departement |
 | Frankrijk (departementen) | 101 (96 Europese + 5 overzeese) | gebiedsdeel, regio |
 | Frankrijk (regio's) | 18 (13 Europese + 5 overzeese) | gebiedsdeel |
+| India (staten) | 36 (28 staten + 8 unieterritoria) | zone |
+| Indonesië (provincies) | 38 (inclusief de zes Papoea-provincies van 2022) | eilandengroep |
 | Ierland (graafschappen) | 26 (de Republiek; Noord-Ierland zit in het Britse spel) | provincie |
 | Italië (provincies) | 107 (inclusief de veertien città metropolitane) | landsdeel, regio |
 | Italië (regio's) | 20 | landsdeel |
@@ -104,7 +107,8 @@ en haar code in het zijpaneel.
 hangt van het spel af: gewesten en provincies in België, deelstaten in Duitsland en
 Oostenrijk, gebiedsdelen en regio's in Frankrijk, Italië en Spanje, landen en regio's in
 het Verenigd Koninkrijk, provincies in Nederland en Ierland, kantons in Luxemburg,
-federale districten in Rusland, gebiedsdelen en regio's in de Verenigde Staten. Regio's
+federale districten in Rusland, gebiedsdelen en regio's in de Verenigde Staten, regio's in
+China, zones in India, eilandengroepen in Indonesië. Regio's
 buiten het gekozen gebied blijven zichtbaar als achtergrond, maar doen niet mee. Let op:
 van gebied veranderen start een nieuwe ronde. Bij een spel zonder niveaus — de meeste
 kleine spellen, van Denemarken tot Zwitserland — verdwijnt de keuze.
@@ -135,6 +139,23 @@ Rusland en de VS lopen allebei over de datumgrens heen: Tsjoekotka voorbij 180°
 Aleoeten, Guam en de Marianen voorbij 180° west. Het spel tekent ze aaneen, zoals je ze
 op een kaart van het land verwacht, en niet aan de andere kant van de wereld.
 
+**Betwiste gebieden** — India en China tekenen elk hun land zoals ze het zelf zien, en
+dat overlapt. Wat een land claimt maar niet bestuurt, staat op de kaart gearceerd, en
+onder het zijpaneel staat wie het wel bestuurt:
+
+- **India**: Azad Kasjmir en Gilgit-Baltistan (bestuurd door Pakistan), Aksai Chin en de
+  Shaksgamvallei (bestuurd door China).
+- **China**: Arunachal Pradesh en vier kleinere stroken aan de grens — Demchok, Samdu,
+  Tirpani en Bara Hoti (alle vijf bestuurd door India).
+
+Een klik in zo'n gearceerd gebied telt als de regio waaronder het land het zelf rekent:
+Aksai Chin is in het Indiase spel Ladakh, Arunachal Pradesh is in het Chinese spel Tibet.
+In de leermodus staat er bij zo'n klik ook wie het gebied bestuurt.
+
+Taiwan doet niet mee in het Chinese spel. De Volksrepubliek rekent het tot haar
+provincies, maar bestuurt er niets van. Hongkong en Macau doen wel mee. De Paraceleilanden
+horen bij Hainan; de verdere claims in de Zuid-Chinese Zee niet.
+
 **Aantal vragen** — standaard *alle*, of een korte ronde van 10, 25 of 50 willekeurige
 regio's. Handig bij grote spellen: 565 gemeenten is een lange zit, en 2664 deelgemeenten
 een avond. Keuzes die niet in het gekozen gebied passen worden niet getoond.
@@ -149,8 +170,10 @@ Zo ook buiten Europa: de VS in het Nederlands of Engels (*Noord-Carolina* of *No
 Carolina*), Mexico in het Nederlands of Spaans (*Mexico-Stad* of *Ciudad de México*) en
 Canada in het Nederlands, Engels of Frans (*Brits-Columbia*, *British Columbia* of
 *Colombie-Britannique*). Rusland heeft Nederlands of Russisch, en dat laatste in het
-cyrillisch: *Oblast Koersk* of *Курская область*. Wie de Russische namen kiest, speelt dus
-ook een leesoefening.
+cyrillisch: *Oblast Koersk* of *Курская область*. China heeft Nederlands of Chinees, in
+karakters: *Tibet* of *西藏自治区*. Wie die namen kiest, speelt dus ook een leesoefening.
+India heeft Nederlands of Engels (*West-Bengalen* of *West Bengal*), Indonesië Nederlands
+of Indonesisch (*Midden-Java* of *Jawa Tengah*).
 
 Bij de andere spellen verdwijnt de keuze: die hebben één naam per regio. Daar geldt de
 regel dat een regio haar eigen naam houdt zodra er geen gewone Nederlandse voor bestaat —
@@ -224,7 +247,7 @@ localStorage.removeItem('arg.records')   // alles wissen
 | `data/games.js` | de catalogus die het startscherm vult (gegenereerd) |
 | `data/<spel-id>.js` | de grenzen van één spel (gegenereerd) |
 | `tools/games/<spel-id>.mjs` | de beschrijving van één spel: namen, niveaus, bron |
-| `tools/lib/` | wat meer dan één spelbestand nodig heeft: de Nederlandse namen van buitenlandse regio's, en het verschuiven over de datumgrens |
+| `tools/lib/` | wat meer dan één spelbestand nodig heeft: de Nederlandse namen van buitenlandse regio's, het verschuiven over de datumgrens, de betwiste gebieden |
 | `tools/build-data.mjs` | bouwt `data/` op uit `tools/games/` |
 | `vendor/` | Leaflet 1.9.4 en MapLibre GL 5.9 (voor de kaart zonder namen), lokaal meegeleverd |
 
@@ -245,7 +268,7 @@ node tools/build-data.mjs --all            # bouwt ze allemaal
 node tools/build-data.mjs be-gemeenten --simplify 30%   # scherpere grenzen, ~2,7 MB
 ```
 
-Het script downloadt de brondata (1 à 59 MB, naar de tijdelijke map van je systeem, niet
+Het script downloadt de brondata (1 à 159 MB, naar de tijdelijke map van je systeem, niet
 naar dit project) en vereenvoudigt ze met `npx mapshaper`. Die download wordt gecachet en
 tussen spellen gedeeld: `be-gemeenten`, `be-provincies` en `be-arrondissementen` halen
 hetzelfde bestand op, net als `fr-departementen`/`fr-regios`, `nl-gemeenten`/`nl-provincies`,
@@ -347,6 +370,22 @@ wereldkaart oplevert. `prepare()` mag daarom een eigen `geometry` teruggeven, en
 `geometry: shiftLongitudes(feature.geometry, eastward)`. Zet er `dissolve: true` bij, dan
 naait mapshaper de twee helften van een vorm weer aan elkaar, zonder naad op 180°.
 
+**Meer dan één bron**: zet onder `build.extra` bijkomende downloads, elk met `url` en
+`cache` (`extra: { betwist: NE_BETWIST }`). Een spel dat zijn regio's uit meer dan één bron
+samenstelt, zet naast of in plaats van `prepare()` een `regions(ctx)` in `build`: die krijgt
+`ctx.raw` (de hoofdbron) en `ctx.extra` (de rest, op hun sleutel) en geeft de hele lijst
+regio's terug, elk met `id`, `names`, `groups` en `geometry`. Zo voegt `cn-provincies`
+Hongkong en Macau toe en smelt Arunachal Pradesh bij Tibet, en zo bouwt `id-provincies`
+zijn 38 provincies op uit de regentschappen.
+
+**Betwiste gebieden**: `overlay(ctx)` in `build` geeft `[{ name, by, geometry }]` terug —
+gebieden die het land claimt maar niet bestuurt, met wie ze wel bestuurt. De bouwer knipt
+ze op de regio's (zodat ze exact binnen de landsgrens vallen) en schrijft ze als
+`overlay` naast `geo` weg. Het spel tekent ze gearceerd en zet eronder wie ze bestuurt.
+`tools/lib/betwist.mjs` haalt ze uit Natural Earth, op hun naam daar:
+`overlay: ({ extra }) => disputedAreas(extra.betwist, ['Aksai Chin', ...])`. Een gebied
+dat na het knippen niets overhoudt, laat de bouw falen.
+
 **Een spel afleiden uit een ander** (zoals `be-provincies` en `nl-provincies` uit de
 gemeentegrenzen): zet `dissolve: true` in `build` en laat `prepare()` voor elke bronregio
 de *doelregio* teruggeven. Alle gemeenten van dezelfde provincie krijgen dan dezelfde `id`, en mapshaper
@@ -368,6 +407,12 @@ window.ARG_DATA['be-gemeenten'] = {
       c: [4.38504, 51.13315],                        // [lon, lat], waar het label komt
     },
     geometry: { /* Polygon of MultiPolygon in WGS84 */ },
+  }] },
+  // optioneel: betwiste gebieden, gearceerd over de regio's heen
+  overlay: { type: 'FeatureCollection', features: [{
+    type: 'Feature',
+    properties: { name: 'Aksai Chin', by: 'China' },
+    geometry: { /* Polygon of MultiPolygon */ },
   }] },
 };
 ```
@@ -399,6 +444,21 @@ geen provincie, en verdwijnt dus gewoon uit het provinciemenu.
   veralgemeend (1,1 MB voor 101 vormen), vandaar `simplify: '90%'` in plaats van de 15% van
   de andere spellen; het arrondissementenbestand is dat niet (7,8 MB voor 333 vormen) en
   gaat naar 30%.
+- **Chinese grenzen**: [Natural Earth](https://www.naturalearthdata.com/) (Admin 1, schaal
+  1:10 miljoen) — publiek domein. Natural Earth voert Hongkong en Macau als aparte
+  gebieden, Hongkong zelfs in achttien districten; het spel voegt ze weer bij China en smelt
+  Hongkong tot één geheel. De Chinese namen komen uit dezelfde bron.
+- **Indiase grenzen**: [geoBoundaries](https://www.geoboundaries.org/) (gbOpen, IND ADM1),
+  op basis van DataMeet en de Indiase Kiescommissie — CC BY 2.5 India. De bron noemt zich
+  2011, maar kent Ladakh (2019) en het samengevoegde Dadra en Nagar Haveli en Daman en Diu
+  (2020) al.
+- **Indonesische grenzen**: [geoBoundaries](https://www.geoboundaries.org/) (gbOpen, IDN ADM2),
+  de regentschappen van het statistiekbureau BPS (2020) — CC BY 3.0 IGO. Het spel smelt ze
+  samen tot de 38 provincies van 2022; welk regentschap in welke provincie ligt, komt uit
+  de 34 provincies van 2017 (IDN ADM1), en de zes Papoea-provincies uit een lijst in het
+  spelbestand.
+- **Betwiste gebieden** (India, China): de laag *admin 0 disputed areas* van
+  [Natural Earth](https://www.naturalearthdata.com/) — publiek domein.
 - **Ierse grenzen**: Tailte Éireann (de landmeetdienst), via de ArcGIS-dienst van hun
   [open-dataportaal](https://data-osi.opendata.arcgis.com/) — de veralgemeende versie
   (20 m) van de wettelijke graafschapsgrenzen, CC BY 4.0. De Engelse namen staan er in

@@ -93,7 +93,7 @@
      'basemap', 'basemapNote', 'target', 'attempts', 'statLeft', 'statCorrect', 'statWrong',
      'progressBar', 'misclicks', 'skip', 'restart', 'done', 'quizPanel', 'learnPanel',
      'learnHint', 'learnCard', 'learnName', 'learnMeta', 'sourceLine', 'mapCredit', 'backToMenu',
-     'recordNow', 'recordMore', 'recordSummary', 'recordRows'].forEach(function (id) {
+     'recordNow', 'recordMore', 'recordSummary', 'recordRows', 'disputeNote'].forEach(function (id) {
       el[id] = byId(id);
     });
 
@@ -118,7 +118,8 @@
       finished: false,
       fullRound: true,     // besloeg de ronde het hele gebied? enkel dan telt ze mee
       result: null,        // uitkomst van de laatst afgewerkte ronde
-      learnSelected: null
+      learnSelected: null,
+      learnDispute: null   // het betwiste gebied waarin de laatste leerklik viel
     };
 
     function nameOf(props, lang) {
@@ -261,6 +262,97 @@
     var bounds = regions.getBounds();
     map.fitBounds(bounds, { padding: [12, 12] });
     map.setMaxBounds(bounds.pad(0.45));
+
+    // ---------- betwiste gebieden ----------
+
+    // Wat het land claimt maar niet bestuurt (dataset.overlay), gearceerd over de regio's
+    // heen. De arcering vangt geen klikken: die gaan naar de regio eronder, want in het
+    // spel hoort het gebied bij de regio waaronder het land het zelf rekent.
+    var DISPUTED = (dataset.overlay && dataset.overlay.features) || [];
+    var disputes = null;
+
+    if (DISPUTED.length) {
+      var disputePane = map.createPane('disputes');
+      disputePane.style.zIndex = 450;
+      disputePane.style.pointerEvents = 'none';
+      var hatchRenderer = L.svg({ pane: 'disputes', padding: 0.4 });
+      disputes = L.geoJSON({ type: 'FeatureCollection', features: DISPUTED }, {
+        renderer: hatchRenderer,
+        interactive: false,
+        style: function () {
+          return { color: '#7c2d12', weight: 1.2, opacity: 0.8, dashArray: '4 3', fill: true, fillOpacity: 1 };
+        }
+      }).addTo(map);
+      addHatch(hatchRenderer._container);
+      disputes.eachLayer(function (layer) { layer._path.setAttribute('fill', 'url(#arg-hatch)'); });
+    }
+
+    function addHatch(svg) {
+      var ns = 'http://www.w3.org/2000/svg';
+      var defs = document.createElementNS(ns, 'defs');
+      var pattern = document.createElementNS(ns, 'pattern');
+      pattern.setAttribute('id', 'arg-hatch');
+      pattern.setAttribute('patternUnits', 'userSpaceOnUse');
+      pattern.setAttribute('width', '7');
+      pattern.setAttribute('height', '7');
+      pattern.setAttribute('patternTransform', 'rotate(45)');
+      var line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', '0');
+      line.setAttribute('y1', '0');
+      line.setAttribute('x2', '0');
+      line.setAttribute('y2', '7');
+      line.setAttribute('stroke', '#7c2d12');
+      line.setAttribute('stroke-width', '2.2');
+      line.setAttribute('stroke-opacity', '0.45');
+      pattern.appendChild(line);
+      defs.appendChild(pattern);
+      svg.insertBefore(defs, svg.firstChild);
+    }
+
+    // "Gearceerd: door India geclaimd, maar bestuurd door China (Aksai Chin, ...)."
+    function renderDisputeNote() {
+      el.disputeNote.hidden = !DISPUTED.length;
+      if (!DISPUTED.length) return;
+      var byRuler = {};
+      var rulers = [];
+      DISPUTED.forEach(function (feature) {
+        var p = feature.properties;
+        if (!byRuler[p.by]) { byRuler[p.by] = []; rulers.push(p.by); }
+        byRuler[p.by].push(p.name);
+      });
+      var parts = rulers.map(function (ruler) {
+        return esc(ruler) + ' (' + byRuler[ruler].map(esc).join(', ') + ')';
+      });
+      var list = parts.length > 1
+        ? parts.slice(0, -1).join(', ') + ' en ' + parts[parts.length - 1]
+        : parts[0];
+      el.disputeNote.innerHTML = '<i class="hatch"></i>Gearceerd: door ' + esc(entry.country) +
+        ' geclaimd, maar bestuurd door ' + list + '. In het spel horen ze bij de ' + esc(one) +
+        ' waaronder ' + esc(entry.country) + ' ze rekent.';
+    }
+
+    function pointIn(geometry, latlng) {
+      var polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
+      var x = latlng.lng;
+      var y = latlng.lat;
+      return polygons.some(function (polygon) {
+        var inside = false;
+        polygon.forEach(function (ring) {
+          for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+            var xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+            if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside;
+          }
+        });
+        return inside;
+      });
+    }
+
+    function disputeAt(latlng) {
+      for (var i = 0; i < DISPUTED.length; i++) {
+        if (pointIn(DISPUTED[i].geometry, latlng)) return DISPUTED[i].properties;
+      }
+      return null;
+    }
 
     // Het hele land past nu in beeld; verder uitzoomen heeft geen zin.
     var fitZoom = map.getZoom();
@@ -623,8 +715,11 @@
 
     // ---------- leermodus ----------
 
-    function showLearn(props) {
+    // latlng: waar geklikt werd, om te zien of dat in een betwist gebied viel. Zonder latlng
+    // (bij een taalwissel) blijft het betwiste gebied van de vorige klik staan.
+    function showLearn(props, latlng) {
       state.learnSelected = props.id;
+      if (latlng) state.learnDispute = disputeAt(latlng);
       restyleAll();
       pin(centroid(props), nameOf(props));
 
@@ -642,6 +737,9 @@
         if (props.groups[i]) rows.push([level.one, props.groups[i]]);
       });
       if (entry.idLabel) rows.push([entry.idLabel, props.id]);
+      if (state.learnDispute) {
+        rows.push(['Betwist', state.learnDispute.name + ', bestuurd door ' + state.learnDispute.by]);
+      }
 
       el.learnMeta.innerHTML = rows.map(function (row) {
         return '<dt>' + esc(row[0]) + '</dt><dd>' + esc(row[1]) + '</dd>';
@@ -650,6 +748,7 @@
 
     function clearLearn() {
       state.learnSelected = null;
+      state.learnDispute = null;
       unpin();
       el.learnCard.hidden = true;
       restyleAll();
@@ -667,7 +766,7 @@
       var props = layer.feature.properties;
 
       if (state.mode === 'learn') {
-        showLearn(props);
+        showLearn(props, e.latlng);
         return;
       }
       if (state.locked || !inArea(props)) return;
@@ -816,7 +915,8 @@
     el.gameRegionType.textContent = '(' + entry.regionType + ')';
     el.dataInfo.textContent = GEO.features.length + ' ' + many +
       (META.year ? ' · jaargang ' + META.year : META.generated ? ' · bijgewerkt ' + META.generated : '');
-    el.learnHint.textContent = 'Klik op een ' + one + ' op de kaart om de naam te zien.';
+    renderDisputeNote();
+    el.learnHint.textContent ='Klik op een ' + one + ' op de kaart om de naam te zien.';
     el.sourceLine.innerHTML = 'Grenzen: ' + (entry.source && entry.source.url
       ? '<a href="' + esc(entry.source.url) + '" target="_blank" rel="noopener">' +
         esc(entry.source.credit || entry.source.name) + '</a>'
@@ -862,6 +962,7 @@
       map.getContainer().classList.remove('is-blank');
       map.removeLayer(regions);
       map.removeLayer(canvas);
+      if (disputes) map.removeLayer(disputes);
       map.remove();
       running = null;
       window.ARG.state = null;

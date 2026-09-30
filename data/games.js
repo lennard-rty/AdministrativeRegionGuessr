@@ -248,6 +248,52 @@ window.ARG_GAMES = [
     }
   },
   {
+    "id": "cn-provincies",
+    "country": "China",
+    "regionType": "provincies",
+    "region": {
+      "one": "provincie",
+      "many": "provincies"
+    },
+    "idLabel": "ISO-code",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "zh",
+        "label": "Chinees"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Regio",
+        "many": "Regio's",
+        "order": [
+          "Noord-China",
+          "Noordoost-China",
+          "Oost-China",
+          "Centraal-Zuid-China",
+          "Zuidwest-China",
+          "Noordwest-China"
+        ]
+      }
+    ],
+    "defaultArea": null,
+    "wholeArea": null,
+    "file": "data/cn-provincies.js",
+    "count": 33,
+    "year": null,
+    "generated": "2026-09-30",
+    "source": {
+      "credit": "Natural Earth",
+      "name": "Natural Earth, Admin 1 – States, Provinces (1:10 miljoen); Natural Earth (publiek domein) voor de betwiste gebieden",
+      "url": "https://www.naturalearthdata.com/",
+      "license": "Publiek domein"
+    }
+  },
+  {
     "id": "dk-regios",
     "country": "Denemarken",
     "regionType": "regio's",
@@ -544,6 +590,99 @@ window.ARG_GAMES = [
       "name": "Tailte Éireann — Counties, National Statutory Boundaries (generalised 20 m)",
       "url": "https://data-osi.opendata.arcgis.com/",
       "license": "CC BY 4.0 — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "in-staten",
+    "country": "India",
+    "regionType": "staten",
+    "region": {
+      "one": "staat",
+      "many": "staten"
+    },
+    "idLabel": "ISO-code",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "en",
+        "label": "Engels"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Zone",
+        "many": "Zones",
+        "order": [
+          "Noord-India",
+          "Centraal-India",
+          "Oost-India",
+          "West-India",
+          "Zuid-India",
+          "Noordoost-India"
+        ]
+      }
+    ],
+    "defaultArea": null,
+    "wholeArea": null,
+    "file": "data/in-staten.js",
+    "count": 36,
+    "year": "2020",
+    "generated": "2026-09-30",
+    "source": {
+      "credit": "geoBoundaries / DataMeet; Natural Earth",
+      "name": "geoBoundaries gbOpen IND ADM1 (DataMeet, Election Commission of India); Natural Earth (publiek domein) voor de betwiste gebieden",
+      "url": "https://www.geoboundaries.org/",
+      "license": "CC BY 2.5 India — bronvermelding vereist"
+    }
+  },
+  {
+    "id": "id-provincies",
+    "country": "Indonesië",
+    "regionType": "provincies",
+    "region": {
+      "one": "provincie",
+      "many": "provincies"
+    },
+    "idLabel": "Provinciecode",
+    "languages": [
+      {
+        "code": "nl",
+        "label": "Nederlands"
+      },
+      {
+        "code": "id",
+        "label": "Indonesisch"
+      }
+    ],
+    "levels": [
+      {
+        "one": "Eilandengroep",
+        "many": "Eilandengroepen",
+        "order": [
+          "Sumatra",
+          "Java",
+          "Kleine Soenda-eilanden",
+          "Kalimantan",
+          "Sulawesi",
+          "Molukse eilanden",
+          "Westelijk Nieuw-Guinea"
+        ]
+      }
+    ],
+    "defaultArea": null,
+    "wholeArea": null,
+    "file": "data/id-provincies.js",
+    "count": 38,
+    "year": "2022",
+    "generated": "2026-09-30",
+    "source": {
+      "credit": "BPS / geoBoundaries",
+      "name": "geoBoundaries gbOpen IDN ADM2 (BPS, WFP, OCHA ROAP), samengesmolten tot provincies",
+      "url": "https://www.geoboundaries.org/",
+      "license": "CC BY 3.0 IGO — bronvermelding vereist"
     }
   },
   {

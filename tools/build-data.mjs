@@ -91,13 +91,29 @@ async function rawFile(config) {
     process.stdout.write(`  bronbestand: ${override}\n`);
     return override;
   }
-  const cached = join(CACHE_DIR, `${config.build.cache || config.id}.geojson`);
+  return fetchSource(config.build, config.id);
+}
+
+async function fetchSource(source, fallbackName) {
+  const cached = join(CACHE_DIR, `${source.cache || fallbackName}.geojson`);
   if (existsSync(cached) && !flag('--fresh')) {
     process.stdout.write(`  gecachete brondata hergebruikt: ${cached}\n`);
     return cached;
   }
-  await download(config.build.url, cached);
+  await download(source.url, cached);
   return cached;
+}
+
+/**
+ * build.extra: bijkomende bronnen naast de hoofdbron, elk met { url, cache }. Ze komen in
+ * build.regions() en build.overlay() binnen als ctx.extra[sleutel].
+ */
+async function extraFiles(config) {
+  const paths = {};
+  for (const [key, source] of Object.entries(config.build.extra || {})) {
+    paths[key] = await fetchSource(source, `${config.id}-${key}`);
+  }
+  return paths;
 }
 
 // ---------- mapshaper ----------
@@ -130,6 +146,20 @@ function mapshaper(inPath, outPath, config, simplify, fields) {
   cmd.push('-o', `"${outPath}"`, 'precision=0.00001', 'force');
 
   run('npx', cmd);
+}
+
+/**
+ * De betwiste gebieden: geknipt op de (al vereenvoudigde) regio's, zodat ze exact binnen
+ * de grenzen van het spel vallen, ook als ze uit een andere bron komen. Niet nog eens
+ * vereenvoudigd: waar ze de landsgrens volgen, hebben ze die van de regio's al, en de
+ * rest komt uit een bron die veel grover is dan de regio's — 2% daarvan is een driehoek.
+ */
+function mapshaperOverlay(inPath, clipPath, outPath) {
+  run('npx', [
+    '--yes', MAPSHAPER, `"${inPath}"`,
+    '-clip', `"${clipPath}"`,
+    '-o', `"${outPath}"`, 'precision=0.00001', 'force',
+  ]);
 }
 
 // ---------- omzetten ----------
@@ -219,7 +249,7 @@ function check(features, config, langs) {
 
 // ---------- wegschrijven ----------
 
-function buildGame(config, rawPath) {
+function buildGame(config, rawPath, extraPaths) {
   const langs = config.languages.map((l) => l.code);
   const simplify = option('--simplify', config.build.simplify || '15%');
   const work = join(CACHE_DIR, 'werk');
@@ -228,7 +258,15 @@ function buildGame(config, rawPath) {
   const outPath = join(work, `${config.id}-uit.geojson`);
 
   const raw = JSON.parse(readFileSync(rawPath, 'utf8'));
-  const regions = prepareAll(raw, config);
+  const extra = {};
+  Object.entries(extraPaths).forEach(([key, path]) => {
+    extra[key] = JSON.parse(readFileSync(path, 'utf8'));
+  });
+  const ctx = { raw, extra };
+
+  // build.regions(ctx) stelt de regio's zelf samen, voor een spel dat ze uit meer dan
+  // één bron haalt; anders gaat elke bronregio apart door prepare().
+  const regions = config.build.regions ? config.build.regions(ctx) : prepareAll(raw, config);
   if (!regions.length) throw new Error('de bron leverde geen bruikbare regio\'s op');
   // prepare() ziet een bronregio tegelijk. Een spel dat voor zijn namen moet weten welke
   // namen de andere regio's dragen — om enkel de dubbele te ontdubbelen — doet dat hier.
@@ -246,6 +284,8 @@ function buildGame(config, rawPath) {
     .sort((a, b) => a.properties.names[langs[0]].localeCompare(b.properties.names[langs[0]], 'nl'));
   check(features, config, langs);
 
+  const overlay = config.build.overlay ? buildOverlay(config, ctx, outPath, work) : null;
+
   const meta = {
     count: features.length,
     year: typeof config.build.year === 'function' ? config.build.year(raw) : config.build.year || null,
@@ -262,7 +302,8 @@ function buildGame(config, rawPath) {
       'window.ARG_DATA = window.ARG_DATA || {};\n' +
       `window.ARG_DATA[${JSON.stringify(config.id)}] = {\n` +
       `  "meta": ${JSON.stringify(meta, null, 2).replace(/\n/g, '\n  ')},\n` +
-      `  "geo": ${JSON.stringify({ type: 'FeatureCollection', features })}\n` +
+      `  "geo": ${JSON.stringify({ type: 'FeatureCollection', features })}` +
+      (overlay ? `,\n  "overlay": ${JSON.stringify(overlay)}` : '') + '\n' +
       '};\n',
     'utf8'
   );
@@ -270,6 +311,32 @@ function buildGame(config, rawPath) {
   const mb = (readFileSync(dest).length / 1048576).toFixed(2);
   process.stdout.write(`  klaar: data/${config.id}.js — ${features.length} regio's, ${mb} MB\n`);
   return meta;
+}
+
+/**
+ * build.overlay(ctx) -> [{ name, by, geometry }]: gebieden die het land claimt maar niet
+ * bestuurt. Het spel tekent ze gearceerd over de regio's heen; ze doen zelf niet mee.
+ */
+function buildOverlay(config, ctx, regionsPath, work) {
+  const parts = config.build.overlay(ctx);
+  const inPath = join(work, `${config.id}-betwist-in.geojson`);
+  const outPath = join(work, `${config.id}-betwist-uit.geojson`);
+  writeFileSync(inPath, JSON.stringify({
+    type: 'FeatureCollection',
+    features: parts.map((p) => ({
+      type: 'Feature',
+      properties: { name: p.name, by: p.by },
+      geometry: p.geometry,
+    })),
+  }));
+  mapshaperOverlay(inPath, regionsPath, outPath);
+
+  const out = JSON.parse(readFileSync(outPath, 'utf8'));
+  const kept = out.features.filter((f) => f.geometry);
+  const lost = parts.map((p) => p.name).filter((n) => !kept.some((f) => f.properties.name === n));
+  if (lost.length) throw new Error(`betwist gebied valt buiten elke regio: ${lost.join(', ')}`);
+  process.stdout.write(`  betwiste gebieden: ${kept.map((f) => `${f.properties.name} (${f.properties.by})`).join(', ')}\n`);
+  return { type: 'FeatureCollection', features: kept };
 }
 
 /** Leest de vorige catalogus, zodat spellen die nu niet gebouwd worden hun cijfers houden. */
@@ -362,7 +429,7 @@ const main = async () => {
   const fresh = {};
   for (const config of wanted) {
     process.stdout.write(`\n${title(config)} [${config.id}]\n`);
-    fresh[config.id] = buildGame(config, await rawFile(config));
+    fresh[config.id] = buildGame(config, await rawFile(config), await extraFiles(config));
   }
   writeCatalog(configs, fresh);
 };
