@@ -2,8 +2,16 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Administrative Region Guessr</title>
+<meta name="theme-color" content="#f6f7f9">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Region Guessr">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="stylesheet" href="vendor/maplibre-gl.css">
 <link rel="stylesheet" href="style.css">
@@ -25,7 +33,14 @@
 </main>
 
 <div id="app" hidden>
+  <!-- Smal scherm: app.js verhuist de kop, de vraag en de cijfers hierheen. -->
+  <div id="bar"></div>
+
   <aside id="panel">
+    <button type="button" class="sheet-toggle" id="sheetToggle" aria-expanded="false">
+      <i class="grip"></i><span id="sheetLabel">Instellingen</span>
+    </button>
+
     <header class="head">
       <button type="button" class="back" id="backToMenu">&#8592; Ander spel</button>
       <h1><span id="gameCountry">—</span> <em id="gameRegionType"></em></h1>
@@ -63,19 +78,19 @@
     </div>
 
     <section id="quizPanel">
-      <div class="prompt">
+      <div class="prompt quiz-only">
         <span class="prompt-label">Duid aan op de kaart</span>
         <strong id="target">—</strong>
         <div class="attempts" id="attempts" title="Pogingen"></div>
       </div>
 
-      <div class="stats">
+      <div class="stats quiz-only">
         <div class="stat" title="Nog te vragen"><b id="statLeft">0</b><span>te gaan</span></div>
         <div class="stat is-ok" title="Meteen juist geklikt"><b id="statCorrect">0</b><span>juist</span></div>
         <div class="stat is-bad" title="Meer dan één klik nodig, of niet gevonden"><b id="statWrong">0</b><span>fout</span></div>
       </div>
 
-      <div class="progress"><i id="progressBar"></i></div>
+      <div class="progress quiz-only"><i id="progressBar"></i></div>
       <p class="muted" id="misclicks">&nbsp;</p>
 
       <ul class="legend">

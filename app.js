@@ -173,6 +173,32 @@
     if (entry) play(entry, button);
   });
 
+  // ---------- smal scherm ----------
+
+  // Op een gsm staat bovenaan een balk met wat je moet zoeken, en schuiven de instellingen
+  // van onderen open. De kop, de vraag, de cijfers en de leerkaart verhuizen daarvoor naar
+  // #bar; een lege markering onthoudt waar ze op een breed scherm in het zijpaneel staan.
+  // Zo blijft het brede scherm precies wat het was. De mediaquery staat ook in style.css.
+  var compact = window.matchMedia('(max-width: 860px), (max-height: 520px)');
+  var bar = document.getElementById('bar');
+  var movers = ['.head', '.prompt', '.stats', '.progress', '#learnPanel'].map(function (selector) {
+    var node = document.querySelector('#panel ' + selector);
+    var mark = document.createComment(selector);
+    node.parentNode.insertBefore(mark, node);
+    return { node: node, mark: mark };
+  });
+
+  function placeLayout() {
+    movers.forEach(function (item) {
+      if (compact.matches) bar.appendChild(item.node);
+      else item.mark.parentNode.insertBefore(item.node, item.mark);
+    });
+  }
+
+  placeLayout();
+  if (compact.addEventListener) compact.addEventListener('change', placeLayout);
+  else compact.addListener(placeLayout);   // Safari voor versie 14
+
   // ---------- opstarten ----------
 
   if (!window.L) {

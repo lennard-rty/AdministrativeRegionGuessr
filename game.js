@@ -93,7 +93,8 @@
      'basemap', 'basemapNote', 'target', 'attempts', 'statLeft', 'statCorrect', 'statWrong',
      'progressBar', 'misclicks', 'skip', 'restart', 'done', 'quizPanel', 'learnPanel',
      'learnHint', 'learnCard', 'learnName', 'learnMeta', 'sourceLine', 'mapCredit', 'backToMenu',
-     'recordNow', 'recordMore', 'recordSummary', 'recordRows', 'disputeNote'].forEach(function (id) {
+     'recordNow', 'recordMore', 'recordSummary', 'recordRows', 'disputeNote',
+     'app', 'bar', 'panel', 'sheetToggle', 'sheetLabel'].forEach(function (id) {
       el[id] = byId(id);
     });
 
@@ -137,6 +138,40 @@
     function plural(n) {
       return n === 1 ? one : many;
     }
+
+    // ---------- smal scherm ----------
+
+    // Op een gsm ligt de kaart onder een balk bovenaan en de greep van het
+    // instellingenpaneel onderaan. Hoeveel ze bedekken, moet de kaart weten om het land
+    // ertussen te passen. Op een breed scherm zijn beide verborgen en dus 0 hoog.
+    function overlayInsets() {
+      return { top: el.bar.offsetHeight, bottom: el.sheetToggle.offsetHeight };
+    }
+
+    function fitOptions(pad) {
+      var inset = overlayInsets();
+      return { paddingTopLeft: [pad, inset.top + pad], paddingBottomRight: [pad, inset.bottom + pad] };
+    }
+
+    // Leaflets knoppen en bronvermelding schuiven via deze variabelen mee onder de balken uit.
+    function publishInsets() {
+      var inset = overlayInsets();
+      el.app.style.setProperty('--bar-h', inset.top + 'px');
+      el.app.style.setProperty('--sheet-h', inset.bottom + 'px');
+    }
+
+    function sheetShown() {
+      return el.sheetToggle.offsetHeight > 0 && el.panel.classList.contains('is-open');
+    }
+
+    function openSheet(open) {
+      el.panel.classList.toggle('is-open', open);
+      el.sheetToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      el.sheetLabel.textContent = open ? 'Sluiten' : 'Instellingen';
+    }
+
+    el.app.setAttribute('data-mode', state.mode);
+    openSheet(false);
 
     // ---------- kaart ----------
 
@@ -260,7 +295,7 @@
     }).addTo(map);
 
     var bounds = regions.getBounds();
-    map.fitBounds(bounds, { padding: [12, 12] });
+    map.fitBounds(bounds, fitOptions(12));
     map.setMaxBounds(bounds.pad(0.45));
 
     // ---------- betwiste gebieden ----------
@@ -522,8 +557,9 @@
       var box = L.latLngBounds([]);
       areaIds().forEach(function (id) { box.extend(layerById[id].getBounds()); });
       if (!box.isValid()) return;
-      if (animate === false) map.fitBounds(box, { padding: [16, 16] });
-      else map.flyToBounds(box, { padding: [16, 16], duration: 0.6 });
+      var options = fitOptions(16);
+      if (animate === false) map.fitBounds(box, options);
+      else map.flyToBounds(box, L.extend(options, { duration: 0.6 }));
     }
 
     // Een spel mag een gebied aanwijzen om in te beginnen. Frankrijk doet dat: met de
@@ -664,6 +700,7 @@
         ? window.ARGScores.save(entry.id, state.area, state.correct, state.total)
         : null;
       renderRecords();
+      openSheet(true);   // op een gsm staat de uitslag in het paneel onderaan
     }
 
     function onCorrect(latlng) {
@@ -702,7 +739,7 @@
       clearFlashes();   // laat het juiste antwoord alleen staan
 
       var latlng = centroid(propsById[id]);
-      if (!map.getBounds().pad(-0.12).contains(latlng)) map.panTo(latlng, { duration: 0.5 });
+      if (!visibleBounds().pad(-0.12).contains(latlng)) panIntoView(latlng);
       flash(latlng, nameOf(propsById[id]), 'bad', REVEAL_MS);
       render();
 
@@ -711,6 +748,21 @@
         state.locked = false;
         nextTarget();
       }, REVEAL_MS);
+    }
+
+    // Het stuk kaart dat niet onder de balken ligt; op een breed scherm de hele kaart.
+    function visibleBounds() {
+      var size = map.getSize();
+      var inset = overlayInsets();
+      return L.latLngBounds(map.containerPointToLatLng([0, inset.top]),
+        map.containerPointToLatLng([size.x, size.y - inset.bottom]));
+    }
+
+    // Centreert op het zichtbare stuk, niet op het midden van de kaart onder de balken.
+    function panIntoView(latlng) {
+      var inset = overlayInsets();
+      var center = map.unproject(map.project(latlng).subtract([0, (inset.top - inset.bottom) / 2]));
+      map.panTo(center, { duration: 0.5 });
     }
 
     // ---------- leermodus ----------
@@ -763,6 +815,13 @@
       if (!layer || !layer.feature) return;
       lastHit = Date.now();
 
+      // Staat het paneel op een gsm open, dan sluit een tik op de kaart het eerst. Die
+      // tik telt niet: hij was bedoeld om de kaart terug te zien, niet om te antwoorden.
+      if (sheetShown()) {
+        openSheet(false);
+        return;
+      }
+
       var props = layer.feature.properties;
 
       if (state.mode === 'learn') {
@@ -786,6 +845,10 @@
     map.on('click', function (e) {
       // Klik op een regio is hierboven al afgehandeld en bubbelt door naar de kaart.
       if (e.propagatedFrom || Date.now() - lastHit < 100) return;
+      if (sheetShown()) {
+        openSheet(false);
+        return;
+      }
       // Buiten elke meespelende regio geklikt: telt niet als poging.
       if (state.mode === 'learn') clearLearn();
     });
@@ -848,6 +911,8 @@
     function setMode(mode) {
       state.mode = mode;
       store('mode', mode);
+      el.app.setAttribute('data-mode', mode);
+      openSheet(false);
       clearFlashes();
       state.learnSelected = null;
       unpin();
@@ -875,7 +940,13 @@
       on(btn, 'click', function () { setMode(btn.getAttribute('data-mode')); });
     });
 
+    on(el.sheetToggle, 'click', function () {
+      openSheet(!el.panel.classList.contains('is-open'));
+    });
+
+    // Een andere ronde kiezen sluit het paneel: dan wil je de kaart zien.
     on(el.area, 'change', function () {
+      openSheet(false);
       setArea(el.area.value);
       buildCountOptions();
       startRound();
@@ -883,6 +954,7 @@
     });
 
     on(el.count, 'change', function () {
+      openSheet(false);
       state.count = el.count.value === 'all' ? 'all' : Number(el.count.value);
       store('count', el.count.value);
       startRound();
@@ -899,10 +971,14 @@
 
     on(el.skip, 'click', function () {
       if (state.mode !== 'quiz' || state.locked || state.finished) return;
+      openSheet(false);   // het antwoord verschijnt op de kaart
       reveal();
     });
 
-    on(el.restart, 'click', startRound);
+    on(el.restart, 'click', function () {
+      openSheet(false);
+      startRound();
+    });
 
     on(el.backToMenu, 'click', function () {
       stop();
@@ -944,6 +1020,14 @@
     el.basemap.value = BASEMAP_KEYS[savedBasemap] ? savedBasemap : 'osm';
     setBasemap(el.basemap.value);
 
+    // De balk bovenaan groeit mee met een lange naam of de leerkaart; houd bij hoe hoog.
+    var watcher = window.ResizeObserver ? new window.ResizeObserver(publishInsets) : null;
+    if (watcher) {
+      watcher.observe(el.bar);
+      watcher.observe(el.sheetToggle);
+    }
+    publishInsets();
+
     startRound();
     setMode(state.mode);
     if (state.area !== 'ALL') zoomToArea(false);
@@ -952,6 +1036,8 @@
 
     running = function () {
       if (revealTimer) window.clearTimeout(revealTimer);
+      if (watcher) watcher.disconnect();
+      openSheet(false);
       clearFlashes();
       unpin();
       listeners.forEach(function (item) { item[0].removeEventListener(item[1], item[2]); });
