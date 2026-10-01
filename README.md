@@ -55,6 +55,27 @@ Dubbelklik **`index.html`**. Dat volstaat: de grenzen zitten in `data/*.js` als 
 JavaScript, dus `file://` volstaat (een `fetch()` van een `.geojson` zou daar geblokkeerd
 worden).
 
+Of speel online: **<https://lennard-rty.github.io/AdministrativeRegionGuessr/>**. GitHub
+Pages publiceert de `main`-branch zoals hij is — geen build-stap, `.nojekyll` zorgt dat er
+niets aan de bestanden verandert. Wat je naar `main` pusht, staat er een minuut later op.
+
+### Op een gsm
+
+Op een smal scherm (of een gsm in liggende stand) vult de kaart het scherm. Bovenaan staat
+een balk met wat je moet zoeken en je cijfers; de rest — modus, gebied, aantal vragen,
+taal, achtergrondkaart, records, *Overslaan* en *Opnieuw* — schuift open met
+**Instellingen** onderaan. Na de laatste vraag gaat dat paneel vanzelf open met de uitslag;
+een tik op de kaart sluit het weer (en telt dan niet als antwoord). Zoomen doe je met twee
+vingers. Het brede scherm blijft zoals het was.
+
+Op een iPhone: open de link in Safari, tik op *Deel* → **Zet op beginscherm**. Dan start
+het spel schermvullend met een eigen icoon, zonder adresbalk. Zo'n beginschermapp heeft wel
+zijn eigen opslag: records uit Safari reizen niet mee, en omgekeerd.
+
+Even uitproberen op je gsm zonder te pushen kan via je wifi: draai in deze map
+`npx serve` (of `python -m http.server 3000`) en open `http://<ip-van-je-laptop>:3000` op
+je gsm. Dat werkt enkel zolang je laptop aanstaat en die opdracht loopt.
+
 Je krijgt eerst het startscherm: één rij per land, met naast de landnaam een knop per
 regiotype en het aantal regio's erop. Zo blijft de lijst leesbaar hoe veel spellen er ook
 bijkomen — een land met vier spellen neemt één rij in, geen vier. De rest van wat we van een
@@ -240,8 +261,8 @@ localStorage.removeItem('arg.records')   // alles wissen
 | Pad | Inhoud |
 | --- | --- |
 | `index.html` | opbouw van de pagina: startscherm + spelscherm |
-| `style.css` | vormgeving van startscherm, paneel en kaartlabels |
-| `app.js` | startscherm: spellijst, dataset laden, heen en weer tussen menu en spel |
+| `style.css` | vormgeving van startscherm, paneel en kaartlabels, en de gsm-indeling |
+| `app.js` | startscherm: spellijst, dataset laden, heen en weer tussen menu en spel; op een smal scherm verhuist het de vraag naar de balk bovenaan |
 | `game.js` | spellogica, kaart en klikafhandeling — kent geen enkel land bij naam |
 | `scores.js` | je records per spel en per gebied, in `localStorage` van je browser |
 | `data/games.js` | de catalogus die het startscherm vult (gegenereerd) |
@@ -250,6 +271,8 @@ localStorage.removeItem('arg.records')   // alles wissen
 | `tools/lib/` | wat meer dan één spelbestand nodig heeft: de Nederlandse namen van buitenlandse regio's, het verschuiven over de datumgrens, de betwiste gebieden |
 | `tools/build-data.mjs` | bouwt `data/` op uit `tools/games/` |
 | `vendor/` | Leaflet 1.9.4 en MapLibre GL 5.9 (voor de kaart zonder namen), lokaal meegeleverd |
+| `manifest.webmanifest`, `icons/` | naam en icoon voor *Zet op beginscherm* |
+| `.nojekyll` | laat GitHub Pages de bestanden ongemoeid |
 
 De speelregels staan als constanten bovenaan `game.js`: `MAX_ATTEMPTS` (3 pogingen),
 `WRONG_FLASH_MS` (1000 ms), `REVEAL_MS`, `ROUND_SIZES` (10 / 25 / 50) en `ANSWER`, de
