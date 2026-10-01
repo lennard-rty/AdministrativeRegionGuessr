@@ -162,8 +162,47 @@
       // De kaart heeft een zichtbare container met afmetingen nodig voor ze start.
       menu.hidden = true;
       app.hidden = false;
-      window.ARGGame.start(entry, data, showMenu);
+      window.ARGGame.start(entry, data, leaveGame);
+      pushGame();
     });
+  }
+
+  // ---------- terugknop ----------
+
+  // De terugknop van Android (en terugvegen op een iPhone, of Vorige in een browser) zou
+  // de pagina verlaten, of de app op het beginscherm sluiten. Een spel krijgt daarom een
+  // eigen stap in de geschiedenis: terug brengt je naar het startscherm, of sluit eerst het
+  // instellingenpaneel als dat openstaat.
+  function pushGame() {
+    try {
+      window.history.pushState({ arg: 'game' }, '');
+    } catch (e) { /* geen geschiedenis: dan doet terug wat het altijd deed */ }
+  }
+
+  function inGameStep() {
+    return !!(window.history.state && window.history.state.arg === 'game');
+  }
+
+  // "← Ander spel" neemt dezelfde weg terug, zodat er geen spelstappen blijven liggen.
+  function leaveGame() {
+    if (inGameStep()) window.history.back();
+    else showMenu();
+  }
+
+  window.addEventListener('popstate', function () {
+    if (app.hidden) return;
+    if (window.ARGGame.back()) {
+      pushGame();   // het paneel ging dicht; het spel loopt verder en houdt zijn stap
+      return;
+    }
+    window.ARGGame.stop();
+    showMenu();
+  });
+
+  // Herladen tijdens een spel geeft het startscherm; de spelstap van daarnet hoort er dan
+  // niet meer bij.
+  if (inGameStep()) {
+    try { window.history.replaceState(null, ''); } catch (e) { /* zie pushGame */ }
   }
 
   list.addEventListener('click', function (e) {
