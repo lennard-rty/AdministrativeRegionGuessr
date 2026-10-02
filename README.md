@@ -72,6 +72,14 @@ Op een iPhone: open de link in Safari, tik op *Deel* → **Zet op beginscherm**.
 het spel schermvullend met een eigen icoon, zonder adresbalk. Zo'n beginschermapp heeft wel
 zijn eigen opslag: records uit Safari reizen niet mee, en omgekeerd.
 
+Op Android: open de link in Chrome, tik op het menu **⋮** → **App installeren** (of
+*Toevoegen aan startscherm*; soms biedt Chrome het zelf aan onderaan het scherm). Ook dan
+start het spel schermvullend met een eigen icoon. Anders dan op een iPhone deelt de app
+zijn opslag met Chrome, dus je records blijven dezelfde.
+
+De terugknop (of terugvegen) brengt je van een spel naar het startscherm in plaats van uit
+de app; staat het instellingenpaneel open, dan sluit terug eerst dat paneel.
+
 Even uitproberen op je gsm zonder te pushen kan via je wifi: draai in deze map
 `npx serve` (of `python -m http.server 3000`) en open `http://<ip-van-je-laptop>:3000` op
 je gsm. Dat werkt enkel zolang je laptop aanstaat en die opdracht loopt.
@@ -82,8 +90,8 @@ bijkomen — een land met vier spellen neemt één rij in, geen vier. De rest va
 spel weten (jaargang, hoeveel gebieden je al uitspeelde) staat in de tooltip van de knop.
 Pas als je een spel kiest wordt de bijbehorende dataset opgehaald, dus het startscherm
 blijft ook licht. Het spel dat je het laatst speelde krijgt het label *laatst*, maar het
-startscherm komt altijd eerst; met **← Ander spel** bovenaan het zijpaneel ga je terug naar
-de lijst.
+startscherm komt altijd eerst; met **← Ander spel** bovenaan het zijpaneel, of met de
+terugknop van je browser, ga je terug naar de lijst.
 
 De achtergrondkaart komt van internet (tegels van openstreetmap.org), dus daarvoor heb je
 een verbinding nodig. Zonder verbinding blijft het spel werken, maar dan zie je enkel de
@@ -271,7 +279,7 @@ localStorage.removeItem('arg.records')   // alles wissen
 | `tools/lib/` | wat meer dan één spelbestand nodig heeft: de Nederlandse namen van buitenlandse regio's, het verschuiven over de datumgrens, de betwiste gebieden |
 | `tools/build-data.mjs` | bouwt `data/` op uit `tools/games/` |
 | `vendor/` | Leaflet 1.9.4 en MapLibre GL 5.9 (voor de kaart zonder namen), lokaal meegeleverd |
-| `manifest.webmanifest`, `icons/` | naam en icoon voor *Zet op beginscherm* |
+| `manifest.webmanifest`, `icons/` | naam en icoon voor het beginscherm (iPhone) en *App installeren* (Android) |
 | `.nojekyll` | laat GitHub Pages de bestanden ongemoeid |
 
 De speelregels staan als constanten bovenaan `game.js`: `MAX_ATTEMPTS` (3 pogingen),

@@ -44,6 +44,7 @@
 
   var plainStyle = null;   // OpenFreeMap-stijl zonder labellagen; blijft bewaard tussen spellen
   var running = null;      // opruimfunctie van het spel dat nu loopt
+  var onBack = null;       // wat de terugknop binnen dat spel eerst doet (zie back)
 
   // ---------- helpers ----------
 
@@ -163,6 +164,14 @@
     function sheetShown() {
       return el.sheetToggle.offsetHeight > 0 && el.panel.classList.contains('is-open');
     }
+
+    // Terug sluit eerst een open paneel, zoals elk paneel op Android; pas daarna verlaat
+    // je het spel.
+    onBack = function () {
+      if (!sheetShown()) return false;
+      openSheet(false);
+      return true;
+    };
 
     function openSheet(open) {
       el.panel.classList.toggle('is-open', open);
@@ -1054,6 +1063,7 @@
       if (disputes) map.removeLayer(disputes);
       map.remove();
       running = null;
+      onBack = null;
       window.ARG.state = null;
     };
 
@@ -1067,5 +1077,10 @@
     if (running) running();
   }
 
-  window.ARGGame = { start: start, stop: stop };
+  /** De terugknop werd ingedrukt: true als het spel dat zelf afhandelde. */
+  function back() {
+    return onBack ? onBack() : false;
+  }
+
+  window.ARGGame = { start: start, stop: stop, back: back };
 })();
