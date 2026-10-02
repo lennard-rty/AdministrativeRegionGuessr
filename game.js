@@ -449,8 +449,11 @@
     // ---------- styling ----------
 
     function styleFor(props) {
+      // In de leermodus blijven regio's buiten het gekozen gebied aanklikbaar, maar ze
+      // worden net als in de quiz grijs, zodat je ziet welk stuk je aan het leren bent.
       if (state.mode === 'learn') {
-        return props.id === state.learnSelected ? STYLES.selected : STYLES.idle;
+        if (props.id === state.learnSelected) return STYLES.selected;
+        return inArea(props) ? STYLES.idle : STYLES.dimmed;
       }
       if (!inArea(props)) return STYLES.dimmed;
       var misses = state.status[props.id];   // 0, 1, 2 klikken te veel, of MAX_ATTEMPTS
